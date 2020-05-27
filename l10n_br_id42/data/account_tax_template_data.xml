@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="tax_tag_ipi" model="account.account.tag">
+        <field name="name">IPI</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_icms" model="account.account.tag">
+        <field name="name">ICMS</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_icmsst" model="account.account.tag">
+        <field name="name">ICMS ST</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_pis" model="account.account.tag">
+        <field name="name">PIS</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_cofins" model="account.account.tag">
+        <field name="name">COFINS</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_simples" model="account.account.tag">
+        <field name="name">Simples Nacional</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_simples" model="account.account.tag">
+        <field name="name">Simples Nacional</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_irpj" model="account.account.tag">
+        <field name="name">IRPJ</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_ir" model="account.account.tag">
+        <field name="name">IR</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_issqn" model="account.account.tag">
+        <field name="name">ISSQN</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_csll" model="account.account.tag">
+        <field name="name">CSLL</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_tag_ii" model="account.account.tag">
+        <field name="name">II</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <record id="tax_template_out_ipi" model="account.tax.template">
+        <field name="description">IPI</field>
+        <field name="name">IPI Saída</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">sale</field>
+        <field ref="account_template_201010502" name="account_id"/>
+        <field ref="account_template_201010502" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_ipi"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_ipi')])]"/>
+    </record>
+
+     <record id="tax_template_in_ipi" model="account.tax.template">
+        <field name="description">IPI</field>
+        <field name="name">IPI Entrada</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">purchase</field>
+        <field ref="account_template_201010502" name="account_id"/>
+        <field ref="account_template_201010502" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_ipi"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_ipi')])]"/>
+     </record>
+
+    <record id="tax_template_out_icms_subist" model="account.tax.template">
+        <field name="description">ICMS Subist</field>
+        <field name="name">ICMS Saida Subist</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">sale</field>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_icms"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_icmsst')])]"/>
+    </record>
+
+    <record id="tax_template_out_icmsnt" model="account.tax.template">
+        <field name="description">ICMS Não Tributado</field>
+        <field name="name">ICMS Saida Não Tributado</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">sale</field>
+        <field ref="account_template_201010501" name="account_id"/>
+        <field ref="account_template_201010501" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_icms"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_icms')])]"/>
+     </record>
+
+    <record id="tax_template_out_icms" model="account.tax.template">
+        <field name="description">ICMS</field>
+        <field name="name">ICMS Saida</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">sale</field>
+        <field ref="account_template_201010501" name="account_id"/>
+        <field ref="account_template_201010501" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_icms"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_icms')])]"/>
+     </record>
+
+    <record id="tax_template_in_icms_subist" model="account.tax.template">
+        <field name="description">ICMS Subist</field>
+        <field name="name">ICMS Entrada Subist</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">purchase</field>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_icms"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_icmsst')])]"/>
+     </record>
+
+    <record id="tax_template_in_icms" model="account.tax.template">
+        <field name="description">ICMS</field>
+        <field name="name">ICMS Entrada</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">purchase</field>
+        <field ref="account_template_201010501" name="account_id"/>
+        <field ref="account_template_201010501" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_icms"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_icms')])]"/>
+     </record>
+
+    <record id="tax_template_out_pis" model="account.tax.template">
+        <field name="description">PIS</field>
+        <field name="name">PIS Saida</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">sale</field>
+        <field ref="account_template_101030601" name="account_id"/>
+        <field ref="account_template_101030601" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_pis"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_pis')])]"/>
+     </record>
+
+     <record id="tax_template_in_pis" model="account.tax.template">
+        <field name="description">PIS</field>
+        <field name="name">PIS Entrada</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">purchase</field>
+        <field ref="account_template_101030601" name="account_id"/>
+        <field ref="account_template_101030601" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_pis"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_pis')])]"/>
+     </record>
+
+    <record id="tax_template_out_cofins" model="account.tax.template">
+        <field name="description">COFINS</field>
+        <field name="name">COFINS Saida</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">sale</field>
+        <field ref="account_template_101030604" name="account_id"/>
+        <field ref="account_template_101030604" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_cofins"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_cofins')])]"/>
+     </record>
+
+    <record id="tax_template_in_cofins" model="account.tax.template">
+        <field name="description">COFINS</field>
+        <field name="name">COFINS Entrada</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">purchase</field>
+        <field ref="account_template_101030604" name="account_id"/>
+        <field ref="account_template_101030604" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_cofins"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_cofins')])]"/>
+     </record>
+
+    <record id="tax_template_simples" model="account.tax.template">
+        <field name="description">Simples Nacional</field>
+        <field name="name">Simples Nacional</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">none</field>
+        <field ref="account_template_201010599" name="account_id"/>
+        <field ref="account_template_201010599" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_simples"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_simples')])]"/>
+    </record>
+
+    <record id="tax_template_irpj" model="account.tax.template">
+        <field name="description">IRPJ</field>
+        <field name="name">IRPJ</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">none</field>
+        <field ref="account_template_201010506" name="account_id"/>
+        <field ref="account_template_201010506" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_irpj"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_irpj')])]"/>
+    </record>
+
+    <record id="tax_template_out_ir" model="account.tax.template">
+        <field name="description">IR</field>
+        <field name="name">IR</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">none</field>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_ir"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_ir')])]"/>
+    </record>
+
+    <record id="tax_template_out_issqn" model="account.tax.template">
+        <field name="description">ISSQN</field>
+        <field name="name">ISSQN Saida</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">none</field>
+        <field ref="account_template_201010507" name="account_id"/>
+        <field ref="account_template_201010507" name="refund_account_id"/>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_issqn"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_issqn')])]"/>
+    </record>
+
+    <record id="tax_template_out_csll" model="account.tax.template">
+        <field name="description">CSLL</field>
+        <field name="name">CSLL</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">none</field>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_csll"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_csll')])]"/>
+    </record>
+
+    <record id="tax_template_out_ii" model="account.tax.template">
+        <field name="description">II</field>
+        <field name="name">II Saída</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">sale</field>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_ii"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_ii')])]"/>
+    </record>
+
+    <record id="tax_template_in_ii" model="account.tax.template">
+        <field name="description">II</field>
+        <field name="name">II Entrada</field>
+        <field name="amount">0.00</field>
+        <field name="type_tax_use">sale</field>
+        <field eval="0" name="price_include"/>
+        <field ref="account_chart_template_full" name="chart_template_id"/>
+        <field name="tax_group_id" ref="tax_group_ii"/>
+        <field name="tag_ids" eval="[(6, False, [ref('tax_tag_ii')])]"/>
+    </record>
+
+    <data noupdate="1">
+        <function model="account.chart.template" name="try_loading_for_current_company">
+            <value eval="[ref('l10n_br_id42.account_chart_template_full')]"/>
+        </function>
+    </data>
+
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="account_reports_do_statements_menu" name="Brazil" parent="account.menu_finance_reports" sequence="0" groups="account.group_account_user"/>
+    
+    <data noupdate="1">
+        <record id="account_chart_template_full" model="account.chart.template">
+            <field name="name">ID42 - Plano de Contas Completo</field>
+            <field name="code_digits">1</field>
+            <field name="bank_account_code_prefix">1.01.01.02.</field>
+            <field name="cash_account_code_prefix">1.01.01.01.</field>
+            <field name="transfer_account_code_prefix">1.01.01.08.0</field>
+            <field name="currency_id" ref="base.BRL"/>
+            <field name="spoken_languages" eval="'pt_BR'"/>
+        </record>
+    </data>
+</odoo>
+
