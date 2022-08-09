@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mis_cash_flow_forecast_line_form_view">
+        <field
+            name="name"
+        >mis.cash_flow.forecast_line.form (in weni_mis_builder_cash_flow_custom)</field>
+        <field name="model">mis.cash_flow.forecast_line</field>
+        <field
+            name="inherit_id"
+            ref="mis_builder_cash_flow.mis_cash_flow_forecast_line_view_form"
+        />
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <button
+                    string="Document"
+                    class="oe_stat_button float-right"
+                    icon="fa-bars"
+                    type="object"
+                    name="action_open_document_related"
+                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                />
+                <button
+                    string="Parent Document"
+                    class="oe_stat_button float-right"
+                    icon="fa-bars"
+                    type="object"
+                    name="action_open_parent_document_related"
+                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                />
+            </sheet>
+            <field name="balance" position="after">
+                <field name="res_model_id" />
+                <field name="res_model" />
+                <field name="res_id" />
+                <field name="parent_res_model_id" />
+                <field name="parent_res_model" />
+                <field name="parent_res_id" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mis_cash_flow_forecast_line_tree_view">
+        <field
+            name="name"
+        >mis.cash_flow.forecast_line.tree (in weni_mis_builder_cash_flow_custom)</field>
+        <field name="model">mis.cash_flow.forecast_line</field>
+        <field
+            name="inherit_id"
+            ref="mis_builder_cash_flow.mis_cash_flow_forecast_line_view_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="balance" position="after">
+                <field name="res_model_id" />
+                <field name="res_model" />
+                <field name="res_id" />
+                <button
+                    string="Document"
+                    class="oe_stat_button float-right"
+                    icon="fa-bars"
+                    type="object"
+                    name="action_open_document_related"
+                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                />
+                <field name="parent_res_model_id" />
+                <field name="parent_res_model" />
+                <field name="parent_res_id" />
+                <button
+                    string="Parent Document"
+                    class="oe_stat_button float-right"
+                    icon="fa-bars"
+                    type="object"
+                    name="action_open_parent_document_related"
+                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                />
+            </field>
+        </field>
+    </record>
+
+</odoo>
