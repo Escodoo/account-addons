@@ -12,7 +12,7 @@
         <field name="state">code</field>
         <field
             name="code"
-        >model.cron_mis_cashflow_generate_forecast_contract_lines()</field>
+        >model.cron_mis_cash_flow_generate_forecast_contract_lines()</field>
         <field name="user_id" ref="base.user_root" />
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
