@@ -5,7 +5,7 @@
     "name": "Mis Builder Cash Flow Forecast Contract",
     "summary": """
         MIS Builder Cash Flow Forecast Contract Integration""",
-    "version": "14.0.1.0.0",
+    "version": "12.0.1.0.0",
     "license": "AGPL-3",
     "author": "Escodoo",
     "website": "https://github.com/Escodoo/account-addons",
