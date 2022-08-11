@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="res_config_settings_view_form_purchase">
+        <field name="model">res.config.settings</field>
+        <field
+            name="inherit_id"
+            ref="purchase.res_config_settings_view_form_purchase"
+        />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//div[@data-key='purchase']//div[hasclass('o_settings_container')][1]"
+                position="after"
+            >
+                <div class="row mt16 o_settings_container">
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="enable_purchase_mis_cash_flow_forecast"
+                    >
+                        <div class="o_setting_left_pane">
+                            <field name="enable_purchase_mis_cash_flow_forecast" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="enable_purchase_mis_cash_flow_forecast" />
+                            <span
+                                class="fa fa-lg fa-building-o"
+                                title="Values set here are company-specific."
+                                aria-label="Values set here are company-specific."
+                                groups="base.group_multi_company"
+                                role="img"
+                            />
+                            <div class="text-muted">
+                                Enable MIS Builder Cash Flow Gernerate Purchase Forecast
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
