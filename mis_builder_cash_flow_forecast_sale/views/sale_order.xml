@@ -9,12 +9,11 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_tree" />
         <field name="arch" type="xml">
-            <field name="amount_untaxed" position="before">
+            <field name="amount_total" position="before">
                 <field
                     name="forecast_uninvoiced_amount"
                     sum="Total Forecast Uninvoiced Amount"
                     widget="monetary"
-                    optional="show"
                 />
             </field>
         </field>
