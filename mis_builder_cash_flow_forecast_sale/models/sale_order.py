@@ -108,6 +108,23 @@ class SaleOrder(models.Model):
         else:
             return [(fields.Date.to_string(date), total_balance, total_amount_currency)]
 
+    def _compute_amount_uninvoiced_company_currency(self, amount_uninvoiced):
+        if (
+            self.currency_id
+            and self.company_id
+            and self.currency_id != self.company_id.currency_id
+        ):
+            cur = self.currency_id
+            price_subtotal = cur.round(amount_uninvoiced)
+            rate_date = self.expected_date or fields.Date.today()
+            amount_uninvoiced = cur._convert(
+                price_subtotal,
+                self.company_id.currency_id,
+                self.company_id,
+                rate_date,
+            )
+        return amount_uninvoiced
+
     @api.model
     def _get_mis_cash_flow_forecast_update_trigger_fields(self):
         return [
@@ -190,31 +207,22 @@ class SaleOrder(models.Model):
         for rec in self:
             rec.mis_cash_flow_forecast_line_ids.unlink()
             if rec.forecast_uninvoiced_amount and rec.state in ["sale", "done"]:
-                sign = 1
-                subtotal = rec.forecast_uninvoiced_amount
-                price_subtotal_signed = subtotal * sign
-                price_subtotal_company_signed = price_subtotal_signed
+                amount_uninvoiced = rec.forecast_uninvoiced_amount
+
                 if (
                     rec.currency_id
                     and rec.company_id
                     and rec.currency_id != rec.company_id.currency_id
                 ):
                     cur = rec.currency_id
-                    price_subtotal = cur.round(subtotal)
-                    price_subtotal_signed = cur.round(price_subtotal_signed)
-                    rate_date = rec.expected_date or fields.Date.today()
-                    price_subtotal_company = cur._convert(
-                        price_subtotal,
-                        rec.company_id.currency_id,
-                        rec.company_id,
-                        rate_date,
-                    )
-                    price_subtotal_company_signed = price_subtotal_company * sign
-
+                    amount_uninvoiced = cur.round(amount_uninvoiced)
+                amount_uninvoiced_company = (
+                    rec._compute_amount_uninvoiced_company_currency(amount_uninvoiced)
+                )
                 payment_terms = rec._compute_payment_terms(
                     rec.expected_date,
-                    price_subtotal_company_signed,
-                    price_subtotal_signed,
+                    amount_uninvoiced_company,
+                    amount_uninvoiced,
                 )
 
                 payment_term_count = len(payment_terms)
