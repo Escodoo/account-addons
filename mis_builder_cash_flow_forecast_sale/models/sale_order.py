@@ -177,12 +177,9 @@ class SaleOrder(models.Model):
         parent_res_id = self
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
 
-        account_id = (
-            self.partner_id.property_account_receivable_id.id
-            or self.env["ir.property"]
-            ._get("property_account_receivable_id", "res.partner")
-            .id
-        )
+        account_id = self.partner_id.property_account_receivable_id or self.env[
+            "ir.property"
+        ].get("property_account_receivable_id", "res.partner")
 
         return {
             "name": "%s - %s/%s"
@@ -192,7 +189,7 @@ class SaleOrder(models.Model):
                 payment_term_count,
             ),
             "date": date,
-            "account_id": account_id,
+            "account_id": account_id.id,
             "partner_id": self.partner_id.id,
             "balance": amount,
             "company_id": self.company_id.id,
@@ -252,8 +249,8 @@ class SaleOrder(models.Model):
                 break
             offset += 100
 
-    def _create_invoices(self, grouped=False, final=False, date=None):
-        moves = super()._create_invoices(grouped=grouped, final=final, date=date)
+    def action_invoice_create(self, grouped=False, final=False):
+        res = super().action_invoice_create(grouped=grouped, final=final)
         for rec in self:
             rec.with_delay()._generate_mis_cash_flow_forecast_lines()
-        return moves
+        return res
