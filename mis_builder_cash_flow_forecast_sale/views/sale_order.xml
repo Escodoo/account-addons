@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_order_tree" model="ir.ui.view">
+        <field
+            name="name"
+        >sale.order.tree in (mis_builder_cash_flow_forecast_sale)</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree" />
+        <field name="arch" type="xml">
+            <field name="amount_untaxed" position="before">
+                <field
+                    name="forecast_uninvoiced_amount"
+                    sum="Total Forecast Uninvoiced Amount"
+                    widget="monetary"
+                    optional="show"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
