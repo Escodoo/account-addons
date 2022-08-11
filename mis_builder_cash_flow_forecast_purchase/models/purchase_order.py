@@ -14,7 +14,6 @@ class PurchaseOrder(models.Model):
         readonly=True,
         compute="_compute_forecast_uninvoiced_amount",
         tracking=True,
-        store=True,
     )
 
     mis_cash_flow_forecast_line_ids = fields.One2many(
@@ -159,6 +158,14 @@ class PurchaseOrder(models.Model):
         self.ensure_one()
         parent_res_id = self
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
+
+        account_id = (
+            self.partner_id.property_account_payable_id.id
+            or self.env["ir.property"]
+            ._get("property_account_payable_id", "res.partner")
+            .id
+        )
+
         return {
             "name": "%s - %s/%s"
             % (
@@ -167,7 +174,7 @@ class PurchaseOrder(models.Model):
                 payment_term_count,
             ),
             "date": date,
-            "account_id": self.partner_id.property_account_payable_id.id,
+            "account_id": account_id,
             "partner_id": self.partner_id.id,
             "balance": amount,
             "company_id": self.company_id.id,
