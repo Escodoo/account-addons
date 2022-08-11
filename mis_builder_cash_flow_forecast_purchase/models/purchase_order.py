@@ -158,12 +158,9 @@ class PurchaseOrder(models.Model):
         parent_res_id = self
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
 
-        account_id = (
-            self.partner_id.property_account_payable_id.id
-            or self.env["ir.property"]
-            ._get("property_account_payable_id", "res.partner")
-            .id
-        )
+        account_id = self.partner_id.property_account_payable_id or self.env[
+            "ir.property"
+        ].get("property_account_payable_id", "res.partner")
 
         return {
             "name": "%s - %s/%s"
@@ -173,7 +170,7 @@ class PurchaseOrder(models.Model):
                 payment_term_count,
             ),
             "date": date,
-            "account_id": account_id,
+            "account_id": account_id.id,
             "partner_id": self.partner_id.id,
             "balance": amount,
             "company_id": self.company_id.id,
@@ -242,8 +239,8 @@ class PurchaseOrder(models.Model):
                 break
             offset += 100
 
-    def action_create_invoice(self):
-        res = super().action_create_invoice()
+    def action_view_invoice(self):
+        res = super().action_view_invoice()
         if res:
             self._generate_mis_cash_flow_forecast_lines()
         return res
