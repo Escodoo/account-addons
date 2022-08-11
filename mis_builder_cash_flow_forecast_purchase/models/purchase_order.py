@@ -31,9 +31,6 @@ class PurchaseOrder(models.Model):
     @api.depends(
         "order_line.product_qty",
         "order_line.qty_invoiced",
-        "order_line.qty_received",
-        "order_line.product_id",
-        "order_line.product_uom",
         "order_line.price_unit",
     )
     def _compute_forecast_uninvoiced_amount(self):
@@ -121,6 +118,8 @@ class PurchaseOrder(models.Model):
             "currency_rate",
             "invoice_status",
             "state",
+            "invoice_ids",
+            "invoice_count",
             "forecast_uninvoiced_amount",
         ]
 
@@ -242,3 +241,9 @@ class PurchaseOrder(models.Model):
             if len(purchase_orders) < 100:
                 break
             offset += 100
+
+    def action_create_invoice(self):
+        res = super().action_create_invoice()
+        if res:
+            self._generate_mis_cash_flow_forecast_lines()
+        return res
