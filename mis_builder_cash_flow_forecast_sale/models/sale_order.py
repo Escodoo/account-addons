@@ -143,8 +143,7 @@ class SaleOrder(models.Model):
         ):
             for rec in self:
                 if rec.company_id.enable_sale_mis_cash_flow_forecast:
-                    # rec.with_delay()._generate_mis_cash_flow_forecast_lines()
-                    rec._generate_mis_cash_flow_forecast_lines()
+                    rec.with_delay()._generate_mis_cash_flow_forecast_lines()
         return res
 
     def unlink(self):
