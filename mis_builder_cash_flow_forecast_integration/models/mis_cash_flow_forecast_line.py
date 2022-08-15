@@ -8,15 +8,17 @@ class MisCashFlowForecastLine(models.Model):
 
     _inherit = "mis.cash_flow.forecast_line"
 
-    res_id = fields.Integer(string="Resource ID")
-    res_model_id = fields.Many2one("ir.model", "Document Model", ondelete="cascade")
+    res_id = fields.Integer(string="Resource ID", readonly=True)
+    res_model_id = fields.Many2one(
+        "ir.model", "Document Model", ondelete="cascade", readonly=True
+    )
     res_model = fields.Char(
         "Document Model Name", related="res_model_id.model", readonly=True, store=True
     )
 
-    parent_res_id = fields.Integer(string="Parent Resource ID")
+    parent_res_id = fields.Integer(string="Parent Resource ID", readonly=True)
     parent_res_model_id = fields.Many2one(
-        "ir.model", "Parent Document Model", ondelete="cascade"
+        "ir.model", "Parent Document Model", ondelete="cascade", readonly=True
     )
     parent_res_model = fields.Char(
         "Parent Document Model Name",
