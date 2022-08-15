@@ -12,9 +12,9 @@
     "depends": [
         "mis_builder_cash_flow",
     ],
-    "data": [],
-    "demo": [
+    "data": [
         "data/mis_report_instance.xml",
         "data/mis_report_style.xml",
     ],
+    "demo": [],
 }
