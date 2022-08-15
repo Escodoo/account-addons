@@ -90,16 +90,14 @@ class SaleOrder(models.Model):
                                         to_pay_invoice_currency, due_date>.
         """
         if self.payment_term_id:
-            to_compute = self.payment_term_id.compute(
-                total_balance, date_ref=date, currency=self.company_id.currency_id
-            )
+            to_compute = self.payment_term_id.compute(total_balance, date_ref=date)
             if self.currency_id == self.company_id.currency_id:
                 # Single-currency.
                 return [(b[0], b[1], b[1]) for b in to_compute]
             else:
                 # Multi-currencies.
                 to_compute_currency = self.payment_term_id.compute(
-                    total_amount_currency, date_ref=date, currency=self.currency_id
+                    total_amount_currency, date_ref=date
                 )
                 return [
                     (b[0], b[1], ac[1])
