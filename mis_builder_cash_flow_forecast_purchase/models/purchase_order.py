@@ -37,7 +37,9 @@ class PurchaseOrder(models.Model):
         for order in self:
             amount_invoiced = sum(
                 x.amount_total
-                for x in order.invoice_ids.filtered(lambda x: x.state == "open")
+                for x in order.invoice_ids.filtered(
+                    lambda x: x.state in ["open", "in_payment", "paid"]
+                )
             )
             forecast_uninvoiced_amount = order.amount_total - amount_invoiced
             if forecast_uninvoiced_amount < 0 or order.state in [
