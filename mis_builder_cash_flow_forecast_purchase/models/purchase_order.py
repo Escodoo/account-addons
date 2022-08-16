@@ -37,7 +37,9 @@ class PurchaseOrder(models.Model):
         for order in self:
             amount_invoiced = sum(
                 x.amount_total
-                for x in order.invoice_ids.filtered(lambda x: x.state == "open")
+                for x in order.invoice_ids.filtered(
+                    lambda x: x.state in ["open", "in_payment", "paid"]
+                )
             )
             forecast_uninvoiced_amount = order.amount_total - amount_invoiced
             if forecast_uninvoiced_amount < 0 or order.state in [
@@ -116,13 +118,13 @@ class PurchaseOrder(models.Model):
             "forecast_uninvoiced_amount",
         ]
 
-    @api.model
-    def create(self, values):
-        purchase_orders = super(PurchaseOrder, self).create(values)
-        for purchase_order in purchase_orders:
-            if purchase_order.company_id.enable_purchase_mis_cash_flow_forecast:
-                purchase_order.with_delay()._generate_mis_cash_flow_forecast_lines()
-        return purchase_orders
+    # @api.model
+    # def create(self, values):
+    #     purchase_orders = super(PurchaseOrder, self).create(values)
+    #     for purchase_order in purchase_orders:
+    #         if purchase_order.company_id.enable_purchase_mis_cash_flow_forecast:
+    #             purchase_order.with_delay()._generate_mis_cash_flow_forecast_lines()
+    #     return purchase_orders
 
     def write(self, values):
         res = super(PurchaseOrder, self).write(values)
@@ -133,7 +135,11 @@ class PurchaseOrder(models.Model):
             ]
         ):
             for rec in self:
-                if rec.company_id.enable_purchase_mis_cash_flow_forecast:
+                if (
+                    values.get("state") in ["purchase", "done"]
+                    or rec.state in ["purchase", "done"]
+                    and rec.company_id.enable_purchase_mis_cash_flow_forecast
+                ):
                     rec.with_delay()._generate_mis_cash_flow_forecast_lines()
         return res
 
@@ -179,7 +185,6 @@ class PurchaseOrder(models.Model):
         values = []
         for rec in self:
             rec.mis_cash_flow_forecast_line_ids.unlink()
-            rec._compute_forecast_uninvoiced_amount()
             if rec.forecast_uninvoiced_amount and rec.state in ["purchase", "done"]:
                 sign = -1
                 subtotal = rec.forecast_uninvoiced_amount
@@ -247,7 +252,10 @@ class PurchaseOrder(models.Model):
             purchase_orders_invoiced.filtered(
                 lambda x: x.forecast_uninvoiced_amount > 0
             )
-            purchase_orders_invoiced.with_delay()._generate_mis_cash_flow_forecast_lines()
-            if len(purchase_orders_invoiced) < 100:
+            if purchase_orders_invoiced:
+                purchase_orders_invoiced.with_delay()._generate_mis_cash_flow_forecast_lines()
+                if len(purchase_orders_invoiced) < 100:
+                    break
+                offset += 100
+            else:
                 break
-            offset += 100
