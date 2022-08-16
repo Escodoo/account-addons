@@ -91,7 +91,7 @@ class PurchaseOrder(models.Model):
             to_compute = self.payment_term_id.compute(total_balance, date_ref=date)
             if self.currency_id == self.company_id.currency_id:
                 # Single-currency.
-                return [(b[0], b[1], b[1]) for b in to_compute]
+                return [(b[0], b[1], b[1]) for b in to_compute[0]]
             else:
                 # Multi-currencies.
                 to_compute_currency = self.payment_term_id.compute(
@@ -99,7 +99,7 @@ class PurchaseOrder(models.Model):
                 )
                 return [
                     (b[0], b[1], ac[1])
-                    for b, ac in zip(to_compute, to_compute_currency)
+                    for b, ac in zip(to_compute[0], to_compute_currency[0])
                 ]
         else:
             return [(fields.Date.to_string(date), total_balance, total_amount_currency)]
