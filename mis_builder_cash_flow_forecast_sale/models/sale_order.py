@@ -175,7 +175,9 @@ class SaleOrder(models.Model):
         parent_res_id = self
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
 
-        account_id = self.partner_id.property_account_receivable_id or self.env[
+        partner = self.partner_id.with_context(force_company=self.company_id.id)
+
+        account_id = partner.property_account_receivable_id or self.env[
             "ir.property"
         ].get("property_account_receivable_id", "res.partner")
 
