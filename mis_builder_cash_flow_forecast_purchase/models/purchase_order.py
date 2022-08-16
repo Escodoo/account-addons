@@ -35,28 +35,23 @@ class PurchaseOrder(models.Model):
     )
     def _compute_forecast_uninvoiced_amount(self):
         for order in self:
-            forecast_uninvoiced_amount = 0
-            for line in order.order_line:
-                qty = line.product_qty - line.qty_invoiced
-                # we use this way for being compatible with purchase_discount
-                price_unit = (
-                    line.price_subtotal / line.product_qty
-                    if line.product_qty
-                    else line.price_unit
-                )
-                forecast_uninvoiced_amount += qty * price_unit
-                if forecast_uninvoiced_amount < 0 or order.state not in [
-                    "purchase",
-                    "done",
-                ]:
-                    forecast_uninvoiced_amount = 0
-            order.update(
-                {
-                    "forecast_uninvoiced_amount": order.currency_id.round(
-                        forecast_uninvoiced_amount
-                    )
-                }
+            amount_invoiced = sum(
+                x.amount_total
+                for x in order.invoice_ids.filtered(lambda x: x.state == "open")
             )
+            forecast_uninvoiced_amount = order.amount_total - amount_invoiced
+            if forecast_uninvoiced_amount < 0 or order.state in [
+                "cancel",
+            ]:
+                forecast_uninvoiced_amount = 0
+            if order.forecast_uninvoiced_amount != forecast_uninvoiced_amount:
+                order.update(
+                    {
+                        "forecast_uninvoiced_amount": order.currency_id.round(
+                            forecast_uninvoiced_amount
+                        )
+                    }
+                )
 
     def _compute_mis_cash_flow_forecast_line_ids(self):
         ForecastLine = self.env["mis.cash_flow.forecast_line"]
@@ -184,6 +179,7 @@ class PurchaseOrder(models.Model):
         values = []
         for rec in self:
             rec.mis_cash_flow_forecast_line_ids.unlink()
+            rec._compute_forecast_uninvoiced_amount()
             if rec.forecast_uninvoiced_amount and rec.state in ["purchase", "done"]:
                 sign = -1
                 subtotal = rec.forecast_uninvoiced_amount
@@ -232,15 +228,26 @@ class PurchaseOrder(models.Model):
         offset = 0
         while True:
             purchase_orders = self.search(
-                [("forecast_uninvoiced_amount", ">", 0)], limit=100, offset=offset
+                [("state", "in", ["purchase", "done"])], limit=100, offset=offset
             )
-            purchase_orders.with_delay()._generate_mis_cash_flow_forecast_lines()
-            if len(purchase_orders) < 100:
+            purchase_orders._compute_forecast_uninvoiced_amount()
+
+            purchase_orders_invoiced = purchase_orders
+            purchase_orders_uninvoiced = purchase_orders
+
+            # Filtra e deleta as linhas de forecast de PO já faturados totalmente
+            purchase_orders_uninvoiced.filtered(
+                lambda x: x.forecast_uninvoiced_amount == 0
+            )
+            purchase_orders_uninvoiced.filtered("mis_cash_flow_forecast_line_ids")
+            for order_uninvoiced in purchase_orders_uninvoiced:
+                order_uninvoiced.mis_cash_flow_forecast_line_ids.unlink()
+
+            # Filtra e gera linhas de forecast de PO não faturados totalmente
+            purchase_orders_invoiced.filtered(
+                lambda x: x.forecast_uninvoiced_amount > 0
+            )
+            purchase_orders_invoiced.with_delay()._generate_mis_cash_flow_forecast_lines()
+            if len(purchase_orders_invoiced) < 100:
                 break
             offset += 100
-
-    def action_view_invoice(self):
-        res = super().action_view_invoice()
-        if res:
-            self._generate_mis_cash_flow_forecast_lines()
-        return res
