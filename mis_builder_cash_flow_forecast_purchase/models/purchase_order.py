@@ -13,7 +13,7 @@ class PurchaseOrder(models.Model):
         string="Forecast Uninvoiced Amount",
         readonly=True,
         compute="_compute_forecast_uninvoiced_amount",
-        tracking=True,
+        store=True,
     )
 
     mis_cash_flow_forecast_line_ids = fields.One2many(
@@ -29,9 +29,11 @@ class PurchaseOrder(models.Model):
     )
 
     @api.depends(
-        "order_line.product_qty",
+        "partner_id",
+        "amount_total",
+        "currency_id",
+        "order_line.invoice_lines",
         "order_line.qty_invoiced",
-        "order_line.price_unit",
     )
     def _compute_forecast_uninvoiced_amount(self):
         for order in self:
@@ -101,11 +103,27 @@ class PurchaseOrder(models.Model):
         else:
             return [(fields.Date.to_string(date), total_balance, total_amount_currency)]
 
+    def _compute_amount_uninvoiced_company_currency(self, amount_uninvoiced):
+        if (
+            self.currency_id
+            and self.company_id
+            and self.currency_id != self.company_id.currency_id
+        ):
+            cur = self.currency_id
+            price_subtotal = cur.round(amount_uninvoiced)
+            rate_date = self.date_planned or fields.Date.today()
+            amount_uninvoiced = cur._convert(
+                price_subtotal,
+                self.company_id.currency_id,
+                self.company_id,
+                rate_date,
+            )
+        return amount_uninvoiced
+
     @api.model
     def _get_mis_cash_flow_forecast_update_trigger_fields(self):
         return [
             "partner_id",
-            "pricelist_id",
             "fiscal_position_id",
             "currency_id",
             "order_line",
@@ -115,16 +133,7 @@ class PurchaseOrder(models.Model):
             "state",
             "invoice_ids",
             "invoice_count",
-            "forecast_uninvoiced_amount",
         ]
-
-    # @api.model
-    # def create(self, values):
-    #     purchase_orders = super(PurchaseOrder, self).create(values)
-    #     for purchase_order in purchase_orders:
-    #         if purchase_order.company_id.enable_purchase_mis_cash_flow_forecast:
-    #             purchase_order.with_delay()._generate_mis_cash_flow_forecast_lines()
-    #     return purchase_orders
 
     def write(self, values):
         res = super(PurchaseOrder, self).write(values)
@@ -136,7 +145,7 @@ class PurchaseOrder(models.Model):
         ):
             for rec in self:
                 if (
-                    values.get("state") in ["purchase", "done"]
+                    values.get("state") in ["purchase", "done", "cancel"]
                     or rec.state in ["purchase", "done"]
                     and rec.company_id.enable_purchase_mis_cash_flow_forecast
                 ):
@@ -187,30 +196,23 @@ class PurchaseOrder(models.Model):
             rec.mis_cash_flow_forecast_line_ids.unlink()
             if rec.forecast_uninvoiced_amount and rec.state in ["purchase", "done"]:
                 sign = -1
-                subtotal = rec.forecast_uninvoiced_amount
-                price_subtotal_signed = subtotal * sign
-                price_subtotal_company_signed = price_subtotal_signed
+                amount_uninvoiced = rec.forecast_uninvoiced_amount * sign
+
                 if (
                     rec.currency_id
                     and rec.company_id
                     and rec.currency_id != rec.company_id.currency_id
                 ):
                     cur = rec.currency_id
-                    price_subtotal = cur.round(subtotal)
-                    price_subtotal_signed = cur.round(price_subtotal_signed)
-                    rate_date = rec.date_planned or fields.Date.today()
-                    price_subtotal_company = cur._convert(
-                        price_subtotal,
-                        rec.company_id.currency_id,
-                        rec.company_id,
-                        rate_date,
-                    )
-                    price_subtotal_company_signed = price_subtotal_company * sign
+                    amount_uninvoiced = cur.round(amount_uninvoiced)
 
+                amount_uninvoiced_company = (
+                    rec._compute_amount_uninvoiced_company_currency(amount_uninvoiced)
+                )
                 payment_terms = rec._compute_payment_terms(
                     rec.date_planned,
-                    price_subtotal_company_signed,
-                    price_subtotal_signed,
+                    amount_uninvoiced_company,
+                    amount_uninvoiced,
                 )
 
                 payment_term_count = len(payment_terms)
@@ -232,30 +234,15 @@ class PurchaseOrder(models.Model):
     def cron_mis_cash_flow_generate_forecast_lines(self):
         offset = 0
         while True:
-            purchase_orders = self.search(
-                [("state", "in", ["purchase", "done"])], limit=100, offset=offset
+            orders = self.search(
+                [
+                    ("forecast_uninvoiced_amount", ">", 0),
+                    ("state", "in", ["purchase", "done"]),
+                ],
+                limit=100,
+                offset=offset,
             )
-            purchase_orders._compute_forecast_uninvoiced_amount()
-
-            purchase_orders_invoiced = purchase_orders
-            purchase_orders_uninvoiced = purchase_orders
-
-            # Filtra e deleta as linhas de forecast de PO já faturados totalmente
-            purchase_orders_uninvoiced.filtered(
-                lambda x: x.forecast_uninvoiced_amount == 0
-            )
-            purchase_orders_uninvoiced.filtered("mis_cash_flow_forecast_line_ids")
-            for order_uninvoiced in purchase_orders_uninvoiced:
-                order_uninvoiced.mis_cash_flow_forecast_line_ids.unlink()
-
-            # Filtra e gera linhas de forecast de PO não faturados totalmente
-            purchase_orders_invoiced.filtered(
-                lambda x: x.forecast_uninvoiced_amount > 0
-            )
-            if purchase_orders_invoiced:
-                purchase_orders_invoiced.with_delay()._generate_mis_cash_flow_forecast_lines()
-                if len(purchase_orders_invoiced) < 100:
-                    break
-                offset += 100
-            else:
+            orders.with_delay()._generate_mis_cash_flow_forecast_lines()
+            if len(orders) < 100:
                 break
+            offset += 100
