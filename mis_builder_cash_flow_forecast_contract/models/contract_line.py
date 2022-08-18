@@ -5,10 +5,6 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
 
-# from odoo.addons.queue_job.job import job
-
-QUEUE_CHANNEL = "root.MIS_BUILDER_CASH_FLOW_FORECAST_CONTRACT"
-
 
 class ContractLine(models.Model):
 
@@ -53,18 +49,12 @@ class ContractLine(models.Model):
             )
             price_subtotal_company_signed = price_subtotal_company * sign
 
-        # TODO: avaliar se precisa ou se deve remover
-        #
-        #     currency_rate = (
-        #         price_subtotal_signed / price_subtotal_company_signed
-        #     ) or False
-        # else:
-        #     price_subtotal = subtotal
+        partner = self.partner_id.with_context(force_company=self.company_id.id)
 
         if self.contract_id.contract_type == "sale":
-            account_id = self.contract_id.partner_id.property_account_receivable_id.id
+            account_id = partner.property_account_receivable_id.id
         elif self.contract_id.contract_type == "purchase":
-            account_id = self.contract_id.partner_id.property_account_payable_id.id
+            account_id = partner.property_account_payable_id.id
 
         parent_res_id = self.contract_id
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
@@ -110,7 +100,6 @@ class ContractLine(models.Model):
             and period_date_end <= contract_forecast_end_date
         )
 
-    # @job(default_channel=QUEUE_CHANNEL)
     def _generate_mis_cash_flow_forecast_lines(self):
         values = []
         for rec in self:
@@ -205,12 +194,12 @@ class ContractLine(models.Model):
         offset = 0
         while True:
             contract_lines = self.search(
-                [("is_canceled", "=", False)], limit=100, offset=offset
+                [("is_canceled", "=", False)], limit=25, offset=offset
             )
             contract_lines.with_delay()._generate_mis_cash_flow_forecast_lines()
-            if len(contract_lines) < 100:
+            if len(contract_lines) < 25:
                 break
-            offset += 100
+            offset += 25
 
     def _compute_mis_cash_flow_forecast_line_ids(self):
         ForecastLine = self.env["mis.cash_flow.forecast_line"]
