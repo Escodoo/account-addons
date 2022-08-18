@@ -2,6 +2,20 @@
 <!-- Copyright 2022 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field
+            name="name"
+        >sale.order.form in (mis_builder_cash_flow_forecast_sale)</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="forecast_uninvoiced_amount" invisible="1" />
+            </field>
+        </field>
+    </record>
+
     <record id="view_order_tree" model="ir.ui.view">
         <field
             name="name"
