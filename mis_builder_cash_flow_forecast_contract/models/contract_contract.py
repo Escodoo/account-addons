@@ -1,7 +1,7 @@
 # Copyright 2021 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import _, api, models
 
 
 class ContractContract(models.Model):
@@ -38,3 +38,23 @@ class ContractContract(models.Model):
                 if line.mis_cash_flow_forecast_line_ids:
                     line.mis_cash_flow_forecast_line_ids.unlink()
         return super().unlink()
+
+    @api.multi
+    def action_show_contract_forecast(self):
+        self.ensure_one()
+        context = {
+            "search_default_groupby_date": True,
+        }
+        context.update(self.env.context)
+
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Contract Forecast"),
+            "res_model": "mis.cash_flow.forecast_line",
+            "domain": [
+                ("parent_res_model", "=", self._name),
+                ("parent_res_id", "=", self.id),
+            ],
+            "view_mode": "pivot,tree",
+            "context": context,
+        }
