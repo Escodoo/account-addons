@@ -13,7 +13,7 @@ class SaleOrder(models.Model):
         string="Forecast Uninvoiced Amount",
         readonly=True,
         compute="_compute_forecast_uninvoiced_amount",
-        tracking=True,
+        store=True,
     )
 
     mis_cash_flow_forecast_line_ids = fields.One2many(
@@ -29,36 +29,34 @@ class SaleOrder(models.Model):
     )
 
     @api.depends(
-        "order_line.product_uom_qty",
+        "partner_id",
+        "amount_total",
+        "pricelist_id",
+        "currency_id",
+        "order_line.invoice_lines",
         "order_line.qty_invoiced",
-        "order_line.product_id",
-        "order_line.product_uom",
-        "order_line.price_unit",
     )
     def _compute_forecast_uninvoiced_amount(self):
         for order in self:
-            forecast_uninvoiced_amount = 0
-            for line in order.order_line:
-                qty = line.product_uom_qty - line.qty_invoiced
-                # we use this way for being compatible with sale_discount
-                price_unit = (
-                    line.price_subtotal / line.product_uom_qty
-                    if line.product_uom_qty
-                    else line.price_unit
+            amount_invoiced = sum(
+                x.amount_total
+                for x in order.invoice_ids.filtered(
+                    lambda x: x.state in ["open", "in_payment", "paid"]
                 )
-                forecast_uninvoiced_amount += qty * price_unit
-                if forecast_uninvoiced_amount < 0 or order.state not in [
-                    "sale",
-                    "done",
-                ]:
-                    forecast_uninvoiced_amount = 0
-            order.update(
-                {
-                    "forecast_uninvoiced_amount": order.currency_id.round(
-                        forecast_uninvoiced_amount
-                    )
-                }
             )
+            forecast_uninvoiced_amount = order.amount_total - amount_invoiced
+            if forecast_uninvoiced_amount < 0 or order.state in [
+                "cancel",
+            ]:
+                forecast_uninvoiced_amount = 0
+            if order.forecast_uninvoiced_amount != forecast_uninvoiced_amount:
+                order.update(
+                    {
+                        "forecast_uninvoiced_amount": order.currency_id.round(
+                            forecast_uninvoiced_amount
+                        )
+                    }
+                )
 
     def _compute_mis_cash_flow_forecast_line_ids(self):
         ForecastLine = self.env["mis.cash_flow.forecast_line"]
@@ -134,19 +132,10 @@ class SaleOrder(models.Model):
             "payment_term_id",
             "currency_rate",
             "invoice_status",
-            "invoice_count",
-            "invoice_ids",
             "state",
-            "forecast_uninvoiced_amount",
+            "invoice_ids",
+            "invoice_count",
         ]
-
-    @api.model
-    def create(self, values):
-        sale_orders = super(SaleOrder, self).create(values)
-        for sale_order in sale_orders:
-            if sale_order.company_id.enable_sale_mis_cash_flow_forecast:
-                sale_order.with_delay()._generate_mis_cash_flow_forecast_lines()
-        return sale_orders
 
     def write(self, values):
         res = super(SaleOrder, self).write(values)
@@ -157,7 +146,11 @@ class SaleOrder(models.Model):
             ]
         ):
             for rec in self:
-                if rec.company_id.enable_sale_mis_cash_flow_forecast:
+                if (
+                    values.get("state") in ["sale", "done", "cancel"]
+                    or rec.state in ["sale", "done"]
+                    and rec.company_id.enable_sale_mis_cash_flow_forecast
+                ):
                     rec.with_delay()._generate_mis_cash_flow_forecast_lines()
         return res
 
@@ -204,7 +197,8 @@ class SaleOrder(models.Model):
         for rec in self:
             rec.mis_cash_flow_forecast_line_ids.unlink()
             if rec.forecast_uninvoiced_amount and rec.state in ["sale", "done"]:
-                amount_uninvoiced = rec.forecast_uninvoiced_amount
+                sign = 1
+                amount_uninvoiced = rec.forecast_uninvoiced_amount * sign
 
                 if (
                     rec.currency_id
@@ -213,6 +207,7 @@ class SaleOrder(models.Model):
                 ):
                     cur = rec.currency_id
                     amount_uninvoiced = cur.round(amount_uninvoiced)
+
                 amount_uninvoiced_company = (
                     rec._compute_amount_uninvoiced_company_currency(amount_uninvoiced)
                 )
@@ -241,16 +236,15 @@ class SaleOrder(models.Model):
     def cron_mis_cash_flow_generate_forecast_lines(self):
         offset = 0
         while True:
-            sale_orders = self.search(
-                [("forecast_uninvoiced_amount", ">", 0)], limit=100, offset=offset
+            orders = self.search(
+                [
+                    ("forecast_uninvoiced_amount", ">", 0),
+                    ("state", "in", ["sale", "done"]),
+                ],
+                limit=100,
+                offset=offset,
             )
-            sale_orders.with_delay()._generate_mis_cash_flow_forecast_lines()
-            if len(sale_orders) < 100:
+            orders.with_delay()._generate_mis_cash_flow_forecast_lines()
+            if len(orders) < 100:
                 break
             offset += 100
-
-    def action_invoice_create(self, grouped=False, final=False):
-        res = super().action_invoice_create(grouped=grouped, final=final)
-        for rec in self:
-            rec.with_delay()._generate_mis_cash_flow_forecast_lines()
-        return res
