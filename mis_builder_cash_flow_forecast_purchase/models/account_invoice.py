@@ -11,7 +11,7 @@ class AccountInvoice(models.Model):
     def invoice_validate(self):
         res = super().invoice_validate()
         for invoice in self:
-            purchase = invoice.invoice_line_ids.mapped("purchase_line_id.order_id")
-            if purchase:
-                purchase._generate_mis_cash_flow_forecast_lines()
+            order = invoice.invoice_line_ids.mapped("purchase_line_id.order_id")
+            if order and order.company_id.enable_purchase_mis_cash_flow_forecast:
+                order.with_delay()._generate_mis_cash_flow_forecast_lines()
         return res
