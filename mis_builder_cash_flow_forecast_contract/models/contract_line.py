@@ -49,7 +49,9 @@ class ContractLine(models.Model):
             )
             price_subtotal_company_signed = price_subtotal_company * sign
 
-        partner = self.partner_id.with_context(force_company=self.company_id.id)
+        partner = self.contract_id.partner_id.with_context(
+            force_company=self.contract_id.company_id.id
+        )
 
         if self.contract_id.contract_type == "sale":
             account_id = partner.property_account_receivable_id.id

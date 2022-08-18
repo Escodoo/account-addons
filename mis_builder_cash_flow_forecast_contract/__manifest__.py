@@ -17,6 +17,7 @@
     "data": [
         "views/res_config_settings.xml",
         "views/res_company.xml",
+        "views/contract_contract.xml",
         "data/contract_forecast_line_cron.xml",
     ],
     "demo": [],
