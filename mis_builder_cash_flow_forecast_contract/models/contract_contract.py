@@ -40,7 +40,7 @@ class ContractContract(models.Model):
         return super().unlink()
 
     @api.multi
-    def action_show_contract_forecast(self):
+    def action_show_mis_forecast(self):
         self.ensure_one()
         context = {
             "search_default_groupby_date": True,
@@ -49,7 +49,7 @@ class ContractContract(models.Model):
 
         return {
             "type": "ir.actions.act_window",
-            "name": _("Contract Forecast"),
+            "name": _("Cash Flow Forecast - Contract"),
             "res_model": "mis.cash_flow.forecast_line",
             "domain": [
                 ("parent_res_model", "=", self._name),
