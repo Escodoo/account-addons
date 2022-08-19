@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class SaleOrder(models.Model):
@@ -248,3 +248,23 @@ class SaleOrder(models.Model):
             if len(orders) < 100:
                 break
             offset += 100
+
+    @api.multi
+    def action_show_mis_forecast(self):
+        self.ensure_one()
+        context = {
+            "search_default_groupby_date": True,
+        }
+        context.update(self.env.context)
+
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Cash Flow Forecast - Sale"),
+            "res_model": "mis.cash_flow.forecast_line",
+            "domain": [
+                ("parent_res_model", "=", self._name),
+                ("parent_res_id", "=", self.id),
+            ],
+            "view_mode": "pivot,tree",
+            "context": context,
+        }
