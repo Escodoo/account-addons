@@ -12,7 +12,23 @@
         <field name="arch" type="xml">
             <field name="payment_term_id" position="after">
                 <field name="forecast_uninvoiced_amount" invisible="1" />
+                <field name="mis_cash_flow_forecast_line_count" invisible="1" />
             </field>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    class="oe_stat_button"
+                    type="object"
+                    icon="fa-area-chart"
+                    name="action_show_mis_forecast"
+                    help="MIS Builder Cash Flow Forecast"
+                    attrs="{'invisible': [('mis_cash_flow_forecast_line_count', '=', 0)]}"
+                >
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Cash Flow Forecast
+                        </span>
+                    </div>
+                </button>
+            </xpath>
         </field>
     </record>
 
@@ -23,7 +39,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_tree" />
         <field name="arch" type="xml">
-            <field name="amount_untaxed" position="before">
+            <field name="amount_total" position="before">
                 <field
                     name="forecast_uninvoiced_amount"
                     sum="Total Forecast Uninvoiced Amount"
