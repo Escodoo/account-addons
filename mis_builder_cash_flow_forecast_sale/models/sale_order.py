@@ -252,10 +252,8 @@ class SaleOrder(models.Model):
     @api.multi
     def action_show_mis_forecast(self):
         self.ensure_one()
-        context = {
-            "search_default_groupby_date": True,
-        }
-        context.update(self.env.context)
+        context = dict(self.env.context)
+        context.pop("group_by", None)
 
         return {
             "type": "ir.actions.act_window",
