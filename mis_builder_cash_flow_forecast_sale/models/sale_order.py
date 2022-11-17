@@ -156,9 +156,8 @@ class SaleOrder(models.Model):
 
     def unlink(self):
         for rec in self:
-            for line in rec.order_line:
-                if line.mis_cash_flow_forecast_line_ids:
-                    line.mis_cash_flow_forecast_line_ids.unlink()
+            if rec.mis_cash_flow_forecast_line_ids:
+                rec.mis_cash_flow_forecast_line_ids.unlink()
         return super().unlink()
 
     def _prepare_mis_cash_flow_forecast_line(
