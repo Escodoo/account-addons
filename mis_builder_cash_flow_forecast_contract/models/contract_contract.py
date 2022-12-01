@@ -39,7 +39,6 @@ class ContractContract(models.Model):
                     line.mis_cash_flow_forecast_line_ids.unlink()
         return super().unlink()
 
-    @api.multi
     def action_show_mis_forecast(self):
         self.ensure_one()
         context = dict(self.env.context)
