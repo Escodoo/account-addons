@@ -40,7 +40,7 @@ class PurchaseOrder(models.Model):
             amount_invoiced = sum(
                 x.amount_total
                 for x in order.invoice_ids.filtered(
-                    lambda x: x.state in ["open", "in_payment", "paid"]
+                    lambda x: x.state in ["draft", "posted"]
                 )
             )
             forecast_uninvoiced_amount = order.amount_total - amount_invoiced
@@ -87,18 +87,20 @@ class PurchaseOrder(models.Model):
                                         to_pay_invoice_currency, due_date>.
         """
         if self.payment_term_id:
-            to_compute = self.payment_term_id.compute(total_balance, date_ref=date)
+            to_compute = self.payment_term_id.compute(
+                total_balance, date_ref=date, currency=self.company_id.currency_id
+            )
             if self.currency_id == self.company_id.currency_id:
                 # Single-currency.
-                return [(b[0], b[1], b[1]) for b in to_compute[0]]
+                return [(b[0], b[1], b[1]) for b in to_compute]
             else:
                 # Multi-currencies.
                 to_compute_currency = self.payment_term_id.compute(
-                    total_amount_currency, date_ref=date
+                    total_amount_currency, date_ref=date, currency=self.currency_id
                 )
                 return [
                     (b[0], b[1], ac[1])
-                    for b, ac in zip(to_compute[0], to_compute_currency[0])
+                    for b, ac in zip(to_compute, to_compute_currency)
                 ]
         else:
             return [(fields.Date.to_string(date), total_balance, total_amount_currency)]
@@ -165,10 +167,17 @@ class PurchaseOrder(models.Model):
         parent_res_id = self
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
 
-        partner = self.partner_id.with_context(force_company=self.company_id.id)
+        # partner = self.partner_id.with_context(force_company=self.company_id.id)
+        #
+        # account_id = partner.property_account_payable_id or self.env["ir.property"].get(
+        #     "property_account_payable_id", "res.partner"
+        # )
 
-        account_id = partner.property_account_payable_id or self.env["ir.property"].get(
-            "property_account_payable_id", "res.partner"
+        account_id = (
+            self.partner_id.property_account_payable_id.id
+            or self.env["ir.property"]
+            ._get("property_account_payable_id", "res.partner")
+            .id
         )
 
         return {
@@ -179,7 +188,7 @@ class PurchaseOrder(models.Model):
                 payment_term_count,
             ),
             "date": date,
-            "account_id": account_id.id,
+            "account_id": account_id,
             "partner_id": self.partner_id.id,
             "balance": amount,
             "company_id": self.company_id.id,
@@ -246,7 +255,6 @@ class PurchaseOrder(models.Model):
                 break
             offset += 100
 
-    @api.multi
     def action_show_mis_forecast(self):
         self.ensure_one()
         context = dict(self.env.context)
