@@ -38,7 +38,7 @@ class SaleOrder(models.Model):
                         and self.currency_id != self.company_id.currency_id
                     ):
                         cur = self.currency_id
-                        total_amount_currency = cur.round(self.total_amount_currency)
+                        total_amount_currency = cur.round(total_amount_currency)
 
                     date = invoice_plan.plan_date
                     total_amount_currency = total_amount_currency
