@@ -2,7 +2,9 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 
-from odoo import fields, models
+from psycopg2.extensions import AsIs
+
+from odoo import api, fields, models, tools
 
 
 class AccountMoveLineCashBasisReport(models.Model):
@@ -126,7 +128,6 @@ class AccountMoveLineCashBasisReport(models.Model):
     account_internal_group = fields.Selection(
         selection="_selection_account_internal_group", readonly=True
     )
-    account_root_id = fields.Many2one("account.root", readonly=True)
     state = fields.Selection(
         selection="_selection_parent_state",
     )
@@ -164,17 +165,15 @@ class AccountMoveLineCashBasisReport(models.Model):
             allfields=["internal_group"]
         )["internal_group"]["selection"]
 
-    @property
-    def _table_query(self):
-        return """
-             WITH moves AS (
+    @api.model_cr
+    def init(self):
+        query = """
+            WITH moves AS (
              SELECT
                  "account_move_line".id as id,
                  "account_move_line".move_id as move_id,
                  "account_move_line".name as name,
                  "account_move_line".ref as ref,
-                 "account_move_line".parent_state as parent_state,
-                 "account_move_line".parent_state as state,
                  "account_move_line".company_id as company_id,
                  "account_move_line".currency_id as currency_id,
                  "account_move_line".journal_id as journal_id,
@@ -192,12 +191,10 @@ class AccountMoveLineCashBasisReport(models.Model):
                  "account_move_line".reconciled as reconciled,
                  "account_move_line".full_reconcile_id as full_reconcile_id,
                  "account_move_line".statement_id as statement_id,
-                 "account_move_line".account_root_id as account_root_id,
                  "account".user_type_id as user_type_id,
                  "account".group_id as account_group_id,
                  "account_type".type as account_internal_type,
-                 "account_type".internal_group as account_internal_group,
-                 "account_move_line".exclude_from_invoice_tab
+                 "account_type".internal_group as account_internal_group
              FROM ONLY account_move_line
              JOIN ONLY account_account account ON
                 "account_move_line".account_id = account.id
@@ -245,8 +242,6 @@ class AccountMoveLineCashBasisReport(models.Model):
                  "account_move_line".move_id as move_id,
                  "account_move_line".name as name,
                  "account_move_line".ref as ref,
-                 "account_move_line".parent_state as parent_state,
-                 "account_move_line".parent_state as state,
                  "account_move_line".company_id as company_id,
                  "account_move_line".currency_id as currency_id,
                  "account_move_line".journal_id as journal_id,
@@ -266,12 +261,10 @@ class AccountMoveLineCashBasisReport(models.Model):
                  "account_move_line".reconciled as reconciled,
                  "account_move_line".full_reconcile_id as full_reconcile_id,
                  "account_move_line".statement_id as statement_id,
-                 "account_move_line".account_root_id as account_root_id,
                  "account".user_type_id as user_type_id,
                  "account".group_id as account_group_id,
                  "account_type".type as account_internal_type,
-                 "account_type".internal_group as account_internal_group,
-                 "account_move_line".exclude_from_invoice_tab
+                 "account_type".internal_group as account_internal_group
              FROM payment_table ref
              JOIN ONLY account_move_line ON
                 "account_move_line".move_id = ref.move_id
@@ -289,4 +282,8 @@ class AccountMoveLineCashBasisReport(models.Model):
                      WHERE account.internal_type IN ('receivable', 'payable')
                  )
              )
-         """
+        """
+        tools.drop_view_if_exists(self.env.cr, self._table)
+        self._cr.execute(
+            "CREATE OR REPLACE VIEW %s AS %s", (AsIs(self._table), AsIs(query))
+        )

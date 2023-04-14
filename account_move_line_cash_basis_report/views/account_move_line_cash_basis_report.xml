@@ -12,7 +12,7 @@
             <form string="Journal Item" create="false">
                 <sheet>
                     <field name="company_id" invisible="1" />
-                    <field name="parent_state" invisible="1" />
+                    <!-- <field name="parent_state" invisible="1" /> -->
                     <group>
                         <field name="name" />
                         <field
@@ -46,7 +46,7 @@
                                 <group string="Dates">
                                     <field
                                         name="date"
-                                        groups="account.group_account_readonly"
+                                        groups="account.group_account_user"
                                     />
 <!--                                    <field name="date_maturity"/>-->
                                 </group>
@@ -114,7 +114,6 @@
                 />
                 <field name="date" />
                 <field name="account_id" />
-                <field name="account_root_id" />
                 <field name="account_internal_type" />
                 <field name="partner_id" />
                 <field name="journal_id" />
@@ -254,18 +253,18 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="date" />
-                <field name="journal_id" optional="show" />
-                <field name="name" optional="show" />
-                <field name="ref" optional="hidden" />
-                <field name="account_id" optional="show" />
-                <field name="partner_id" optional="show" />
-                <field name="analytic_account_id" optional="hidden" />
-                <field name="debit" optional="show" />
-                <field name="credit" optional="show" />
-                <field name="balance" optional="hidden" />
-                <field name="user_type_id" optional="hidden" />
-                <field name="account_internal_type" optional="hidden" />
-                <field name="account_internal_group" optional="hidden" />
+                <field name="journal_id" />
+                <field name="name" />
+                <field name="ref" invisible="1" />
+                <field name="account_id" />
+                <field name="partner_id" />
+                <field name="analytic_account_id" invisible="1" />
+                <field name="debit" />
+                <field name="credit" />
+                <field name="balance" invisible="1" />
+                <field name="user_type_id" invisible="1" />
+                <field name="account_internal_type" invisible="1" />
+                <field name="account_internal_group" invisible="1" />
             </tree>
         </field>
     </record>
@@ -276,7 +275,7 @@
         >account.move.line.cash.basis.report.pivot (in account_move_line_cash_basis_report)</field>
         <field name="model">account.move.line.cash.basis.report</field>
         <field name="arch" type="xml">
-            <pivot string="Account Move Line Cash Basis Report" sample="1">
+            <pivot string="Account Move Line Cash Basis Report">
                 <field name="user_type_id" type="row" />
                 <field name="account_id" type="row" />
                 <field name="date" interval="month" type="col" />

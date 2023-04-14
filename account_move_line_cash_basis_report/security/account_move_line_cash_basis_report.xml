@@ -8,7 +8,7 @@
         <field name="model_id" ref="model_account_move_line_cash_basis_report" />
         <field
             name="domain_force"
-        >['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        >['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
     </record>
 
     <record
@@ -34,12 +34,13 @@
             name="name"
         >account.move.line.cash.basis.report access group_account_readonly</field>
         <field name="model_id" ref="model_account_move_line_cash_basis_report" />
-        <field name="group_id" ref="account.group_account_readonly" />
+        <field name="group_id" ref="account.group_account_user" />
         <field name="perm_read" eval="1" />
         <field name="perm_create" eval="0" />
         <field name="perm_write" eval="0" />
         <field name="perm_unlink" eval="0" />
     </record>
+
 
     <record
         model="ir.model.access"
