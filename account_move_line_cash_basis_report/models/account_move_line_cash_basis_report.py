@@ -50,7 +50,6 @@ class AccountMoveLineCashBasisReport(models.Model):
         index=True,
     )
     quantity = fields.Float(
-        string="Quantity",
         readonly=True,
     )
     partner_id = fields.Many2one(
