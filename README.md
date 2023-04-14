@@ -1,20 +1,25 @@
-<!-- [![Runbot Status](https://runbot.odoo-community.org/runbot/badge/flat//15.0.svg)](https://runbot.odoo-community.org/runbot/repo/github-com-oca-account-addons-) -->
-<!-- [![Build Status](https://travis-ci.com/Escodoo/account-addons.svg?branch=15.0)](https://travis-ci.com/Escodoo/account-addons) -->
-[![tests](https://github.com/Escodoo/account-addons/actions/workflows/test.yml/badge.svg)](https://github.com/Escodoo/account-addons/actions/workflows/test.yml)
+
+<!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
+[![Pre-commit Status](https://github.com/Escodoo/account-addons/actions/workflows/pre-commit.yml/badge.svg?branch=15.0)](https://github.com/Escodoo/account-addons/actions/workflows/pre-commit.yml?query=branch%3A15.0)
+[![Build Status](https://github.com/Escodoo/account-addons/actions/workflows/test.yml/badge.svg?branch=15.0)](https://github.com/Escodoo/account-addons/actions/workflows/test.yml?query=branch%3A15.0)
 [![codecov](https://codecov.io/gh/Escodoo/account-addons/branch/15.0/graph/badge.svg)](https://codecov.io/gh/Escodoo/account-addons)
-<!-- [![Translation Status](https://translation.odoo-community.org/widgets/account-addons-15-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/account-addons-15-0/?utm_source=widget) -->
+<!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
 <!-- /!\ do not modify above this line -->
 
-# Escodoo Odoo Account Addons
+# Escodoo Account Addons
 
-Escodoo add-ons used to extend or customize Odoo Account app functions.
+Escodoo add-ons used to extend or customize Odoo Account app functions
 
 <!-- /!\ do not modify below this line -->
 
 <!-- prettier-ignore-start -->
 
+[//]: # (addons)
 
+This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+
+[//]: # (end addons)
 
 <!-- prettier-ignore-end -->
 
@@ -27,8 +32,4 @@ policy. Consult each module's `__manifest__.py` file, which contains a `license`
 that explains its license.
 
 ----
-
-We at Escodoo are exclusively dedicated to deploying the Odoo Platform and are
-focused on providing solutions that make our customers more competitive, lowering
-costs, making technology more accessible and ensuring it is used strategically to
-add even more value to the business.
+<!-- /!\ Non OCA Context : Set here the full description of your organization. -->
