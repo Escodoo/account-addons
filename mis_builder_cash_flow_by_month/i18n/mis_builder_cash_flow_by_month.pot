@@ -1,0 +1,90 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mis_builder_cash_flow_by_month
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_10m
+msgid "+10m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_11m
+msgid "+11m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_12m
+msgid "+12m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_1m
+msgid "+1m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_2m
+msgid "+2m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_3m
+msgid "+3m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_4m
+msgid "+4m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_5m
+msgid "+5m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_6m
+msgid "+6m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_7m
+msgid "+7m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_8m
+msgid "+8m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_plus_9m
+msgid "+9m"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance,name:mis_builder_cash_flow_by_month.mis_instance_cash_flow_month
+msgid "Cash Flow Month"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_current
+msgid "Current"
+msgstr ""
+
+#. module: mis_builder_cash_flow_by_month
+#: model:mis.report.instance.period,name:mis_builder_cash_flow_by_month.mis_period_month_future
+msgid "Future"
+msgstr ""
+
