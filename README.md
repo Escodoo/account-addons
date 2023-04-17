@@ -1,7 +1,9 @@
-<!-- [![Runbot Status](https://runbot.odoo-community.org/runbot/badge/flat//12.0.svg)](https://runbot.odoo-community.org/runbot/repo/github-com-oca-account-addons-) -->
-[![Build Status](https://travis-ci.com/Escodoo/account-addons.svg?branch=12.0)](https://travis-ci.com/Escodoo/account-addons)
-<!-- [![codecov](https://codecov.io/gh/Escodoo/account-addons/branch/12.0/graph/badge.svg)](https://codecov.io/gh/Escodoo/account-addons) -->
-<!-- [![Translation Status](https://translation.odoo-community.org/widgets/account-addons-14-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/account-addons-14-0/?utm_source=widget) -->
+
+<!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
+[![Pre-commit Status](https://github.com/Escodoo/account-addons/actions/workflows/pre-commit.yml/badge.svg?branch=12.0)](https://github.com/Escodoo/account-addons/actions/workflows/pre-commit.yml?query=branch%3A12.0)
+[![Build Status](https://github.com/Escodoo/account-addons/actions/workflows/test.yml/badge.svg?branch=12.0)](https://github.com/Escodoo/account-addons/actions/workflows/test.yml?query=branch%3A12.0)
+[![codecov](https://codecov.io/gh/Escodoo/account-addons/branch/12.0/graph/badge.svg)](https://codecov.io/gh/Escodoo/account-addons)
+<!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
 <!-- /!\ do not modify above this line -->
 
