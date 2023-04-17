@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mis_cash_flow_forecast_line_form_view">
+        <field
+            name="name"
+        >mis.cash_flow.forecast_line.form (in mis_builder_cash_flow_forecast_integration)</field>
+        <field name="model">mis.cash_flow.forecast_line</field>
+        <field
+            name="inherit_id"
+            ref="mis_builder_cash_flow.mis_cash_flow_forecast_line_view_form"
+        />
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <button
+                    string="Document"
+                    class="oe_stat_button float-right"
+                    icon="fa-bars"
+                    type="object"
+                    name="action_open_document_related"
+                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                />
+                <button
+                    string="Parent Document"
+                    class="oe_stat_button float-right"
+                    icon="fa-bars"
+                    type="object"
+                    name="action_open_parent_document_related"
+                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                />
+            </sheet>
+            <field name="balance" position="after">
+                <field name="res_model_id" invisible="1" />
+                <field name="res_model" invisible="1" />
+                <field name="res_id" invisible="1" />
+                <field name="parent_res_model_id" />
+                <field name="parent_res_model" invisible="1" />
+                <field name="parent_res_id" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mis_cash_flow_forecast_line_tree_view">
+        <field
+            name="name"
+        >mis.cash_flow.forecast_line.tree (in mis_builder_cash_flow_forecast_integration)</field>
+        <field name="model">mis.cash_flow.forecast_line</field>
+        <field
+            name="inherit_id"
+            ref="mis_builder_cash_flow.mis_cash_flow_forecast_line_view_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="balance" position="after">
+                <field name="res_model_id" invisible="1" />
+                <field name="res_model" invisible="1" />
+                <field name="res_id" invisible="1" />
+                <button
+                    string="Document"
+                    class="oe_stat_button float-right"
+                    icon="fa-bars"
+                    type="object"
+                    name="action_open_document_related"
+                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                />
+                <field name="parent_res_model_id" />
+                <field name="parent_res_model" invisible="1" />
+                <field name="parent_res_id" />
+                <button
+                    string="Parent Document"
+                    class="oe_stat_button float-right"
+                    icon="fa-bars"
+                    type="object"
+                    name="action_open_parent_document_related"
+                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_mis_cash_flow_forecast_line_pivot" model="ir.ui.view">
+        <field
+            name="name"
+        >mis.cash_flow.forecast_line.pivot (in mis_builder_cash_flow_forecast_integration)</field>
+        <field name="model">mis.cash_flow.forecast_line</field>
+        <field name="type">pivot</field>
+        <field name="arch" type="xml">
+            <pivot string="Forecast">
+                <field name="account_id" type="row" />
+                <field name="partner_id" type="row" />
+                <field name="date" type="col" interval="month" />
+                <field name="balance" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_mis_cash_flow_forecast_line_graph" model="ir.ui.view">
+        <field
+            name="name"
+        >mis.cash_flow.forecast_line.graph (in mis_builder_cash_flow_forecast_integration)</field>
+        <field name="model">mis.cash_flow.forecast_line</field>
+        <field name="arch" type="xml">
+            <graph string="Forecast" stacked="True" type="bar">
+                <field name="date" type="row" interval="month" />
+                <field name="account_id" type="row" />
+                <field name="balance" type="measure" />
+            </graph>
+        </field>
+    </record>
+
+    <record
+        id="mis_builder_cash_flow.action_mis_cash_flow_forecast_line"
+        model="ir.actions.act_window"
+    >
+        <field name="view_mode">tree,graph,pivot,form</field>
+    </record>
+
+</odoo>
