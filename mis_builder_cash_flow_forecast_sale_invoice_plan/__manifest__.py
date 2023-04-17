@@ -8,6 +8,7 @@
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
     "author": "Escodoo",
+    "development_status": "Alpha",
     "website": "https://github.com/Escodoo/account-addons",
     "depends": [
         "mis_builder_cash_flow_forecast_sale",
