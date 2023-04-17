@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="account_move_line_cash_basis_report_rule" model="ir.rule">
+        <field name="name">Entry lines Cash Basis</field>
+        <field name="model_id" ref="model_account_move_line_cash_basis_report" />
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record
+        model="ir.model.access"
+        id="account_move_line_cash_basis_report_access_group_account_invoice"
+    >
+        <field
+            name="name"
+        >account.move.line.cash.basis.report access group_account_invoice</field>
+        <field name="model_id" ref="model_account_move_line_cash_basis_report" />
+        <field name="group_id" ref="account.group_account_invoice" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+
+    <record
+        model="ir.model.access"
+        id="account_move_line_cash_basis_report_access_group_account_readonly"
+    >
+        <field
+            name="name"
+        >account.move.line.cash.basis.report access group_account_readonly</field>
+        <field name="model_id" ref="model_account_move_line_cash_basis_report" />
+        <field name="group_id" ref="account.group_account_user" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+
+
+    <record
+        model="ir.model.access"
+        id="account_move_line_cash_basis_report_access_group_account_manager"
+    >
+        <field
+            name="name"
+        >account.move.line.cash.basis.report access group_account_manager</field>
+        <field name="model_id" ref="model_account_move_line_cash_basis_report" />
+        <field name="group_id" ref="account.group_account_manager" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+
+</odoo>
