@@ -1,0 +1,116 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mis_builder_cash_flow_forecast_contract
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_contract.res_config_settings_form_view
+msgid "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_contract.contract_contract_form_view
+msgid "<span class=\"o_stat_text\">Cash Flow Forecast\n"
+"                        </span>"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: code:addons/mis_builder_cash_flow_forecast_contract/models/contract_contract.py:50
+#, python-format
+msgid "Cash Flow Forecast - Contract"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.model,name:mis_builder_cash_flow_forecast_contract.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.model,name:mis_builder_cash_flow_forecast_contract.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.model,name:mis_builder_cash_flow_forecast_contract.model_contract_contract
+msgid "Contract"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.model,name:mis_builder_cash_flow_forecast_contract.model_contract_line
+msgid "Contract Line"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_contract.field_res_company__contract_mis_cash_flow_forecast_rule_type
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_contract.field_res_config_settings__contract_mis_cash_flow_forecast_rule_type
+msgid "Contract Mis Cash Flow Forecast Rule Type"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_contract.field_res_config_settings__enable_contract_mis_cash_flow_forecast
+msgid "Enable MIS Builder Cash Flow Forecast - Contract"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_contract.res_config_settings_form_view
+msgid "Enable MIS Builder Cash Flow get Contract Forecast"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_contract.field_res_company__enable_contract_mis_cash_flow_forecast
+msgid "Enable contract on MIS Cash Flow forecast"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_contract.res_config_settings_form_view
+msgid "Forecast Interval"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_contract.field_contract_line__mis_cash_flow_forecast_line_ids
+msgid "Forecast Line"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_contract.field_contract_line__mis_cash_flow_forecast_line_count
+msgid "Forecast Line Count"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.actions.server,name:mis_builder_cash_flow_forecast_contract.mis_builder_cash_flow_cron_generate_forecast_contract_lines_ir_actions_server
+#: model:ir.cron,cron_name:mis_builder_cash_flow_forecast_contract.mis_builder_cash_flow_cron_generate_forecast_contract_lines
+#: model:ir.cron,name:mis_builder_cash_flow_forecast_contract.mis_builder_cash_flow_cron_generate_forecast_contract_lines
+msgid "MIS Builder Cash Flow - Generate Forecast - Contract Lines"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_contract.contract_contract_form_view
+msgid "MIS Builder Cash Flow Forecast"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: selection:res.company,contract_mis_cash_flow_forecast_rule_type:0
+msgid "Month(s)"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_contract.field_res_company__contract_mis_cash_flow_forecast_interval
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_contract.field_res_config_settings__contract_mis_cash_flow_forecast_interval
+msgid "Number of contract forecast Periods"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_contract
+#: selection:res.company,contract_mis_cash_flow_forecast_rule_type:0
+msgid "Year(s)"
+msgstr ""
+
