@@ -1,0 +1,67 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mis_builder_cash_flow_forecast_integration
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mis_builder_cash_flow_forecast_integration
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_integration.mis_cash_flow_forecast_line_form_view
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_integration.mis_cash_flow_forecast_line_tree_view
+msgid "Document"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_integration
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_integration.field_mis_cash_flow_forecast_line__res_model_id
+msgid "Document Model"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_integration
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_integration.field_mis_cash_flow_forecast_line__res_model
+msgid "Document Model Name"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_integration
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_integration.view_mis_cash_flow_forecast_line_graph
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_integration.view_mis_cash_flow_forecast_line_pivot
+msgid "Forecast"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_integration
+#: model:ir.model,name:mis_builder_cash_flow_forecast_integration.model_mis_cash_flow_forecast_line
+msgid "MIS Cash Flow Forecast Line"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_integration
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_integration.mis_cash_flow_forecast_line_form_view
+#: model_terms:ir.ui.view,arch_db:mis_builder_cash_flow_forecast_integration.mis_cash_flow_forecast_line_tree_view
+msgid "Parent Document"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_integration
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_integration.field_mis_cash_flow_forecast_line__parent_res_model_id
+msgid "Parent Document Model"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_integration
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_integration.field_mis_cash_flow_forecast_line__parent_res_model
+msgid "Parent Document Model Name"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_integration
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_integration.field_mis_cash_flow_forecast_line__parent_res_id
+msgid "Parent Resource ID"
+msgstr ""
+
+#. module: mis_builder_cash_flow_forecast_integration
+#: model:ir.model.fields,field_description:mis_builder_cash_flow_forecast_integration.field_mis_cash_flow_forecast_line__res_id
+msgid "Resource ID"
+msgstr ""
