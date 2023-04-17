@@ -1,0 +1,296 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_move_line_cash_basis_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_kanban_view
+msgid "<i class=\"fa fa-clock-o\" aria-label=\"Date\" role=\"img\" title=\"Date\"/>"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__account_id
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Account"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__account_group_id
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Account Group"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__account_internal_group
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Account Internal Group"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__account_internal_type
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Account Internal Type"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.actions.act_window,name:account_move_line_cash_basis_report.account_move_line_cash_basis_report_act_window
+#: model:ir.model,name:account_move_line_cash_basis_report.model_account_move_line_cash_basis_report
+#: model:ir.ui.menu,name:account_move_line_cash_basis_report.account_move_line_cash_basis_report_menu
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_pivot_view
+msgid "Account Move Line Cash Basis Report"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Account Type"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_form_view
+msgid "Accounting Documents"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_form_view
+msgid "Amount"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__amount_currency
+msgid "Amount Currency"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__amount_residual
+msgid "Amount Residual"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_form_view
+msgid "Analytic"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__analytic_account_id
+msgid "Analytic Account"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__analytic_line_ids
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_form_view
+msgid "Analytic Lines"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__analytic_tag_ids
+msgid "Analytic Tag"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__balance
+msgid "Balance"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Bank"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Cash"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__company_id
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Company"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__credit
+msgid "Credit"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__currency_id
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_form_view
+msgid "Currency"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__date
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Date"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_form_view
+msgid "Dates"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__debit
+msgid "Debit"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__exclude_from_invoice_tab
+msgid "Exclude From Invoice Tab"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Group By"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__id
+msgid "ID"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_form_view
+msgid "Information"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__journal_id
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Journal"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__move_id
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_form_view
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Journal items where matching number isn't set"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__full_reconcile_id
+msgid "Matching Number"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Miscellaneous"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__name
+msgid "Name"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__parent_state
+msgid "Parent State"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__partner_id
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Partner"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Posted"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Posted Journal Items"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__product_id
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_form_view
+msgid "Product"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Purchases"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__quantity
+msgid "Quantity"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__reconciled
+msgid "Reconciled"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__ref
+msgid "Ref"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Sales"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__state
+msgid "State"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__statement_id
+msgid "Statement"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Unposted"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Unposted Journal Items"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model_terms:ir.ui.view,arch_db:account_move_line_cash_basis_report.account_move_line_cash_basis_report_search_view
+msgid "Unreconciled"
+msgstr ""
+
+#. module: account_move_line_cash_basis_report
+#: model:ir.model.fields,field_description:account_move_line_cash_basis_report.field_account_move_line_cash_basis_report__user_type_id
+msgid "User Type"
+msgstr ""
+
