@@ -17,7 +17,15 @@ Escodoo add-ons used to extend or customize Odoo Account app functions
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[account_move_change_financial_account](account_move_change_financial_account/) | 15.0.1.0.0 |  | Account Move Change Financial Account
+[account_move_line_cash_basis_report](account_move_line_cash_basis_report/) | 15.0.1.0.0 |  | Account Move Line Cash Basis Report
+[mis_builder_cash_flow_by_month](mis_builder_cash_flow_by_month/) | 15.0.1.0.0 |  | Mis Builder Cash Flow by Month
+[mis_builder_cash_flow_forecast_integration](mis_builder_cash_flow_forecast_integration/) | 15.0.1.0.0 |  | MIS Builder Cash Flow Forecast Integration
+[sync_multi_company_bank_account](sync_multi_company_bank_account/) | 15.0.1.0.0 |  | Sync Multi Company Bank Accounts
 
 [//]: # (end addons)
 
