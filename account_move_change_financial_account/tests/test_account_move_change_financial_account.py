@@ -21,20 +21,20 @@ class TestAccountAccountFinancialRules(AccountTestInvoicingCommon):
             }
         )
         cls.receivable_account = cls.env["account.account"].search(
-            [("internal_type", "=", "receivable")], limit=1
+            [("account_type", "=", "asset_receivable")], limit=1
         )
         cls.revenue_account = cls.env["account.account"].create(
             {
                 "name": "Test Revenue Account",
                 "code": "TRA",
-                "user_type_id": cls.env.ref("account.data_account_type_revenue").id,
+                "account_type": "expense_direct_cost",
             }
         )
         cls.new_receivable_account = cls.env["account.account"].create(
             {
                 "name": "New Receivable Account",
                 "code": "NEWRCV",
-                "user_type_id": cls.env.ref("account.data_account_type_receivable").id,
+                "account_type": "asset_receivable",
                 "reconcile": True,
             }
         )
