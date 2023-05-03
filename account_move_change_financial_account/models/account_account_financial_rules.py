@@ -7,6 +7,7 @@ from odoo import fields, models
 class AccountAccountFinancialRules(models.Model):
 
     _name = "account.account.financial.rules"
+    _inherit = ["mail.thread"]
     _description = "Account Account Financial Rules"
 
     name = fields.Char(required=True)
@@ -20,8 +21,9 @@ class AccountAccountFinancialRules(models.Model):
         company_dependent=True,
         string="Account Receivable/Payable",
         domain="["
-        "'|', ('internal_type', '=', 'receivable'), ('internal_type', '=', 'payable'),"
-        "('deprecated', '=', False), "
+        "'|', ('account_type', '=', 'asset_receivable'),"
+        "('account_type', '=', 'liability_payable'),"
+        "('deprecated', '=', False),"
         "('company_id', '=', current_company_id)"
         "]",
         help="This account will be used instead of the default one as the receivable "
