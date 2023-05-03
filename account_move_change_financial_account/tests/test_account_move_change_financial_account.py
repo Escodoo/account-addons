@@ -147,7 +147,8 @@ class TestAccountAccountFinancialRules(AccountTestInvoicingCommon):
             }
         )
 
-        # Check if the original receivable account is still used when there's no matching rule
+        # Check if the original receivable account is still
+        # used when there's no matching rule
         receivable_line = move.line_ids.filtered(
             lambda line: line.account_id == self.receivable_account
         )
@@ -160,7 +161,8 @@ class TestAccountAccountFinancialRules(AccountTestInvoicingCommon):
         self.assertFalse(new_receivable_line)
 
     def test_no_matching_financial_lines(self):
-        # Test that the code doesn't enter the for loop when there are no financial lines
+        # Test that the code doesn't enter the for
+        # loop when there are no financial lines
 
         move = self.account_move.create(
             {
@@ -192,7 +194,8 @@ class TestAccountAccountFinancialRules(AccountTestInvoicingCommon):
             }
         )
 
-        # Check if the new_receivable_account is not used when there are no financial lines
+        # Check if the new_receivable_account
+        # is not used when there are no financial lines
         new_receivable_line = move.line_ids.filtered(
             lambda line: line.account_id == self.new_receivable_account
         )

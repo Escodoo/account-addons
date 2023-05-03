@@ -7,7 +7,6 @@ from odoo import api, models
 
 
 class AccountMoveLine(models.Model):
-
     _inherit = "account.move.line"
 
     @api.model_create_multi
@@ -18,7 +17,8 @@ class AccountMoveLine(models.Model):
 
     def _get_financial_lines(self, lines):
         return lines.filtered(
-            lambda line: line.account_id.user_type_id.type in ("receivable", "payable")
+            lambda line: line.account_id.account_type
+            in ("asset_receivable", "liability_payable")
         )
 
     def _apply_financial_rules(self, lines):
