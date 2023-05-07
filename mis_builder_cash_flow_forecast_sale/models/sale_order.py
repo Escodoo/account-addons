@@ -10,7 +10,6 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     forecast_uninvoiced_amount = fields.Monetary(
-        string="Forecast Uninvoiced Amount",
         readonly=True,
         compute="_compute_forecast_uninvoiced_amount",
         store=True,
