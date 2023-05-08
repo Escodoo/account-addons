@@ -35,13 +35,6 @@ class AccountMoveLineCashBasisReport(models.Model):
         index=True,
         readonly=True,
     )
-    analytic_account_id = fields.Many2one(
-        comodel_name="account.analytic.account",
-        string="Analytic Account",
-        auto_join=True,
-        index=True,
-        readonly=True,
-    )
     product_id = fields.Many2one(
         comodel_name="product.product",
         string="Product",
@@ -112,13 +105,6 @@ class AccountMoveLineCashBasisReport(models.Model):
         readonly=True,
         index=True,
     )
-    user_type_id = fields.Many2one(
-        comodel_name="account.account.type",
-        string="User Type",
-        auto_join=True,
-        readonly=True,
-        index=True,
-    )
     account_internal_type = fields.Selection(
         selection="_selection_account_internal_type", readonly=True
     )
@@ -132,20 +118,13 @@ class AccountMoveLineCashBasisReport(models.Model):
     parent_state = fields.Selection(
         selection="_selection_parent_state",
     )
-    exclude_from_invoice_tab = fields.Boolean(readonly=True)
     analytic_line_ids = fields.One2many(
-        "account.analytic.line",
-        "move_id",
+        comodel_name="account.analytic.line",
+        inverse_name="move_line_id",
         string="Analytic Lines",
         auto_join=True,
         readonly=True,
         index=True,
-    )
-    analytic_tag_ids = fields.Many2many(
-        comodel_name="account.analytic.tag",
-        relation="account_analytic_tag_account_move_line_rel",
-        column1="account_move_line_id",
-        column2="account_analytic_tag_id",
     )
 
     def _selection_parent_state(self):
@@ -154,14 +133,14 @@ class AccountMoveLineCashBasisReport(models.Model):
         ]
 
     def _selection_account_internal_type(self):
-        return self.env["account.account.type"].fields_get(allfields=["type"])["type"][
-            "selection"
-        ]
+        return self.env["account.account"].fields_get(allfields=["account_type"])[
+            "account_type"
+        ]["selection"]
 
     def _selection_account_internal_group(self):
-        return self.env["account.account.type"].fields_get(
-            allfields=["internal_group"]
-        )["internal_group"]["selection"]
+        return self.env["account.account"].fields_get(allfields=["internal_group"])[
+            "internal_group"
+        ]["selection"]
 
     @property
     def _table_query(self):
@@ -181,7 +160,6 @@ class AccountMoveLineCashBasisReport(models.Model):
                  "account_move_line".account_id as account_id,
                  "account_move_line".product_id as product_id,
                  "account_move_line".quantity as quantity,
-                 "account_move_line".analytic_account_id as analytic_account_id,
                  "account_move_line".date as date,
                  "account_move_line".amount_currency as amount_currency,
                  "account_move_line".amount_residual as amount_residual,
@@ -192,16 +170,12 @@ class AccountMoveLineCashBasisReport(models.Model):
                  "account_move_line".full_reconcile_id as full_reconcile_id,
                  "account_move_line".statement_id as statement_id,
                  "account_move_line".account_root_id as account_root_id,
-                 "account".user_type_id as user_type_id,
                  "account".group_id as account_group_id,
-                 "account_type".type as account_internal_type,
-                 "account_type".internal_group as account_internal_group,
-                 "account_move_line".exclude_from_invoice_tab
+                 "account".account_type as account_internal_type,
+                 "account".internal_group as account_internal_group
              FROM ONLY account_move_line
              JOIN ONLY account_account account ON
                 "account_move_line".account_id = account.id
-             JOIN ONLY account_account_type account_type ON
-                "account".user_type_id = account_type.id
              WHERE (
                  "account_move_line".journal_id IN (
                     SELECT id FROM account_journal WHERE type in ('cash', 'bank')
@@ -210,7 +184,7 @@ class AccountMoveLineCashBasisReport(models.Model):
                      SELECT DISTINCT aml.move_id
                      FROM ONLY account_move_line aml
                      JOIN account_account account ON aml.account_id = account.id
-                     WHERE account.internal_type IN ('receivable', 'payable')
+                     WHERE account.account_type IN ('asset_receivable', 'liability_payable')
                  )
              )),
                  payment_table AS (
@@ -235,7 +209,7 @@ class AccountMoveLineCashBasisReport(models.Model):
                     aml.account_id = sub_aml.account_id AND aml.move_id=sub_aml.move_id
                  )
                  JOIN account_account account ON aml.account_id = account.id
-                 WHERE account.internal_type IN ('receivable', 'payable')
+                 WHERE account.account_type IN ('asset_receivable', 'liability_payable')
              )
                   SELECT * FROM moves
                   UNION ALL
@@ -253,7 +227,6 @@ class AccountMoveLineCashBasisReport(models.Model):
                  "account_move_line".account_id as account_id,
                  "account_move_line".product_id as product_id,
                  "account_move_line".quantity as quantity,
-                 "account_move_line".analytic_account_id as analytic_account_id,
                  ref.date as date,
                  ref.matched_percentage * "account_move_line".amount_currency as
                     amount_currency,
@@ -266,18 +239,14 @@ class AccountMoveLineCashBasisReport(models.Model):
                  "account_move_line".full_reconcile_id as full_reconcile_id,
                  "account_move_line".statement_id as statement_id,
                  "account_move_line".account_root_id as account_root_id,
-                 "account".user_type_id as user_type_id,
                  "account".group_id as account_group_id,
-                 "account_type".type as account_internal_type,
-                 "account_type".internal_group as account_internal_group,
-                 "account_move_line".exclude_from_invoice_tab
+                 "account".account_type as account_internal_type,
+                 "account".internal_group as account_internal_group
              FROM payment_table ref
              JOIN ONLY account_move_line ON
                 "account_move_line".move_id = ref.move_id
              JOIN ONLY account_account account ON
                 "account_move_line".account_id = account.id
-             JOIN ONLY account_account_type account_type ON
-                "account".user_type_id = account_type.id
              WHERE NOT (
                  "account_move_line".journal_id IN (
                  SELECT id FROM account_journal WHERE type in ('cash', 'bank'))
@@ -285,7 +254,7 @@ class AccountMoveLineCashBasisReport(models.Model):
                      SELECT DISTINCT aml.move_id
                      FROM ONLY account_move_line aml
                      JOIN account_account account ON aml.account_id = account.id
-                     WHERE account.internal_type IN ('receivable', 'payable')
+                     WHERE account.account_type IN ('asset_receivable', 'liability_payable')
                  )
              )
          """
