@@ -5,7 +5,7 @@
     "name": "Mis Builder Cash Flow Forecast Sale Invoice Plan",
     "summary": """
         MIS_Builder Cash Flow Forecast Sale Invoice Plan""",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "development_status": "Alpha",
     "license": "AGPL-3",
     "author": "Escodoo",
