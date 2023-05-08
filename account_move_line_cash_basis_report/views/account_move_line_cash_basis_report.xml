@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="account_move_line_cash_basis_report_form_view">
+        <field
+            name="name"
+        >account.move.line.cash.basis.report.form (in account_move_line_cash_basis_report)</field>
+        <field name="model">account.move.line.cash.basis.report</field>
+        <field name="arch" type="xml">
+            <form string="Journal Item" create="false">
+                <sheet>
+                    <field name="company_id" invisible="1" />
+                    <field name="parent_state" invisible="1" />
+                    <group>
+                        <field name="name" />
+                        <field
+                            name="partner_id"
+                            domain="['|', ('parent_id', '=', False), ('is_company', '=', True)]"
+                            readonly="1"
+                        />
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Information" name="information">
+                            <group>
+                                <group string="Amount">
+                                    <field
+                                        name="account_id"
+                                        options="{'no_create': True}"
+                                        domain="[('company_id', '=', company_id)]"
+                                        readonly="1"
+                                    />
+                                    <field name="debit" readonly="1" />
+                                    <field name="credit" readonly="1" />
+                                    <field name="quantity" readonly="1" />
+                                </group>
+                                <group string="Accounting Documents">
+                                    <field name="move_id" readonly="1" />
+                                    <field
+                                        name="statement_id"
+                                        readonly="True"
+                                        attrs="{'invisible': [('statement_id','=',False)]}"
+                                    />
+                                </group>
+                                <group string="Dates">
+                                    <field
+                                        name="date"
+                                        groups="account.group_account_readonly"
+                                    />
+<!--                                    <field name="date_maturity"/>-->
+                                </group>
+                                <group
+                                    string="Currency"
+                                    groups="base.group_multi_currency"
+                                >
+                                    <field name="currency_id" invisible="1" />
+                                    <field name="amount_currency" />
+                                </group>
+                                <group
+                                    string="Product"
+                                    attrs="{'invisible': [('product_id', '=', False)]}"
+                                >
+                                    <field name="product_id" readonly="1" />
+                                </group>
+                            </group>
+                        </page>
+                        <page
+                            string="Analytic Lines"
+                            name="analytic_lines"
+                            groups="analytic.group_analytic_accounting"
+                        >
+                            <field name="date" invisible="1" />
+                            <field
+                                name="analytic_line_ids"
+                                context="{'tree_view_ref':'analytic.view_account_analytic_line_tree', 'default_general_account_id':account_id, 'default_name': name, 'default_date':date, 'amount': (debit or 0.0)-(credit or 0.0)}"
+                            />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_move_line_cash_basis_report_search_view">
+        <field
+            name="name"
+        >account.move.line.cash.basis.report.search (in account_move_line_cash_basis_report)</field>
+        <field name="model">account.move.line.cash.basis.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field
+                    name="name"
+                    string="Journal Item"
+                    filter_domain="[
+                    '|', '|', '|',
+                    ('name', 'ilike', self), ('ref', 'ilike', self), ('account_id', 'ilike', self), ('partner_id', 'ilike', self)]"
+                />
+                <field name="date" />
+                <field name="account_id" />
+                <field name="account_root_id" />
+                <field name="account_internal_type" />
+                <field name="partner_id" />
+                <field name="journal_id" />
+                <field
+                    name="move_id"
+                    string="Journal Entry"
+                    filter_domain="[
+                    '|', '|', ('move_id.name', 'ilike', self), ('move_id.ref', 'ilike', self), ('move_id.partner_id', 'ilike', self)]"
+                />
+                <separator />
+                <filter
+                    string="Unposted"
+                    name="unposted"
+                    domain="[('state', '=', 'draft')]"
+                    help="Unposted Journal Items"
+                />
+                <filter
+                    string="Posted"
+                    name="posted"
+                    domain="[('state', '=', 'posted')]"
+                    help="Posted Journal Items"
+                />
+                <separator />
+                <filter
+                    string="Unreconciled"
+                    domain="[('full_reconcile_id', '=', False), ('balance', '!=', 0), ('account_id.reconcile', '=', True)]"
+                    help="Journal items where matching number isn't set"
+                    name="unreconciled"
+                />
+                <separator />
+                <filter
+                    string="Sales"
+                    name="sales"
+                    domain="[('journal_id.type', '=', 'sale')]"
+                    context="{'default_journal_type': 'sale'}"
+                />
+                <filter
+                    string="Purchases"
+                    name="purchases"
+                    domain="[('journal_id.type', '=', 'purchase')]"
+                    context="{'default_journal_type': 'purchase'}"
+                />
+                <filter
+                    string="Bank"
+                    name="bank"
+                    domain="[('journal_id.type', '=', 'bank')]"
+                    context="{'default_journal_type': 'bank'}"
+                />
+                <filter
+                    string="Cash"
+                    name="cash"
+                    domain="[('journal_id.type', '=', 'cash')]"
+                    context="{'default_journal_type': 'cash'}"
+                />
+                <filter
+                    string="Miscellaneous"
+                    domain="[('journal_id.type', '=', 'general')]"
+                    name="misc_filter"
+                    context="{'default_journal_type': 'general'}"
+                />
+                <separator />
+                <filter string="Date" name="date" date="date" />
+                <separator />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Account"
+                        name="group_by_account"
+                        domain="[]"
+                        context="{'group_by': 'account_id'}"
+                    />
+                    <filter
+                        string="Account Group"
+                        name="group_by_account_group"
+                        domain="[]"
+                        context="{'group_by': 'account_group_id'}"
+                    />
+                    <separator />
+                    <filter
+                        string="Account Internal Type"
+                        name="group_by_account_internal_type"
+                        domain="[]"
+                        context="{'group_by': 'account_internal_type'}"
+                    />
+                    <filter
+                        string="Account Internal Group"
+                        name="group_by_account_internal_group"
+                        domain="[]"
+                        context="{'group_by': 'account_internal_group'}"
+                    />
+                    <separator />
+                    <filter
+                        string="Partner"
+                        name="group_by_partner"
+                        domain="[]"
+                        context="{'group_by': 'partner_id'}"
+                    />
+                    <filter
+                        string="Company"
+                        name="group_by_company"
+                        domain="[]"
+                        context="{'group_by': 'company_id'}"
+                    />
+                    <filter
+                        string="Journal"
+                        name="group_by_journal"
+                        domain="[]"
+                        context="{'group_by': 'journal_id'}"
+                    />
+                    <filter
+                        string="Journal Entry"
+                        name="group_by_move"
+                        domain="[]"
+                        context="{'group_by': 'move_id'}"
+                    />
+                    <filter
+                        string="Date"
+                        name="groupby_date"
+                        domain="[]"
+                        context="{'group_by': 'date'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_move_line_cash_basis_report_tree_view">
+        <field
+            name="name"
+        >account.move.line.cash.basis.report.tree (in account_move_line_cash_basis_report)</field>
+        <field name="model">account.move.line.cash.basis.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date" />
+                <field name="journal_id" optional="show" />
+                <field name="name" optional="show" />
+                <field name="ref" optional="hidden" />
+                <field name="account_id" optional="show" />
+                <field name="partner_id" optional="show" />
+                <field name="debit" optional="show" />
+                <field name="credit" optional="show" />
+                <field name="balance" optional="hidden" />
+                <field name="account_internal_type" optional="hidden" />
+                <field name="account_internal_group" optional="hidden" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_move_line_cash_basis_report_pivot_view">
+        <field
+            name="name"
+        >account.move.line.cash.basis.report.pivot (in account_move_line_cash_basis_report)</field>
+        <field name="model">account.move.line.cash.basis.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Account Move Line Cash Basis Report" sample="1">
+                <field name="account_id" type="row" />
+                <field name="date" interval="month" type="col" />
+                <field name="balance" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_move_line_cash_basis_report_kanban_view">
+        <field
+            name="name"
+        >account.move.line.cash.basis.report.kanban (in account_move_line_cash_basis_report)</field>
+        <field name="model">account.move.line.cash.basis.report</field>
+        <field name="arch" type="xml">
+             <kanban class="o_kanban_mobile" create="false" group_create="false">
+                <field name="date" />
+                <field name="move_id" />
+                <field name="name" />
+                <field name="partner_id" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="row mb4">
+                                <strong class="col-6">
+                                    <span t-esc="record.move_id.value" />
+                                </strong>
+                                <strong class="col-6 text-right">
+                                    <i
+                                        class="fa fa-clock-o"
+                                        aria-label="Date"
+                                        role="img"
+                                        title="Date"
+                                    /><field name="date" />
+                                </strong>
+                                <div class="col-10">
+                                    <span t-esc="record.name.value" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record
+        model="ir.actions.act_window"
+        id="account_move_line_cash_basis_report_act_window"
+    >
+        <field name="name">Account Move Line Cash Basis Report</field>
+        <field name="res_model">account.move.line.cash.basis.report</field>
+        <field name="view_mode">tree,pivot,graph,kanban,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.ui.menu" id="account_move_line_cash_basis_report_menu">
+        <field name="name">Account Move Line Cash Basis Report</field>
+        <field name="parent_id" ref="account.account_reports_legal_statements_menu" />
+        <field name="action" ref="account_move_line_cash_basis_report_act_window" />
+        <field name="sequence" eval="16" />
+    </record>
+
+</odoo>
