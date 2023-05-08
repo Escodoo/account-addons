@@ -63,22 +63,6 @@
                                 >
                                     <field name="product_id" readonly="1" />
                                 </group>
-                                <group
-                                    string="Analytic"
-                                    groups="analytic.group_analytic_accounting,analytic.group_analytic_tags"
-                                >
-                                    <field
-                                        name="analytic_account_id"
-                                        groups="analytic.group_analytic_accounting"
-                                        domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"
-                                        readonly="1"
-                                    />
-                                    <field
-                                        name="analytic_tag_ids"
-                                        groups="analytic.group_analytic_tags"
-                                        widget="many2many_tags"
-                                    />
-                                </group>
                             </group>
                         </page>
                         <page
@@ -193,12 +177,6 @@
                     />
                     <separator />
                     <filter
-                        string="Account Type"
-                        name="group_by_account_type"
-                        domain="[]"
-                        context="{'group_by': 'user_type_id'}"
-                    />
-                    <filter
                         string="Account Internal Type"
                         name="group_by_account_internal_type"
                         domain="[]"
@@ -259,11 +237,9 @@
                 <field name="ref" optional="hidden" />
                 <field name="account_id" optional="show" />
                 <field name="partner_id" optional="show" />
-                <field name="analytic_account_id" optional="hidden" />
                 <field name="debit" optional="show" />
                 <field name="credit" optional="show" />
                 <field name="balance" optional="hidden" />
-                <field name="user_type_id" optional="hidden" />
                 <field name="account_internal_type" optional="hidden" />
                 <field name="account_internal_group" optional="hidden" />
             </tree>
@@ -277,7 +253,6 @@
         <field name="model">account.move.line.cash.basis.report</field>
         <field name="arch" type="xml">
             <pivot string="Account Move Line Cash Basis Report" sample="1">
-                <field name="user_type_id" type="row" />
                 <field name="account_id" type="row" />
                 <field name="date" interval="month" type="col" />
                 <field name="balance" type="measure" />

@@ -5,7 +5,7 @@
     "name": "Account Move Line Cash Basis Report",
     "summary": """
         Account Move Line Cash Basis Report""",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "Escodoo",
     "website": "https://github.com/Escodoo/account-addons",
