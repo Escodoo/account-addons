@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="contract_contract_form_view" model="ir.ui.view">
+        <field
+            name="name"
+        >contract.contract form view (in mis_builder_cash_flow_forecast_contract)</field>
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    class="oe_stat_button"
+                    type="object"
+                    icon="fa-area-chart"
+                    name="action_show_mis_forecast"
+                    help="MIS Builder Cash Flow Forecast"
+                >
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Cash Flow Forecast
+                        </span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
