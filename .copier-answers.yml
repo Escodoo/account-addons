@@ -15,10 +15,10 @@ odoo_version: 12.0
 org_name: Escodoo
 org_slug: Escodoo
 rebel_module_groups: []
-repo_description: Escodoo add-ons used to extend or customize Odoo Account app functions.
+repo_description:
+  Escodoo add-ons used to extend or customize Odoo Account app functions.
 repo_name: Escodoo Account Addons
 repo_slug: account-addons
 repo_website: https://github.com/Escodoo/account-addons
 travis_apt_packages: []
 travis_apt_sources: []
-

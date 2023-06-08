@@ -176,6 +176,31 @@
                 />
                 <separator />
                 <filter string="Date" name="date" date="date" />
+
+                <separator />
+                <group expand="3" string="Account Type">
+                <filter
+                        string="Regular"
+                        name="account_internal_type"
+                        domain="[('user_type_id.type', '=', ('other', 'Regular'))]"
+                    />
+                <filter
+                        string="Receivable "
+                        name="account_internal_type"
+                        domain="[('user_type_id.type', '=', ('receivable', 'Receivable'))]"
+                    />
+                <filter
+                        string="Payable "
+                        name="account_internal_type"
+                        domain="[('user_type_id.type', '=', ('payable', 'Payable'))]"
+                    />
+                <filter
+                        string="Liquidity "
+                        name="account_internal_type"
+                        domain="[('user_type_id.type', '=', ('liquidity', 'Liquidity'))]"
+                    />
+                </group>
+
                 <separator />
                 <group expand="0" string="Group By">
                     <filter
@@ -243,6 +268,23 @@
                 </group>
             </search>
         </field>
+
+    </record>
+        <record model="ir.ui.view" id="account_move_line_cash_basis_report_pivot_view">
+        <field
+            name="name"
+        >account.move.line.cash.basis.report.pivot (in account_move_line_cash_basis_report)</field>
+        <field name="model">account.move.line.cash.basis.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Account Move Line Cash Basis Report">
+
+                <field name="account_id" type="row" />
+                <field name="date" interval="month" type="col" />
+                <field name="balance" type="measure" />
+                <field name="account_internal_type" type="row" />
+
+            </pivot>
+        </field>
     </record>
 
     <record model="ir.ui.view" id="account_move_line_cash_basis_report_tree_view">
@@ -269,20 +311,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="account_move_line_cash_basis_report_pivot_view">
-        <field
-            name="name"
-        >account.move.line.cash.basis.report.pivot (in account_move_line_cash_basis_report)</field>
-        <field name="model">account.move.line.cash.basis.report</field>
-        <field name="arch" type="xml">
-            <pivot string="Account Move Line Cash Basis Report">
-                <field name="user_type_id" type="row" />
-                <field name="account_id" type="row" />
-                <field name="date" interval="month" type="col" />
-                <field name="balance" type="measure" />
-            </pivot>
-        </field>
-    </record>
+
 
     <record model="ir.ui.view" id="account_move_line_cash_basis_report_kanban_view">
         <field
@@ -327,7 +356,7 @@
     >
         <field name="name">Account Move Line Cash Basis Report</field>
         <field name="res_model">account.move.line.cash.basis.report</field>
-        <field name="view_mode">tree,pivot,graph,kanban,form</field>
+        <field name="view_mode">pivot,tree,graph,kanban,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>
