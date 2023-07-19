@@ -10,11 +10,11 @@ class AccountMoveLine(models.Model):
 
     _inherit = "account.move.line"
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        lines_super = super().create(vals_list)
-        self._apply_financial_rules(lines_super)
-        return lines_super
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     lines_super = super().create(vals_list)
+    #     self._apply_financial_rules(lines_super)
+    #     return lines_super
 
     def _get_financial_lines(self, lines):
         return lines.filtered(
