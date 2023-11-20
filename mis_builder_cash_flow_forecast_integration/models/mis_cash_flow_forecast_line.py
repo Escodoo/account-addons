@@ -25,11 +25,30 @@ class MisCashFlowForecastLine(models.Model):
     )
 
     def action_open_document_related(self):
+        """
+        Open the related document associated with the record.
+
+        Returns:
+            action (dict): The action to open the related document.
+                If the record has a valid res_model and res_id, it returns the form
+                view action of the related document.
+                Otherwise, it returns False.
+        """
         if self.res_model and self.res_id:
             return self.env[self.res_model].browse(self.res_id).get_formview_action()
         return False
 
     def action_open_parent_document_related(self):
+        """
+        Open the parent document related to the current record.
+
+        If the parent_res_model and parent_res_id are set, it retrieves the parent record
+        and returns the action to open its form view. Otherwise, it returns False.
+
+        :return: The action to open the parent record's form view or False if no parent
+        record is found.
+        :rtype: dict or bool
+        """
         if self.parent_res_model and self.parent_res_id:
             return (
                 self.env[self.parent_res_model]
