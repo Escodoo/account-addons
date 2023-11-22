@@ -1,0 +1,1 @@
+GitHub Copilot: The "account_move_visible_date_maturity" module is an Odoo module that alters the view of the "account.move" model. It modifies the visibility of the "date_maturity" field in the accounting move form view, making it available for viewing. This allows users to see the maturity date of accounting moves, which by default may not be visible.
