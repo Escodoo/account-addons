@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <data>
+        <record id="action_run_adapt_methods" model="ir.actions.server">
+            <field name="name">Run Adapt Methods</field>
+            <field name="model_id" ref="model_account_group" />
+            <field name="binding_model_id" ref="account.model_account_group" />
+            <field name="state">code</field>
+            <field name="code">
+    if records:
+        records._adapt_accounts_for_account_groups()
+        records._adapt_parent_account_group()
+            </field>
+        </record>
+
+    </data>
+</odoo>
