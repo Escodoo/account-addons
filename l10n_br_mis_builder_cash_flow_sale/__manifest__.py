@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Brazilian Localization Sale and MIS Builder Cash Flow Forecast Sale",
+    "name": "Brazilian Localization MIS Builder Cash Flow Forecast Sale",
     "summary": """Customization of MIS Builder Cash Flow Forecast Sale
         module for implementations in Brazil.""",
     "version": "14.0.1.0.0",
