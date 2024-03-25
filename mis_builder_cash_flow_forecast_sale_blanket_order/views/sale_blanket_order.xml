@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 - TODAY, Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="sale_blanket_order_form_view">
+        <field
+            name="name"
+        >sale.blanket.order.form (in mis_builder_cash_flow_forecast_sale_blanket_order)</field>
+        <field name="model">sale.blanket.order</field>
+        <field name="inherit_id" ref="sale_blanket_order.view_blanket_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="forecast_uninvoiced_amount" invisible="1" />
+                <field name="mis_cash_flow_forecast_line_count" invisible="1" />
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    class="oe_stat_button"
+                    type="object"
+                    icon="fa-area-chart"
+                    name="action_show_mis_forecast"
+                    help="MIS Builder Cash Flow Forecast"
+                    attrs="{'invisible': [('mis_cash_flow_forecast_line_count', '=', 0)]}"
+                >
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Cash Flow Forecast
+                        </span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="sale_blanket_order_tree_view">
+        <field
+            name="name"
+        >sale.blanket.order.tree (in mis_builder_cash_flow_forecast_sale_blanket_order)</field>
+        <field name="model">sale.blanket.order</field>
+        <field name="inherit_id" ref="sale_blanket_order.view_blanket_order_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field
+                    name="forecast_uninvoiced_amount"
+                    sum="Total Forecast Uninvoiced Amount"
+                    widget="monetary"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
