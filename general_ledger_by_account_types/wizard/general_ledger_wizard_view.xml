@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="general_ledger_wizard">
+        <field
+            name="name"
+        >general.ledger.report.wizard (in general_ledger_by_account_types)</field>
+        <field name="model">general.ledger.report.wizard</field>
+        <field name="inherit_id" ref="account_financial_report.general_ledger_wizard" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[1]" position="after">
+                <page string="Filter account types">
+                    <field
+                        name="account_type_ids"
+                        widget="many2many_tags"
+                        options="{'no_create': True}"
+                    />
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
