@@ -1,0 +1,1 @@
+This module contains a modification in the bank statement reconciliation logic, rewriting the function to return accounting move lines formatted for the bank statement reconciliation widget. The order of the fields 'date_maturity' and 'id' is altered to DESC, moving 'date_maturity' to the first position and '{amout}' to the second.
