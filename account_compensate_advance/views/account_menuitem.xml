@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 - TODAY, Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <menuitem
+        id="account_compensate_advance.advance_account_out_invoice_menu"
+        name="Advance"
+        parent="account.menu_finance_receivables"
+    >
+        <menuitem
+            id="account_compensate_advance.menu_action_advance_account_create_out_invoice"
+            name="Create"
+            action="account_compensate_advance.action_advance_create_out_invoice"
+        />
+        <menuitem
+            id="account_compensate_advance.menu_action_advance_account_out_invoice"
+            name="Advances"
+            action="account_compensate_advance.action_advance_out_invoice_type"
+        />
+    </menuitem>
+
+    <menuitem
+        id="account_compensate_advance.advance_account_in_invoice_menu"
+        name="Advance"
+        parent="account.menu_finance_payables"
+    >
+        <menuitem
+            id="account_compensate_advance.menu_action_advance_account_create_in_invoice"
+            name="Create"
+            action="account_compensate_advance.action_advance_create_in_invoice"
+        />
+        <menuitem
+            id="account_compensate_advance.menu_action_advance_account_in_invoice"
+            name="Advances"
+            action="account_compensate_advance.action_advance_in_invoice_type"
+        />
+    </menuitem>
+
+</odoo>

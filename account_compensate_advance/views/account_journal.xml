@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 - TODAY, Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Form View -->
+    <record model="ir.ui.view" id="account_journal_form_view">
+        <field name="name">account.journal.form (in account_compensate_advance)</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='advanced_settings']" position="after">
+                <page
+                    name="advance_journal_settings"
+                    string="Advance Journal"
+                    attrs="{'invisible': [('type', '!=', 'general')]}"
+                >
+                    <group>
+                        <group>
+                            <field name="is_advance_journal" />
+                            <field
+                                name="advance_account_type"
+                                attrs="{'invisible': [('is_advance_journal', '=', False)], 'required': [('is_advance_journal', '=', True)] }"
+                            />
+                            <field
+                                name="advance_account_supplier_id"
+                                widget="selection"
+                                attrs="{'invisible': ['|', ('advance_account_type', '!=', ('supplier')), ('is_advance_journal', '=', False)], 'required': [('advance_account_type', '=', ('supplier')), ('is_advance_journal', '=', True)]} "
+                            />
+                            <field
+                                name="advance_account_customer_id"
+                                widget="selection"
+                                attrs="{'invisible': ['|', ('advance_account_type', '!=', ('customer')), ('is_advance_journal', '=', False)], 'required': [('advance_account_type', '=', ('customer')), ('is_advance_journal', '=', True)]} "
+                            />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="view_account_journal_dashboard_kanban" model="ir.ui.view">
+        <field
+            name="name"
+        >account.journal.kanban in (account_compensate_advance)</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='id']" position="after">
+                <field name="is_advance_journal" invisible="1" />
+                <field name="advance_account_type" invisible="1" />
+            </xpath>
+            <xpath expr="//t[@t-name='JournalMiscelaneous']" position="inside">
+                <div
+                    class="col-12 my-2"
+                    style="text-align: center;"
+                    attrs="{'invisible': ['|', ('advance_account_type', '!=', ('supplier')), ('is_advance_journal', '=', False)]}"
+                >
+                    <div class="o_kanban_card_header_title">
+                        <div class="o_primary" style="padding-right: 0;">
+                            <span>
+                                Advance
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row mt8">
+                        <div class="col-6">
+                            <button
+                                type="action"
+                                name="account_compensate_advance.action_advance_create_in_invoice"
+                                class="btn btn-primary btn-block"
+                                groups="account.group_account_invoice"
+                            >
+                                <span>New</span>
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button
+                                type="action"
+                                name="account_compensate_advance.action_advance_in_invoice_type"
+                                class="btn btn-primary btn-block"
+                                groups="account.group_account_invoice"
+                            >
+                                <span>View</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="col-12 my-2"
+                    style="text-align: center;"
+                    attrs="{'invisible': ['|', ('advance_account_type', '!=', ('customer')), ('is_advance_journal', '=', False)]}"
+                >
+                    <div class="o_kanban_card_header_title">
+                        <div class="o_primary" style="padding-right: 0;">
+                            <span>
+                                Advance
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row mt8">
+                        <div class="col-6">
+                            <button
+                                type="action"
+                                name="account_compensate_advance.action_advance_create_out_invoice"
+                                class="btn btn-primary btn-block"
+                                groups="account.group_account_invoice"
+                            >
+                                <span>New</span>
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button
+                                type="action"
+                                name="account_compensate_advance.action_advance_out_invoice_type"
+                                class="btn btn-primary btn-block"
+                                groups="account.group_account_invoice"
+                            >
+                                <span>View</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

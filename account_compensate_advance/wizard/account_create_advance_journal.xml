@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 - TODAY, Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="account_create_advance_form_view">
+        <field
+            name="name"
+        >account.create.advance.journal.form (in account_compensate_advance)</field>
+        <field name="model">account.create.advance.journal</field>
+        <field name="arch" type="xml">
+            <form string="Create Advance Account">
+                <group>
+                    <group>
+                        <field name="currency_id" invisible="1" />
+                        <field name="partner_id" />
+                        <field
+                            name="journal_id"
+                            options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                        />
+                        <field name="amount" />
+                    </group>
+                    <group>
+                        <field name="date" />
+                        <field name="date_maturity" />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        string="Create Advance"
+                        name="action_create_advance_account"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        string="Cancel"
+                        class="btn btn-secondary"
+                        special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

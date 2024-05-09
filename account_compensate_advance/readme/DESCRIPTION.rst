@@ -1,0 +1,1 @@
+The Account Compensate Advance enhances the accounting functionality in Odoo by enabling advanced handling of advances for suppliers and customers. This module streamlines the process of creating, managing, and compensating advances, ensuring accurate financial.
