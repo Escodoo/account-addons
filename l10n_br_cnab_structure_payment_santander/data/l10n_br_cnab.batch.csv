@@ -1,0 +1,5 @@
+"id","name","cnab_structure_id/id"
+"l10n_br_cnab_structure_payment_santander.cnab_santander_240_pagamentos","Pagamento","l10n_br_cnab_structure_payment_santander.cnab_santander_240"
+"l10n_br_cnab_structure_payment_santander.cnab_santander_240_boletos","Boletos","l10n_br_cnab_structure_payment_santander.cnab_santander_240"
+"l10n_br_cnab_structure_payment_santander.cnab_santander_240_concessionarias_tributos","Contas de Concessionárias e Tributos","l10n_br_cnab_structure_payment_santander.cnab_santander_240"
+"l10n_br_cnab_structure_payment_santander.cnab_santander_240_tributos_sem_codigo_de_barras","Tributos sem código de barras e FGTS-GRF/GRRF/GRDE com código de barras","l10n_br_cnab_structure_payment_santander.cnab_santander_240"

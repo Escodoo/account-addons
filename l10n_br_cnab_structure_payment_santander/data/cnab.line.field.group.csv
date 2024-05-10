@@ -1,0 +1,5 @@
+"id","name","cnab_line_id/id"
+"cnab_line_field_group_santander_c_corrente_mesmo_banco","Conta Corrente - Mesmo Banco","cnab_santander_240_pagamentos_segmento_a"
+"cnab_line_field_group_santander_c_corrente_outros_banco","Conta Corrente - Outros Bancos","cnab_santander_240_pagamentos_segmento_a"
+"cnab_line_field_group_santander_c_pagmaento_outros_banco","Conta Pagamento - Outros Bancos","cnab_santander_240_pagamentos_segmento_a"
+"cnab_line_field_group_santander_c_corrente_chave_pix","Conta Corrente - Chave PIX","cnab_santander_240_pagamentos_segmento_a"
