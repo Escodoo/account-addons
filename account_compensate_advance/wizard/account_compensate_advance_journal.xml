@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 - TODAY, Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="account_compensate_advance_form_view">
+        <field
+            name="name"
+        >account.compensate.advance.journal.form (in account_compensate_advance)</field>
+        <field name="model">account.compensate.advance.journal</field>
+        <field name="arch" type="xml">
+            <form string="Compensate Advance Account">
+                <field name="currency_id" invisible="1" />
+                <group>
+                    <group>
+                        <h2>Advance</h2>
+                        <field
+                            name="advance_id"
+                            options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                        />
+                        <field name="advance_balance" />
+                    </group>
+                    <group>
+                        <h2>To Compensate</h2>
+                        <field
+                            name="journal_id"
+                            options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                        />
+                        <field
+                            name="line_id"
+                            options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                        />
+                        <field name="amount" />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        string="Compensate"
+                        name="action_compensate_advance_account"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        string="Cancel"
+                        class="btn btn-secondary"
+                        special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
