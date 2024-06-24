@@ -1,0 +1,207 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_compensate_advance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-21 19:25+0000\n"
+"PO-Revision-Date: 2024-06-21 19:25+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_compensate_advance
+#: model_terms:ir.ui.view,arch_db:account_compensate_advance.account_compensate_advance_form_view
+#: model_terms:ir.ui.view,arch_db:account_compensate_advance.view_account_invoice_filter
+msgid "Advance"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__advance_balance
+msgid "Advance Balance"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_bank_statement_line__advance_invoice
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_move__advance_invoice
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_payment__advance_invoice
+msgid "Advance Invoice"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model_terms:ir.ui.view,arch_db:account_compensate_advance.account_journal_form_view
+msgid "Advance Journal"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__advance_id
+msgid "Advance Line"
+msgstr ""
+
+#. module: account_compensate_advance
+#: code:addons/account_compensate_advance/wizard/account_compensate_advance_journal.py:0
+#, python-format
+msgid "Advance: %s"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__amount
+msgid "Amount"
+msgstr ""
+
+#. module: account_compensate_advance
+#: code:addons/account_compensate_advance/models/account_move_line.py:0
+#, python-format
+msgid "Balance"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model_terms:ir.ui.view,arch_db:account_compensate_advance.account_compensate_advance_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,help:account_compensate_advance.field_account_journal__is_advance_journal
+msgid "Check this box if this journal is for compensation advances"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model_terms:ir.ui.view,arch_db:account_compensate_advance.account_compensate_advance_form_view
+msgid "Compensate"
+msgstr ""
+
+#. module: account_compensate_advance
+#: code:addons/account_compensate_advance/models/account_move.py:0
+#: model_terms:ir.ui.view,arch_db:account_compensate_advance.view_move_form
+#, python-format
+msgid "Compensate Advance"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model_terms:ir.ui.view,arch_db:account_compensate_advance.account_compensate_advance_form_view
+msgid "Compensate Advance Account"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__journal_id
+msgid "Compesation Journal"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: account_compensate_advance
+#: code:addons/account_compensate_advance/models/account_journal.py:0
+#, python-format
+msgid "Customer"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__display_name
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_journal__display_name
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_move_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__id
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_journal__id
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_move__id
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_move_line__id
+msgid "ID"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_journal__is_advance_journal
+msgid "Is Compensation Advance Journal"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model,name:account_compensate_advance.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model,name:account_compensate_advance.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model,name:account_compensate_advance.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal____last_update
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_journal____last_update
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_move_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__line_id
+msgid "Line"
+msgstr ""
+
+#. module: account_compensate_advance
+#: code:addons/account_compensate_advance/models/account_journal.py:0
+#, python-format
+msgid "Supplier"
+msgstr ""
+
+#. module: account_compensate_advance
+#: code:addons/account_compensate_advance/wizard/account_compensate_advance_journal.py:0
+#, python-format
+msgid "The amount cannot exceed the residual amount of the line."
+msgstr ""
+
+#. module: account_compensate_advance
+#: code:addons/account_compensate_advance/wizard/account_compensate_advance_journal.py:0
+#, python-format
+msgid "The amount must be greater than zero."
+msgstr ""
+
+#. module: account_compensate_advance
+#: code:addons/account_compensate_advance/wizard/account_compensate_advance_journal.py:0
+#, python-format
+msgid "The entered amount exceeds the balance of the advance selected."
+msgstr ""
+
+#. module: account_compensate_advance
+#: model_terms:ir.ui.view,arch_db:account_compensate_advance.account_compensate_advance_form_view
+msgid "To Compensate"
+msgstr ""
+
+#. module: account_compensate_advance
+#: model:ir.model,name:account_compensate_advance.model_account_compensate_advance_journal
+msgid "account.compensate.advance.journal"
+msgstr ""
