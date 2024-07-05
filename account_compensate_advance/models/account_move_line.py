@@ -2,9 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 # flake8: noqa: B950
 
-import locale
-
 from odoo import _, models
+from odoo.tools.misc import formatLang
 
 
 class AccountMoveLine(models.Model):
@@ -16,19 +15,24 @@ class AccountMoveLine(models.Model):
         Override the name_get method to customize the display name of records based on the context.
         """
         context = self._context or {}
-        locale.setlocale(locale.LC_ALL, self.env.user.lang)
 
         # Customize name display for 'advance_id' based on context
         if "advance_id_name_get" in context and context["advance_id_name_get"]:
             result = []
             balance_str = _("Balance")
             for rec in self:
+                total_str = formatLang(
+                    self.env, abs(rec.price_total), currency_obj=rec.currency_id
+                )
+                balance_residual_str = formatLang(
+                    self.env, abs(rec.amount_residual), currency_obj=rec.currency_id
+                )
                 # Format name with localized date, total, and balance
                 name = (
                     f"{rec.name} | "
                     f"{_('Date')}: {rec.move_id.date.strftime('%x')} | "
-                    f"{_('Total')}: {locale.format_string('%.2f', abs(rec.price_total), grouping=True)} | "
-                    f"{balance_str}: {locale.format_string('%.2f', abs(rec.amount_residual), grouping=True)}"
+                    f"{_('Total')}: {total_str} | "
+                    f"{balance_str}: {balance_residual_str}"
                 )
                 result.append((rec.id, name))
             return result
@@ -37,11 +41,14 @@ class AccountMoveLine(models.Model):
         if "line_id_name_get" in context and context["line_id_name_get"]:
             result = []
             for rec in self:
+                total_str = formatLang(
+                    self.env, abs(rec.price_total), currency_obj=rec.currency_id
+                )
                 # Format name with localized date and total
                 name = (
                     f"{rec.name or rec.move_id.name} | "
                     f"{_('Date')}: {rec.date_maturity.strftime('%x')} | "
-                    f"{_('Total')}: {locale.format_string('%.2f', abs(rec.price_total), grouping=True)}"
+                    f"{_('Total')}: {total_str}"
                 )
                 result.append((rec.id, name))
             return result
