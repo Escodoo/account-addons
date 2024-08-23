@@ -6,7 +6,7 @@
     <record id="res_config_settings_view_form" model="ir.ui.view">
         <field
             name="name"
-        >res.config.settings.view.form.inherit.account (in project_task_sign_oca)</field>
+        >res.config.settings.view.form.inherit.account (in account_internal_transfer)</field>
         <field name="model">res.config.settings</field>
         <field name="priority" eval="90" />
         <field name="inherit_id" ref="account.res_config_settings_view_form" />
@@ -20,7 +20,7 @@
                     <div class="o_setting_right_pane">
                         <label for="transfer_payable_account_id" />
                         <div class="text-muted">
-                            Payable account when you transfer money from a bank account of your company to another bank account of your company.
+                            Payable account when you transfer money between two bank accounts of your company.
                         </div>
                         <field name="transfer_payable_account_id" />
                     </div>
@@ -33,7 +33,7 @@
                     <div class="o_setting_right_pane">
                         <label for="transfer_receivable_account_id" />
                         <div class="text-muted">
-                            Receivable account when you transfer money from a bank account of your company to another bank account of your company.
+                            Receivable account when you transfer money between two bank accounts of your company.
                         </div>
                         <field name="transfer_receivable_account_id" />
                     </div>

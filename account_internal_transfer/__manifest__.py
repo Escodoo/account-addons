@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "author": "Escodoo",
     "website": "https://github.com/Escodoo/account-addons",
-    "depends": ["account", "account_menu"],
+    "depends": ["account", "account_menu", "account_payment_order"],
     "data": [
         "views/account_internal_transfer_views.xml",
         "views/res_config_settings.xml",

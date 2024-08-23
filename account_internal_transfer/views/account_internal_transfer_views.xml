@@ -26,9 +26,7 @@
     />
 
     <record model="ir.ui.view" id="account_internal_transfer_form_view">
-        <field
-            name="name"
-        >account.internal.transfer.form (in epa_account_custom)</field>
+        <field name="name">account.internal.transfer.form</field>
         <field name="model">account.internal.transfer</field>
         <field name="groups_id" eval="[(4, ref('account.group_account_user'))]" />
         <field name="arch" type="xml">
@@ -122,9 +120,7 @@
     </record>
 
     <record model="ir.ui.view" id="account_internal_transfer_tree_view">
-        <field
-            name="name"
-        >account.internal.transfer.tree (in epa_account_custom)</field>
+        <field name="name">account.internal.transfer.tree</field>
         <field name="model">account.internal.transfer</field>
         <field name="groups_id" eval="[(4, ref('account.group_account_user'))]" />
         <field name="arch" type="xml">

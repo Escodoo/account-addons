@@ -28,16 +28,19 @@ class AccountInternalTransfer(models.Model):
         comodel_name="account.journal",
         string="Transfer Journal",
         required=True,
+        domain="[('company_id', '=', company_id)]",
     )
     outgoing_journal_id = fields.Many2one(
         comodel_name="account.journal",
         string="Outgoing Journal",
         required=True,
+        domain="[('company_id', '=', company_id)]",
     )
     destination_journal_id = fields.Many2one(
         comodel_name="account.journal",
         string="Destination Journal",
         required=True,
+        domain="[('company_id', '=', company_id)]",
     )
     outgoing_partner_bank_id = fields.Many2one(
         comodel_name="res.partner.bank",

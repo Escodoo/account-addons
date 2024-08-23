@@ -9,11 +9,11 @@ class ResCompany(models.Model):
 
     transfer_payable_account_id = fields.Many2one(
         comodel_name="account.account",
-        domain="[('internal_type', '=', 'payable')]",
+        domain="[('internal_type', '=', 'payable'), ('company_id', '=', company_id)]",
         string="Internal Transfer Payable Account",
     )
     transfer_receivable_account_id = fields.Many2one(
         comodel_name="account.account",
-        domain="[('internal_type', '=', 'receivable')]",
+        domain="[('internal_type', '=', 'receivable'), ('company_id', '=', company_id)]",
         string="Internal Transfer Receivable Account",
     )
