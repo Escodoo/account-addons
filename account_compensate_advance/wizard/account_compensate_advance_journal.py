@@ -45,6 +45,7 @@ class AccountCompensateAdvanceJournal(models.TransientModel):
         readonly=False,
         compute="_compute_currency_id",
     )
+    date = fields.Date(string="Compensation Date")
 
     @api.onchange("line_id")
     def _onchange_line_id(self):
@@ -132,6 +133,7 @@ class AccountCompensateAdvanceJournal(models.TransientModel):
         journal_id = self.journal_id
         line_id = self.line_id
         advance_id = self.advance_id
+        compensation_date = self.date
 
         params = {
             "move_type": move_type,
@@ -150,7 +152,7 @@ class AccountCompensateAdvanceJournal(models.TransientModel):
             "partner_id": partner_id.id,
             "ref": advance_str,
             "journal_id": journal_id.id,
-            "date": advance_id.move_id.date,
+            "date": compensation_date or fields.Date.today(),
             "line_ids": [(0, 0, credit_vals), (0, 0, debit_vals)],
         }
         if amount <= 0:

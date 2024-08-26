@@ -22,6 +22,7 @@
                     </group>
                     <group>
                         <h2>To Compensate</h2>
+                        <field name="date" />
                         <field
                             name="journal_id"
                             options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
