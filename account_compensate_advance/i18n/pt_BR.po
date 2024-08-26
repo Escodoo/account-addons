@@ -95,6 +95,11 @@ msgid "Compesation Journal"
 msgstr "Diário de Compensação"
 
 #. module: account_compensate_advance
+#: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__date
+msgid "Compesation Date"
+msgstr "Data de Compensação"
+
+#. module: account_compensate_advance
 #: model:ir.model.fields,field_description:account_compensate_advance.field_account_compensate_advance_journal__create_uid
 msgid "Created by"
 msgstr "Criado por"
