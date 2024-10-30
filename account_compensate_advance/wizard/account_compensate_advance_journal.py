@@ -123,38 +123,44 @@ class AccountCompensateAdvanceJournal(models.TransientModel):
 
     def _create_compensate_advance_account(self):
         """
-        Creates a journal entry to compensate an advance payment.
-        Ensures the amount is valid and creates reconciliation lines.
+        Main method to create a journal entry to compensate an advance payment.
+        """
+        params = self._prepare_compensation_params()
+
+        self._validate_compensation_amount(params["amount"], params["line_id"])
+
+        move_vals = self._prepare_move_vals(params)
+
+        move = self.env["account.move"].with_context(self.env.context).create(move_vals)
+        move.post()
+
+        # Reconciliation
+        self._create_advance_reconciliation(params["line_id"] + move.line_ids[0])
+        self._create_advance_reconciliation(self.advance_id + move.line_ids[1])
+
+    def _prepare_compensation_params(self):
+        """
+        Prepares the parameters for the compensation account move.
         """
         move_id = self.env["account.move"].browse(self.env.context.get("active_ids"))
         move_type = self.env.context.get("default_move_type")
-        amount = self.amount
-        partner_id = move_id.partner_id
-        journal_id = self.journal_id
-        line_id = self.line_id
-        advance_id = self.advance_id
-        compensation_date = self.date
 
         params = {
             "move_type": move_type,
             "move_id": move_id,
-            "partner_id": partner_id,
-            "journal_id": journal_id,
-            "advance_id": advance_id,
-            "line_id": line_id,
-            "amount": amount,
+            "partner_id": move_id.partner_id,
+            "journal_id": self.journal_id,
+            "advance_id": self.advance_id,
+            "line_id": self.line_id,
+            "amount": self.amount,
+            "compensation_date": self.date or fields.Date.today(),
         }
+        return params
 
-        credit_vals, debit_vals = self._prepare_move_lines(params)
-        advance_str = _("Advance: %s") % move_id.name
-        move_vals = {
-            "move_type": "entry",
-            "partner_id": partner_id.id,
-            "ref": advance_str,
-            "journal_id": journal_id.id,
-            "date": compensation_date or fields.Date.today(),
-            "line_ids": [(0, 0, credit_vals), (0, 0, debit_vals)],
-        }
+    def _validate_compensation_amount(self, amount, line_id):
+        """
+        Validates the compensation amount before creating the move.
+        """
         if amount <= 0:
             raise ValidationError(_("The amount must be greater than zero."))
         if amount > abs(line_id.amount_residual):
@@ -165,11 +171,25 @@ class AccountCompensateAdvanceJournal(models.TransientModel):
             raise ValidationError(
                 _("The entered amount exceeds the balance of the advance selected.")
             )
-        move = self.env["account.move"].create(move_vals)
-        move.post()
 
-        self._create_advance_reconciliation(line_id + move.line_ids[0])
-        self._create_advance_reconciliation(self.advance_id + move.line_ids[1])
+    def _prepare_move_vals(self, params):
+        """
+        Prepares the values for the account move.
+        """
+        credit_vals, debit_vals = self._prepare_move_lines(params)
+
+        advance_str = _("Advance: %s") % params["move_id"].name
+
+        move_vals = {
+            "move_type": "entry",
+            "partner_id": params["partner_id"].id,
+            "ref": advance_str,
+            "journal_id": params["journal_id"].id,
+            "date": params["compensation_date"],
+            "line_ids": [(0, 0, credit_vals), (0, 0, debit_vals)],
+        }
+
+        return move_vals
 
     def _prepare_move_lines(self, params):
         """
