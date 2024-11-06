@@ -22,28 +22,52 @@
             expr="//div[hasclass('mis_thead')]/div[hasclass('mis_row')][1]/div[hasclass('mis_collabel')][1]"
             position="before"
         >
-            <div class="mis_cell mis_collabel" />
+            <t t-if="o.report_id.use_code_column">
+                <div class="mis_cell mis_collabel" />
+            </t>
         </xpath>
         <xpath
             expr="//div[hasclass('mis_thead')]/div[hasclass('mis_row')][2]/div[hasclass('mis_collabel')][1]"
             position="before"
         >
-            <div class="mis_cell mis_collabel" />
+            <t t-if="o.report_id.use_code_column">
+                <div class="mis_cell mis_collabel" />
+            </t>
         </xpath>
         <xpath
             expr="//div[hasclass('mis_tbody')]/t[@t-as='row']/div[hasclass('mis_row')]/div[hasclass('mis_rowlabel')]"
-            position="before"
+            position="replace"
         >
             <div
                 t-att-style="style_obj.to_css_style(row.style_props)"
                 class="mis_cell mis_rowlabel"
             >
                 <t
-                    t-set="code"
-                    t-value="o.report_id.kpi_ids.filtered(lambda k: k.id == row.kpi.id).code"
-                />
-                <t t-esc="code or ''" />
+                    t-if="o.report_id.use_code_column and o.report_id.computed_code(row.label)"
+                >
+                    <t t-esc="row.label.split(' ')[1]" />
+                </t>
+                <t t-else="">
+                    <t t-esc="row.label" />
+                    <t t-if="row.description">
+                        <br />
+                        <t t-esc="row.description" />
+                    </t>
+                </t>
             </div>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('mis_tbody')]/t[@t-as='row']/div[hasclass('mis_row')]/div[hasclass('mis_rowlabel')]"
+            position="before"
+        >
+            <t t-if="o.report_id.use_code_column">
+                <div
+                    t-att-style="style_obj.to_css_style(row.style_props)"
+                    class="mis_cell mis_rowlabel"
+                >
+                    <t t-esc="o.report_id.computed_code(row.label)" />
+                </div>
+            </t>
         </xpath>
     </template>
 </odoo>
