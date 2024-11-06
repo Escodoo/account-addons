@@ -24,15 +24,20 @@ MAX_COL_WIDTH = 50  # characters
 class MisBuilderXlsx(models.AbstractModel):
     _inherit = "report.mis_builder.mis_report_instance_xlsx"
 
+    # flake8: noqa: C901
     def generate_xlsx_report(self, workbook, data, objects):
-
+        if not objects[0].report_id.use_code_column:
+            return super(MisBuilderXlsx, self).generate_xlsx_report(
+                workbook, data, objects
+            )
         # get the computed result of the report
         matrix = objects._compute_matrix()
         style_obj = self.env["mis.report.style"]
 
         # create worksheet
         report_name = "{} - {}".format(
-            objects[0].name, ", ".join([a.name for a in objects[0].query_company_ids])
+            objects[0].name,
+            ", ".join([a.name for a in objects[0].query_company_ids]),
         )
         sheet = workbook.add_worksheet(report_name[:31])
         row_pos = 0
@@ -78,7 +83,9 @@ class MisBuilderXlsx(models.AbstractModel):
             else:
                 sheet.write(row_pos, col_pos, label, header_format)
                 col_width[col_pos] = max(
-                    col_width[col_pos], len(col.label or ""), len(col.description or "")
+                    col_width[col_pos],
+                    len(col.label or ""),
+                    len(col.description or ""),
                 )
             col_pos += col.colspan
         row_pos += 1
@@ -111,13 +118,13 @@ class MisBuilderXlsx(models.AbstractModel):
             row_format = workbook.add_format(row_xlsx_style)
             col_pos = 0
 
-            code = (
-                objects[0].report_id.kpi_ids.filtered(lambda k: k.id == row.kpi.id).code
-            )
+            code = objects[0].report_id.computed_code(row.label)
             sheet.write(row_pos, col_pos, code, row_format)
             col_pos += 1
 
             label = row.label
+            if code:
+                label = label.split(" ")[1]
             if row.description:
                 label += "\n" + row.description
                 sheet.set_row(row_pos, ROW_HEIGHT * 2)
