@@ -1,4 +1,5 @@
 To use this module, you need to:
 
-1. Fill in the code field when creating or editing a KPI in a MIS Report Template.
-2. Open a MIS Report using this Template and see the new column in Preview Mode or in the exported PDF or XLSX files.
+1. Create a MIS Report and mark the field Use Code Column.
+2. Fill in the account code in the description when creating a KPI in a MIS Report.
+3. Open a MIS Report Instance Preview and see the new column in it, or in the exported PDF or XLSX files.

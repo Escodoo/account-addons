@@ -20,22 +20,8 @@
         <field name="model">mis.report</field>
         <field name="inherit_id" ref="mis_builder.mis_report_view_form" />
         <field name="arch" type="xml">
-            <xpath
-                expr="//field[@name='kpi_ids']/tree/field[@name='description']"
-                position="before"
-            >
-                <field name="code" />
-            </xpath>
-        </field>
-    </record>
-
-    <record model="ir.ui.view" id="mis_report_view_kpi_form">
-        <field name="name">mis.report.view.kpi.form (in mis_builder_kpi_code)</field>
-        <field name="model">mis.report.kpi</field>
-        <field name="inherit_id" ref="mis_builder.mis_report_view_kpi_form" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='description']" position="before">
-                <field name="code" />
+            <xpath expr="//field[@name='move_lines_source']" position="after">
+                <field name="use_code_column" />
             </xpath>
         </field>
     </record>
