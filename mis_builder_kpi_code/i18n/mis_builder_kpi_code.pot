@@ -19,6 +19,7 @@ msgid "Code"
 msgstr ""
 
 #. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report__display_name
 #: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance__display_name
 #: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__display_name
 #: model:ir.model.fields,field_description:mis_builder_kpi_code.field_report_mis_builder_mis_report_instance_xlsx__display_name
@@ -39,6 +40,7 @@ msgid "Generated on {} at {}"
 msgstr ""
 
 #. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report__id
 #: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance__id
 #: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__id
 #: model:ir.model.fields,field_description:mis_builder_kpi_code.field_report_mis_builder_mis_report_instance_xlsx__id
@@ -46,6 +48,7 @@ msgid "ID"
 msgstr ""
 
 #. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report____last_update
 #: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance____last_update
 #: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi____last_update
 #: model:ir.model.fields,field_description:mis_builder_kpi_code.field_report_mis_builder_mis_report_instance_xlsx____last_update
@@ -68,6 +71,11 @@ msgid "MIS Report KPI"
 msgstr ""
 
 #. module: mis_builder_kpi_code
+#: model:ir.model,name:mis_builder_kpi_code.model_mis_report
+msgid "MIS Report Template"
+msgstr ""
+
+#. module: mis_builder_kpi_code
 #. openerp-web
 #: code:addons/mis_builder_kpi_code/static/src/xml/mis_report_widget.xml:0
 #, python-format
@@ -86,4 +94,11 @@ msgstr ""
 #: code:addons/mis_builder_kpi_code/static/src/xml/mis_report_widget.xml:0
 #, python-format
 msgid "Settings"
+msgstr ""
+
+#. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report__use_code_column
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance__use_code_column
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__use_code_column
+msgid "Use Code Column"
 msgstr ""
