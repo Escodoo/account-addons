@@ -2,18 +2,6 @@
 <!-- Copyright 2024 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <template
-        id="assets_backend"
-        name="mis_builder_kpi_code"
-        inherit_id="web.assets_backend"
-    >
-        <xpath expr="." position="inside">
-            <link
-                rel="stylesheet"
-                href="/mis_builder_kpi_code/static/src/css/custom.css"
-            />
-        </xpath>
-    </template>
 
     <record model="ir.ui.view" id="mis_report_view_form">
         <field name="name">mis.report.view.form (in mis_builder_kpi_code)</field>
