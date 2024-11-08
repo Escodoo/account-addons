@@ -1,0 +1,51 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mis_builder_custom_reports
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-08 20:40+0000\n"
+"PO-Revision-Date: 2024-11-08 20:40+0000\n"
+"Last-Translator: Wesley Oliveira, 2024"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mis_builder_custom_reports
+#: model_terms:ir.ui.view,arch_db:mis_builder_custom_reports.report_mis_report_instance
+msgid "<span>(In thousands of reais - R$)</span>"
+msgstr "<span>(Em milhares de reais - R$)</span>"
+
+#. module: mis_builder_custom_reports
+#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi__display_name
+msgid "Display Name"
+msgstr "Exibir Nome"
+
+#. module: mis_builder_custom_reports
+#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi__id
+msgid "ID"
+msgstr ""
+
+#. module: mis_builder_custom_reports
+#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi__is_profit_loss
+msgid "Is Profit or Loss?"
+msgstr "É Lucro ou Prejuizo?"
+
+#. module: mis_builder_custom_reports
+#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi____last_update
+msgid "Last Modified on"
+msgstr "Última atualização em"
+
+#. module: mis_builder_custom_reports
+#: model_terms:ir.ui.view,arch_db:mis_builder_custom_reports.report_mis_report_instance
+msgid "Logo"
+msgstr ""
+
+#. module: mis_builder_custom_reports
+#: model:ir.model,name:mis_builder_custom_reports.model_mis_report_kpi
+msgid "MIS Report KPI"
+msgstr "Relatório KPI"
