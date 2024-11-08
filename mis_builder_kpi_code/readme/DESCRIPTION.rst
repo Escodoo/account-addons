@@ -1,1 +1,3 @@
-This module includes the option to fill in the code field when creating a KPI in the MIS Report Template. This code field will be visible in the MIS Report Preview in the first column and will also be included when exporting documents to PDF or XLSX formats.
+This module includes the option to use the account code column in MIS Report.
+The column will be visible in the Preview and will also be included
+when exporting documents to PDF or XLSX formats.
