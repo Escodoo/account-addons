@@ -85,26 +85,63 @@
             <div
                 t-attf-class="footer o_standard_footer o_company_#{company_id.id}_layout"
             >
+                <div style="padding: 10px 0;" />
+                <div class="mis_footer_line" />
                 <div class="row">
-                    <div class="col-12">
-                        <span
-                            style="text-decoration: underline; text-transform: uppercase;"
-                            t-field="company_id.legal_name"
-                        />
+                    <div class="col-5" name="company_info">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="mis_footer_icon">
+                                            <div class="fa fa-2x fa-map-marker" />
+                                        </div>
+                                    </td>
+                                    <td class="mis_footer_text">
+                                        <span t-field="company_id.street_name" />,
+                                        <span t-field="company_id.street_number" />,
+                                        <t t-if="company_id.street2">
+                                            <span t-field="company_id.street2" />,
+                                        </t>
+                                        <span t-field="company_id.district" />,
+                                        <span t-field="company_id.city_id.name" /> -
+                                        <span t-field="company_id.state_id.code" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" name="company_address">
-                        <span t-field="company_id.partner_id.street_name" />,
-                        <span t-field="company_id.partner_id.street_number" />,
-                        <t t-if="company_id.partner_id.street2">
-                            <span t-field="company_id.partner_id.street2" />,
-                        </t>
-                        <span t-field="company_id.partner_id.district" />,
-                        <span t-field="company_id.partner_id.zip" />,
-                        <span t-field="company_id.partner_id.city_id.name" /> -
-                        <span t-field="company_id.partner_id.state_id.name" />,
-                        <span t-field="company_id.partner_id.country_id.name" />
+                    <div class="col-3" name="phone">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="mis_footer_icon">
+                                            <div class="fa fa-2x fa-phone" />
+                                        </div>
+                                    </td>
+                                    <td class="mis_footer_text">
+                                        <span t-field="company_id.phone" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4" name="website">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="mis_footer_icon">
+                                            <div class="fa fa-2x fa-globe" />
+                                        </div>
+                                    </td>
+                                    <td class="mis_footer_text">
+                                        <span t-field="company_id.website" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
