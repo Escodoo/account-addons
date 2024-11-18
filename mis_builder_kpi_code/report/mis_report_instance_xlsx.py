@@ -124,7 +124,7 @@ class MisBuilderXlsx(models.AbstractModel):
 
             label = row.label
             if code:
-                label = label.split(" ")[1]
+                label = label.split(" ", 1)[1]
             if row.description:
                 label += "\n" + row.description
                 sheet.set_row(row_pos, ROW_HEIGHT * 2)
