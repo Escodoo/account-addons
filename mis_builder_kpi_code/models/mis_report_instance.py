@@ -30,7 +30,7 @@ class MisReportInstance(models.Model):
                 label = row["label"]
                 code = self.report_id.computed_code(row["label"])
                 if code:
-                    label = label.split(" ")[1]
+                    label = label.split(" ", 1)[1]
                     kpi_matrix_dict["body"][idx].update(
                         {
                             "code": code,

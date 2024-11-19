@@ -33,7 +33,7 @@
                 <t
                     t-if="o.report_id.use_code_column and o.report_id.computed_code(row.label)"
                 >
-                    <t t-esc="row.label.split(' ')[1]" />
+                    <t t-esc="row.label.split(' ', 1)[1]" />
                 </t>
                 <t t-else="">
                     <t t-esc="row.label" />
