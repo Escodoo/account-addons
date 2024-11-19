@@ -36,6 +36,11 @@ msgid "Is Profit or Loss?"
 msgstr "É Lucro ou Prejuizo?"
 
 #. module: mis_builder_custom_reports
+#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance__is_round_numbers
+msgid "Is Round Numbers"
+msgstr "Números Arredondados?"
+
+#. module: mis_builder_custom_reports
 #: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi____last_update
 msgid "Last Modified on"
 msgstr "Última atualização em"

@@ -33,7 +33,7 @@
                         <img
                             t-if="company_id.logo"
                             t-att-src="image_data_uri(company_id.logo)"
-                            style="max-height: 45px; border-right: 1px solid gray;"
+                            style="max-height: 45px;"
                             alt="Logo"
                         />
                     </div>
@@ -54,11 +54,13 @@
                         />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <span>(In thousands of reais - R$)</span>
+                <t t-if="o.is_round_numbers">
+                    <div class="row">
+                        <div class="col-12">
+                            <span>(In thousands of reais - R$)</span>
+                        </div>
                     </div>
-                </div>
+                </t>
                 <div
                     t-if="company_id.logo or company_id.report_header"
                     class="row zero_min_height"

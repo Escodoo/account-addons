@@ -12,6 +12,7 @@
     "depends": ["mis_builder"],
     "data": [
         "views/mis_report.xml",
+        "views/mis_report_instance.xml",
         "report/mis_report_instance_qweb.xml",
     ],
     "demo": [],
