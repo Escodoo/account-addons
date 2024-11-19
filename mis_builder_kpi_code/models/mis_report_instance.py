@@ -28,7 +28,7 @@ class MisReportInstance(models.Model):
 
             for idx, row in enumerate(kpi_matrix_dict["body"]):
                 label = row["label"]
-                code = self.report_id.computed_code(row["label"])
+                code = self.report_id.computed_code(label)
                 if code:
                     label = label.split(" ", 1)[1]
                     kpi_matrix_dict["body"][idx].update(
