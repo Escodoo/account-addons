@@ -9,7 +9,7 @@ def sum_row(self):
     total = 0
     for cell in cells:
         if cell and cell.val not in (None, "AccountingNone"):
-            total += float(cell.val)
+            total += float(cell.val or 0)
     return total
 
 
