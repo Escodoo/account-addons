@@ -48,6 +48,11 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
+                        <span t-field="company_id.cnpj_cpf" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
                         <span
                             style="text-transform: uppercase;"
                             t-field="o.description"
