@@ -88,6 +88,30 @@
                 or row.style_props.hide_always) and row.row_id != "check"
             </attribute>
         </xpath>
+        <xpath
+            expr="//div[hasclass('mis_tbody')]/t[@t-as='row']/div[hasclass('mis_row')]//div[hasclass('mis_amount')]/t"
+            position="replace"
+        >
+            <t t-if="cell.row.kpi.type == 'str'">
+                <span />
+            </t>
+            <t t-elif="cell and cell.val_rendered">
+                <t t-if="cell.val_rendered in ['', '0']">
+                    <span>-</span>
+                </t>
+                <t t-elif="float(cell.val or 0) &lt; 0">
+                    <span>(</span>
+                    <t t-esc="cell.val_rendered.replace('‑', '')" />
+                    <span>)</span>
+                </t>
+                <t t-else="">
+                    <t t-esc="cell.val_rendered" />
+                </t>
+            </t>
+            <t t-else="">
+                <span>-</span>
+            </t>
+        </xpath>
         <xpath expr="//div[@class='page']/h3" position="after">
             <div
                 t-attf-class="footer o_standard_footer o_company_#{company_id.id}_layout"
