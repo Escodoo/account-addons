@@ -48,6 +48,11 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
+                        <span t-field="company_id.cnpj_cpf" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
                         <span
                             style="text-transform: uppercase;"
                             t-field="o.description"
@@ -82,6 +87,30 @@
                 not ((row.style_props.hide_empty and row.is_empty())
                 or row.style_props.hide_always) and row.row_id != "check"
             </attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('mis_tbody')]/t[@t-as='row']/div[hasclass('mis_row')]//div[hasclass('mis_amount')]/t"
+            position="replace"
+        >
+            <t t-if="cell.row.kpi.type == 'str'">
+                <span />
+            </t>
+            <t t-elif="cell and cell.val_rendered">
+                <t t-if="cell.val_rendered in ['', '0']">
+                    <span>-</span>
+                </t>
+                <t t-elif="float(cell.val or 0) &lt; 0">
+                    <span>(</span>
+                    <t t-esc="cell.val_rendered.replace('‑', '')" />
+                    <span>)</span>
+                </t>
+                <t t-else="">
+                    <t t-esc="cell.val_rendered" />
+                </t>
+            </t>
+            <t t-else="">
+                <span>-</span>
+            </t>
         </xpath>
         <xpath expr="//div[@class='page']/h3" position="after">
             <div
