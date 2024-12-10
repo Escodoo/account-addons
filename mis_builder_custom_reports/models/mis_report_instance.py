@@ -9,3 +9,4 @@ class MisReportInstance(models.Model):
     _inherit = "mis.report.instance"
 
     is_round_numbers = fields.Boolean(default=False)
+    hide_period_labels = fields.Boolean(default=False)

@@ -12,6 +12,7 @@
         <field name="arch" type="xml">
             <field name="hide_analytic_filters" position="after">
                 <field name="is_round_numbers" />
+                <field name="hide_period_labels" />
             </field>
         </field>
     </record>

@@ -21,11 +21,18 @@ msgid "<span>(In thousands of reais - R$)</span>"
 msgstr "<span>(Em milhares de reais - R$)</span>"
 
 #. module: mis_builder_custom_reports
+#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance__display_name
 #: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi__display_name
 msgid "Display Name"
 msgstr "Exibir Nome"
 
 #. module: mis_builder_custom_reports
+#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance__hide_period_labels
+msgid "Hide Period Labels"
+msgstr "Esconder Rótulos de Periodos?"
+
+#. module: mis_builder_custom_reports
+#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance__id
 #: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi__id
 msgid "ID"
 msgstr ""
@@ -41,6 +48,7 @@ msgid "Is Round Numbers"
 msgstr "Números Arredondados?"
 
 #. module: mis_builder_custom_reports
+#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance____last_update
 #: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi____last_update
 msgid "Last Modified on"
 msgstr "Última atualização em"
@@ -49,6 +57,11 @@ msgstr "Última atualização em"
 #: model_terms:ir.ui.view,arch_db:mis_builder_custom_reports.report_mis_report_instance
 msgid "Logo"
 msgstr ""
+
+#. module: mis_builder_custom_reports
+#: model:ir.model,name:mis_builder_custom_reports.model_mis_report_instance
+msgid "MIS Report Instance"
+msgstr "Instância de Relatório SIG"
 
 #. module: mis_builder_custom_reports
 #: model:ir.model,name:mis_builder_custom_reports.model_mis_report_kpi
