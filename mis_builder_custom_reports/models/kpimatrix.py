@@ -13,16 +13,35 @@ def sum_row(self):
     return total
 
 
+def compute_date_to(self):
+    report_id = self.kpi.report_id
+    report_instance = report_id.env["mis.report.instance"].search(
+        [
+            ("report_id", "=", report_id.id),
+        ]
+    )
+    if len(report_instance) == 1 and report_instance.date_to:
+        date = str(report_instance.date_to)
+        return "/".join(reversed(date.split("-")))
+    else:
+        return ""
+
+
 @property
 def custom_label(self):
     label = self.kpi.description
     if self.account_id:
         label = self._matrix.get_account_name(self.account_id)
 
-    if self.sum_row() < 0 and self.kpi.is_profit_loss:
-        return label.replace("Lucro", "Prejuízo")
-    return label
+    if self.kpi.is_profit_loss:
+        if self.sum_row() < 0:
+            return label.replace("Lucro", "Prejuízo").replace("LUCRO", "PREJUÍZO")
+        elif self.sum_row() > 0:
+            return label.replace("Prejuízo", "Lucro").replace("PREJUÍZO", "LUCRO")
+
+    return label.replace("$date_to", self.compute_date_to())
 
 
 KpiMatrixRow.sum_row = sum_row
+KpiMatrixRow.compute_date_to = compute_date_to
 KpiMatrixRow.label = custom_label

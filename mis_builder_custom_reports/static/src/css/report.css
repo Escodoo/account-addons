@@ -8,11 +8,12 @@
 .mis_footer_icon {
     color: white;
     background: #b294de;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 100%;
     display: table;
     text-align: center;
+    font-size: 18px;
 }
 .mis_footer_icon div {
     display: table-cell;
@@ -22,6 +23,8 @@
     padding-left: 10px;
     display: table-cell;
     vertical-align: middle;
+    font-size: 12px;
+    color: #818080;
 }
 .mis_table .mis_row {
     border-color: none;
