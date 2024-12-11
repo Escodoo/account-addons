@@ -25,6 +25,11 @@ msgid "Display Name"
 msgstr ""
 
 #. module: mis_builder_custom_reports
+#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance__hide_period_labels
+msgid "Hide Period Labels"
+msgstr ""
+
+#. module: mis_builder_custom_reports
 #: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance__id
 #: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi__id
 msgid "ID"
