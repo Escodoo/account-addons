@@ -19,7 +19,6 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
     )
     contract_mis_cash_flow_forecast_rule_type = fields.Selection(
-        [("monthly", "Month(s)"), ("yearly", "Year(s)")],
         related="company_id.contract_mis_cash_flow_forecast_rule_type",
         readonly=False,
     )
