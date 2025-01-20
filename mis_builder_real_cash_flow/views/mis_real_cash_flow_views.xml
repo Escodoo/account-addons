@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mis_real_cash_flow_tree_view">
+        <field name="name">mis.real.cash_flow.tree</field>
+        <field name="model">mis.real.cash_flow</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="date" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="bank_flow" />
+                <field name="line_type" optional="hide" />
+                <field name="move_line_id" />
+                <field name="move_id" />
+                <field name="account_id" />
+                <field name="account_code" optional="hide" />
+                <field name="bank_account_id" />
+                <field name="state" optional="hide" />
+                <field name="debit" optional="hide" />
+                <field name="credit" optional="hide" />
+                <field name="balance" />
+                <field name="name" />
+                <field name="label" optional="hide" />
+                <field name="full_reconcile_id" optional="hide" />
+                <field name="journal_id" optional="hide" />
+                <field name="partner_id" optional="hide" />
+                <field name="analytic_account_id" optional="hide" />
+                <field name="doc_date" optional="hide" />
+                <field name="issuer" optional="hide" />
+                <field name="document_serie" optional="hide" />
+                <field name="document_number" optional="hide" />
+                <field name="amount_price_gross" optional="hide" />
+                <field name="cnpj_cpf" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mis_real_cash_flow_form_view">
+        <field name="name">mis.real..cash_flow.form</field>
+        <field name="model">mis.real.cash_flow</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <group>
+                    <group>
+                        <field name="date" />
+                        <field name="name" />
+                        <field name="label" />
+                        <field name="account_id" />
+                        <field name="bank_account_id" />
+                        <field name="analytic_account_id" />
+                        <field name="move_line_id" />
+                        <field name="move_id" />
+                    </group>
+                    <group>
+                        <field name="bank_flow" />
+                        <field name="state" />
+                        <field name="debit" />
+                        <field name="credit" />
+                        <field name="balance" />
+                        <field name="company_id" groups="base.group_multi_company" />
+                        <field name="partner_id" />
+                        <field name="journal_id" />
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>
