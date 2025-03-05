@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_bi_sql_mis_builder_line,access_bi_sql_mis_builder_line,model_bi_sql_mis_builder_line,base.group_user,1,0,0,0
-manage_bi_sql_mis_builder_line,manage_bi_sql_mis_builder_line,model_bi_sql_mis_builder_line,account.group_account_manager,1,1,1,1
