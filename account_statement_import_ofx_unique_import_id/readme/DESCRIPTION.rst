@@ -1,2 +1,2 @@
-This module changes the account statement lines `unique_import_id` field for the following format:
-- {account number}-{transaction date}-{transaction id}-{transaction label}-{transaction amount}
+This module replaces the `FITID` field of the OFX file with a new uuid,
+allowing more than one transaction to have the same `FITID`, date and amount.
