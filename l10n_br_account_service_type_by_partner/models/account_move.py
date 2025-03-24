@@ -11,7 +11,7 @@ class AccountMove(models.Model):
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
-        super()._onchange_partner_id()
+        res = super()._onchange_partner_id()
         if self.fiscal_operation_type == FISCAL_IN:
             for line in self.invoice_line_ids:
                 if line.product_id:
@@ -24,3 +24,4 @@ class AccountMove(models.Model):
                         line.service_type_id = partner_service_type.service_type_id
                     else:
                         line.service_type_id = line.product_id.service_type_id
+        return res

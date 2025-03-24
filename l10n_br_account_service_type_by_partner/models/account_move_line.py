@@ -11,7 +11,7 @@ class AccountMoveLine(models.Model):
 
     @api.onchange("product_id")
     def _onchange_product_id_fiscal(self):
-        super()._onchange_product_id_fiscal()
+        res = super()._onchange_product_id_fiscal()
         if self.product_id and self.move_id.fiscal_operation_type == FISCAL_IN:
             partner_service_type = self.partner_id.partner_service_type_ids.filtered(
                 lambda x: x.product_id == self.product_id
@@ -20,3 +20,4 @@ class AccountMoveLine(models.Model):
                 self.service_type_id = partner_service_type.service_type_id
             else:
                 self.service_type_id = self.product_id.service_type_id
+        return res
