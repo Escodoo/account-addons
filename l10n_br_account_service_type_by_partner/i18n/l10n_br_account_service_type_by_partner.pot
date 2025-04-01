@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -39,10 +39,6 @@ msgid "Created on"
 msgstr ""
 
 #. module: l10n_br_account_service_type_by_partner
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_account_move__display_name
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_account_move_line__display_name
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_l10n_br_fiscal_service_type__display_name
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_res_partner__display_name
 #: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_res_partner_service_type__display_name
 msgid "Display Name"
 msgstr ""
@@ -53,10 +49,6 @@ msgid "Fiscal Service Type"
 msgstr ""
 
 #. module: l10n_br_account_service_type_by_partner
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_account_move__id
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_account_move_line__id
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_l10n_br_fiscal_service_type__id
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_res_partner__id
 #: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_res_partner_service_type__id
 msgid "ID"
 msgstr ""
@@ -72,10 +64,6 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: l10n_br_account_service_type_by_partner
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_account_move____last_update
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_account_move_line____last_update
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_l10n_br_fiscal_service_type____last_update
-#: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_res_partner____last_update
 #: model:ir.model.fields,field_description:l10n_br_account_service_type_by_partner.field_res_partner_service_type____last_update
 msgid "Last Modified on"
 msgstr ""
