@@ -1,51 +1,45 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2024 - TODAY, Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
+<!-- Copyright 2025 - TODAY, Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
 
     <record model="ir.ui.view" id="account_compensate_advance_form_view">
-        <field
-            name="name"
-        >account.compensate.advance.journal.form (in account_compensate_advance)</field>
+        <field name="name">account.compensate.advance.journal.form</field>
         <field name="model">account.compensate.advance.journal</field>
         <field name="arch" type="xml">
             <form string="Compensate Advance Account">
-                <field name="currency_id" invisible="1" />
-                <group>
+                <sheet>
+                    <field name="currency_id" invisible="1" />
                     <group>
-                        <h2>Advance</h2>
-                        <field
-                            name="advance_id"
-                            options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
-                        />
-                        <field name="advance_balance" />
+                        <group string="Advance">
+                            <field
+                                name="advance_id"
+                                options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"
+                            />
+                            <field name="advance_balance" readonly="1" />
+                        </group>
+                        <group string="To Compensate">
+                            <field name="date" />
+                            <field
+                                name="journal_id"
+                                options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"
+                            />
+                            <field
+                                name="line_id"
+                                options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"
+                            />
+                            <field name="amount" />
+                        </group>
                     </group>
-                    <group>
-                        <h2>To Compensate</h2>
-                        <field name="date" />
-                        <field
-                            name="journal_id"
-                            options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
-                        />
-                        <field
-                            name="line_id"
-                            options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
-                        />
-                        <field name="amount" />
-                    </group>
-                </group>
+                </sheet>
                 <footer>
                     <button
                         string="Compensate"
                         name="action_compensate_advance_account"
                         type="object"
-                        class="oe_highlight"
+                        class="btn-primary"
                     />
-                    <button
-                        string="Cancel"
-                        class="btn btn-secondary"
-                        special="cancel"
-                    />
+                    <button string="Cancel" special="cancel" class="btn-secondary" />
                 </footer>
             </form>
         </field>

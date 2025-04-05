@@ -60,7 +60,7 @@
                 <filter
                     string="Advance"
                     name="account_advance"
-                    domain="[('line_ids.account_id.user_type_id','=',%(account.data_account_type_prepayments)d)]"
+                    domain="[('line_ids.account_id.account_type','=','asset_prepayments')]"
                 />
             </xpath>
         </field>

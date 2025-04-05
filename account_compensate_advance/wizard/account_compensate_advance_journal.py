@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 
 class AccountCompensateAdvanceJournal(models.TransientModel):
     _name = "account.compensate.advance.journal"
+    _description = "Advance Compensation Journal Wizard"
 
     # Advance Fields #
     advance_id = fields.Many2one(
@@ -76,48 +77,44 @@ class AccountCompensateAdvanceJournal(models.TransientModel):
 
     @api.model
     def _get_domain_advance_id(self):
-        """
-        Generates the domain for selecting advance_id records.
-        Filters for prepayment accounts with a paid payment state and the same partner.
-        Adjusts the domain based on the type of the move (in_invoice or out_invoice).
-        """
-        account_type_id = self.env.ref("account.data_account_type_prepayments").id
-        move_type = self.env.context.get("default_move_type")
-        move_id = self.env["account.move"].browse(self.env.context.get("active_ids"))
-        partner_id = move_id.partner_id.id
+        move = self.env["account.move"].browse(self.env.context.get("active_ids", []))
+        if not move or not move.partner_id:
+            return [("id", "=", 0)]
 
         domain = [
             ("move_id.payment_state", "=", "paid"),
-            ("partner_id", "=", partner_id),
-            ("account_id.user_type_id", "=", account_type_id),
+            ("partner_id", "=", move.partner_id.id),
+            ("account_id.account_type", "=", "asset_prepayments"),
             ("account_id.reconcile", "=", True),
         ]
 
-        if move_type == "in_invoice":
-            domain.extend([("amount_residual", ">", 0.0)])
-        elif move_type == "out_invoice":
-            domain.extend([("amount_residual", "<", 0.0)])
+        if move.move_type == "in_invoice":
+            domain.append(("amount_residual", ">", 0.0))
+        elif move.move_type == "out_invoice":
+            domain.append(("amount_residual", "<", 0.0))
 
         return domain
 
     @api.model
     def _get_domain_line_id(self):
-        """
-        Generates the domain for selecting line_id records.
-        Filters lines within the current move that have a non-zero residual amount.
-        Adjusts the domain based on the type of the move (in_invoice or out_invoice).
-        """
-        move_id = self.env.context.get("active_ids")
+        active_ids = self.env.context.get("active_ids", [])
+        if not active_ids:
+            return [("id", "=", 0)]
+
         move_type = self.env.context.get("default_move_type")
         domain = [
-            ("move_id", "in", move_id),
+            ("move_id", "in", active_ids),
             ("amount_residual", "!=", 0.0),
         ]
 
+        account_type = None
         if move_type == "out_invoice":
-            domain.append(("account_id.user_type_id.type", "=", "receivable"))
+            account_type = "asset_receivable"
         elif move_type == "in_invoice":
-            domain.append(("account_id.user_type_id.type", "=", "payable"))
+            account_type = "liability_payable"
+
+        if account_type:
+            domain.append(("account_id.account_type", "=", account_type))
 
         return domain
 
@@ -131,8 +128,10 @@ class AccountCompensateAdvanceJournal(models.TransientModel):
 
         move_vals = self._prepare_move_vals(params)
 
-        move = self.env["account.move"].with_context(self.env.context).create(move_vals)
-        move.post()
+        move = (
+            self.env["account.move"].with_context(**self.env.context).create(move_vals)
+        )
+        move.action_post()
 
         # Reconciliation
         self._create_advance_reconciliation(params["line_id"] + move.line_ids[0])

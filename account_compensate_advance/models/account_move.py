@@ -8,38 +8,42 @@ from odoo import _, api, fields, models
 class AccountMove(models.Model):
 
     _inherit = "account.move"
-    advance_invoice = fields.Boolean(
-        string="Advance Invoice", compute="_compute_advance_invoice"
-    )
+    advance_invoice = fields.Boolean(compute="_compute_advance_invoice")
 
     @api.depends(
         "payment_state",
         "partner_id",
         "line_ids",
         "line_ids.account_id",
-        "line_ids.account_id.user_type_id",
+        "line_ids.account_id.account_type",
         "line_ids.amount_residual",
     )
     def _compute_advance_invoice(self):
-        account_type_id = self.env.ref("account.data_account_type_prepayments").id
+        """Compute whether this invoice has related advance payments available."""
+        prepayment_account_type = "asset_prepayments"
+
         for record in self:
+            record.advance_invoice = False
+
+            if not record.partner_id:
+                continue
+
             domain = [
                 ("move_id.payment_state", "=", "paid"),
                 ("partner_id", "=", record.partner_id.id),
-                ("account_id.user_type_id", "=", account_type_id),
+                ("account_id.account_type", "=", prepayment_account_type),
                 ("account_id.reconcile", "=", True),
             ]
+
             if record.move_type == "in_invoice":
                 domain.append(("amount_residual", ">", 0.0))
             elif record.move_type == "out_invoice":
                 domain.append(("amount_residual", "<", 0.0))
-
-            line_ids = self.env["account.move.line"].search(domain)
-
-            if line_ids:
-                record.advance_invoice = True
             else:
-                record.advance_invoice = False
+                continue  # Skip unsupported types
+
+            has_advance = self.env["account.move.line"].search_count(domain) > 0
+            record.advance_invoice = has_advance
 
     def action_compensate_advance(self):
 
