@@ -55,8 +55,16 @@ class ContractLine(models.Model):
 
         if self.contract_id.contract_type == "sale":
             account_id = partner.property_account_receivable_id.id
+            if account_id.company_id.id != self.contract_id.company_id.id:
+                account_id = (
+                    self.contract_id.company_id.partner_id.property_account_receivable_id.id
+                )
         elif self.contract_id.contract_type == "purchase":
             account_id = partner.property_account_payable_id.id
+            if account_id.company_id.id != self.contract_id.company_id.id:
+                account_id = (
+                    self.contract_id.company_id.partner_id.property_account_payable_id.id
+                )
 
         parent_res_id = self.contract_id
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
@@ -196,7 +204,9 @@ class ContractLine(models.Model):
         offset = 0
         while True:
             contract_lines = self.search(
-                [("is_canceled", "=", False)], limit=25, offset=offset
+                [("is_canceled", "=", False), ("create_invoice_visibility", "=", True)],
+                limit=25,
+                offset=offset,
             )
             contract_lines.with_delay()._generate_mis_cash_flow_forecast_lines()
             if len(contract_lines) < 25:
