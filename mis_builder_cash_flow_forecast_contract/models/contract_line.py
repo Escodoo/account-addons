@@ -49,21 +49,19 @@ class ContractLine(models.Model):
             )
             price_subtotal_company_signed = price_subtotal_company * sign
 
-        partner = self.contract_id.partner_id.with_context(
-            force_company=self.contract_id.company_id.id
-        )
+        partner = self.contract_id.partner_id.with_company(self.contract_id.company_id)
 
         if self.contract_id.contract_type == "sale":
-            account_id = partner.property_account_receivable_id.id
+            account_id = partner.property_account_receivable_id
             if account_id.company_id.id != self.contract_id.company_id.id:
                 account_id = (
-                    self.contract_id.company_id.partner_id.property_account_receivable_id.id
+                    self.contract_id.company_id.partner_id.property_account_receivable_id
                 )
         elif self.contract_id.contract_type == "purchase":
-            account_id = partner.property_account_payable_id.id
+            account_id = partner.property_account_payable_id
             if account_id.company_id.id != self.contract_id.company_id.id:
                 account_id = (
-                    self.contract_id.company_id.partner_id.property_account_payable_id.id
+                    self.contract_id.company_id.partner_id.property_account_payable_id
                 )
 
         parent_res_id = self.contract_id
@@ -76,7 +74,7 @@ class ContractLine(models.Model):
                 self._insert_markers(period_date_start, period_date_end),
             ),
             "date": recurring_next_date,
-            "account_id": account_id,
+            "account_id": account_id.id,
             "partner_id": self.contract_id.partner_id.id,
             "balance": price_subtotal_company_signed,
             "company_id": self.contract_id.company_id.id,
@@ -204,10 +202,10 @@ class ContractLine(models.Model):
         offset = 0
         while True:
             contract_lines = self.search(
-                [("is_canceled", "=", False), ("create_invoice_visibility", "=", True)],
+                [("is_canceled", "=", False)],
                 limit=25,
                 offset=offset,
-            )
+            ).filtered(lambda x: x.create_invoice_visibility)
             contract_lines.with_delay()._generate_mis_cash_flow_forecast_lines()
             if len(contract_lines) < 25:
                 break
