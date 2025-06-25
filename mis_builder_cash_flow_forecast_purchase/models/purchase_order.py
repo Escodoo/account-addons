@@ -167,10 +167,10 @@ class PurchaseOrder(models.Model):
         parent_res_id = self
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
 
-        partner = self.partner_id.with_context(force_company=self.company_id.id)
+        partner = self.partner_id.with_company(self.company_id)
         account_id = partner.property_account_payable_id
         if account_id.company_id.id != self.company_id.id:
-            account_id = self.company_id.partner_id.property_account_payable_id.id
+            account_id = self.company_id.partner_id.property_account_payable_id
 
         return {
             "name": "%s - %s/%s"
@@ -180,7 +180,7 @@ class PurchaseOrder(models.Model):
                 payment_term_count,
             ),
             "date": date,
-            "account_id": account_id,
+            "account_id": account_id.id,
             "partner_id": self.partner_id.id,
             "balance": amount,
             "company_id": self.company_id.id,
