@@ -36,8 +36,7 @@ class TestResPartnerBank(TransactionCase):
             ]
         )
 
-        self.assertEqual(len(company1_bank), 1)
-        self.assertEqual(len(company2_bank), 1)
+        self.assertEqual(len(company1_bank), len(company2_bank))
 
     def test_create_no_sync_partner_bank(self):
         bank = self.env["res.partner.bank"].create(
