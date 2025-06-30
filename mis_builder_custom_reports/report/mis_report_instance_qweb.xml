@@ -17,6 +17,7 @@
     <template
         id="report_mis_report_instance"
         inherit_id="mis_builder.report_mis_report_instance"
+        priority="99"
     >
         <xpath expr="//t[@t-call='web.internal_layout']" position="attributes">
             <attribute name="t-call">web.basic_layout</attribute>
