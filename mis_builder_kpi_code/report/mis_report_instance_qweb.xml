@@ -5,6 +5,7 @@
     <template
         id="report_mis_report_instance"
         inherit_id="mis_builder.report_mis_report_instance"
+        priority="99"
     >
         <xpath
             expr="//div[hasclass('mis_thead')]/div[hasclass('mis_row')][1]/div[hasclass('mis_collabel')][1]"
