@@ -8,9 +8,7 @@ from odoo import _, api, fields, models
 class AccountMove(models.Model):
 
     _inherit = "account.move"
-    advance_invoice = fields.Boolean(
-        string="Advance Invoice", compute="_compute_advance_invoice"
-    )
+    advance_invoice = fields.Boolean(compute="_compute_advance_invoice")
 
     @api.depends(
         "payment_state",

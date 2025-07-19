@@ -131,7 +131,7 @@ class AccountCompensateAdvanceJournal(models.TransientModel):
 
         move_vals = self._prepare_move_vals(params)
 
-        move = self.env["account.move"].with_context(self.env.context).create(move_vals)
+        move = self.env["account.move"].create(move_vals)
         move.post()
 
         # Reconciliation
