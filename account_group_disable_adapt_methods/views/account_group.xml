@@ -3,7 +3,6 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <data>
         <record id="action_run_adapt_methods" model="ir.actions.server">
             <field name="name">Run Adapt Methods</field>
             <field name="model_id" ref="model_account_group" />
@@ -16,5 +15,4 @@
             </field>
         </record>
 
-    </data>
 </odoo>
