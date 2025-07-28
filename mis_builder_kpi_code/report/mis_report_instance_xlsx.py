@@ -27,9 +27,7 @@ class MisBuilderXlsx(models.AbstractModel):
     # flake8: noqa: C901
     def generate_xlsx_report(self, workbook, data, objects):
         if not objects[0].report_id.use_code_column:
-            return super(MisBuilderXlsx, self).generate_xlsx_report(
-                workbook, data, objects
-            )
+            return super().generate_xlsx_report(workbook, data, objects)
         # get the computed result of the report
         matrix = objects._compute_matrix()
         style_obj = self.env["mis.report.style"]
@@ -184,7 +182,7 @@ class MisBuilderXlsx(models.AbstractModel):
 
         # adjust col widths
         sheet.set_column(0, 1, min(label_col_width, MAX_COL_WIDTH) * COL_WIDTH)
-        data_col_width = min(MAX_COL_WIDTH, max(col_width.values()))
-        min_col_pos = min(col_width.keys())
-        max_col_pos = max(col_width.keys())
-        sheet.set_column(min_col_pos, max_col_pos, data_col_width * COL_WIDTH)
+        # TODO - TESTE
+        # min_col_pos = min(col_width.keys())
+        # max_col_pos = max(col_width.keys())
+        # sheet.set_column(min_col_pos, max_col_pos, data_col_width * COL_WIDTH)
