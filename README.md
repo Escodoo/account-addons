@@ -17,7 +17,18 @@ Escodoo add-ons used to extend or customize Odoo Account app functions
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[account_asset_classification](account_asset_classification/) | 16.0.1.0.0 |  | Account Asset Classification
+[account_group_disable_adapt_methods](account_group_disable_adapt_methods/) | 16.0.1.0.0 |  | Account Group Disable Adapt Methods
+[account_move_line_cash_basis_report](account_move_line_cash_basis_report/) | 16.0.1.0.0 |  | Account Move Line Cash Basis Report
+[account_move_visible_date_maturity](account_move_visible_date_maturity/) | 16.0.1.0.0 |  | Account Move Visible Date Maturity
+[hr_timesheet_analytic_restrictions](hr_timesheet_analytic_restrictions/) | 16.0.1.0.0 |  | HR Timesheet Analytic Restrictions
+[l10n_br_account_service_type_by_partner](l10n_br_account_service_type_by_partner/) | 16.0.1.0.0 |  | Brazilian Account Service Type by Partner
+[mis_builder_cash_flow_forecast_integration](mis_builder_cash_flow_forecast_integration/) | 16.0.1.0.0 |  | MIS Builder Cash Flow Forecast Integration
+[sale_analytic_restrictions](sale_analytic_restrictions/) | 16.0.1.0.0 |  | Sale Analylitic Restrictions
 
 [//]: # (end addons)
 
