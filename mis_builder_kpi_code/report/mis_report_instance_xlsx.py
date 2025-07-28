@@ -56,8 +56,9 @@ class MisBuilderXlsx(models.AbstractModel):
         row_pos += 2
 
         # filters
-        if not objects.hide_analytic_filters:
-            for filter_description in objects.get_filter_descriptions_from_context():
+        filter_descriptions = objects.get_filter_descriptions()
+        if filter_descriptions:
+            for filter_description in objects.get_filter_descriptions():
                 sheet.write(row_pos, 0, filter_description)
                 row_pos += 1
             row_pos += 1
@@ -175,9 +176,10 @@ class MisBuilderXlsx(models.AbstractModel):
         now_tz = fields.Datetime.context_timestamp(
             self.env["res.users"], datetime.now()
         )
-        create_date = _("Generated on {} at {}").format(
-            now_tz.strftime(lang.date_format), now_tz.strftime(lang.time_format)
-        )
+        create_date = _("Generated on %(date)s at %(time)s") % {
+            "date": now_tz.strftime(lang.date_format),
+            "time": now_tz.strftime(lang.time_format),
+        }
         sheet.write(row_pos, 0, create_date, footer_format)
 
         # adjust col widths
