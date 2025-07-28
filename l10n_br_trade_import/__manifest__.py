@@ -7,10 +7,10 @@
     "summary": "Managing Brazilian Import Declarations",
     "category": "Localisation",
     "license": "AGPL-3",
-    "author": "Engenere," "Odoo Community Association (OCA)",
+    "author": "Engenere, Escodoo, Odoo Community Association (OCA)",
     "maintainers": ["antoniospneto", "felipemotter"],
-    "website": "https://engenere.one",
-    "version": "14.0.0.0.0",
+    "website": "https://github.com/Escodoo/account-addons",
+    "version": "16.0.1.0.0",
     "development_status": "Beta",
     "depends": [
         "l10n_br_nfe",
