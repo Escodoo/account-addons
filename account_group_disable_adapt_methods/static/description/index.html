@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -369,12 +368,12 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:cc75e6f9ad8cd5edc5dce3d2d8b99e9b91b4efddb724f29d70c29a70dbde0273
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/Escodoo/account-addons/tree/14.0/account_group_disable_adapt_methods"><img alt="Escodoo/account-addons" src="https://img.shields.io/badge/github-Escodoo%2Faccount--addons-lightgray.png?logo=github" /></a></p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/Escodoo/account-addons/tree/16.0/account_group_disable_adapt_methods"><img alt="Escodoo/account-addons" src="https://img.shields.io/badge/github-Escodoo%2Faccount--addons-lightgray.png?logo=github" /></a></p>
 <p>This module disables the execution of the adapt methods that are executed in the write and create methods of the account.group model. This is justified in cases of mass update of account.group since the execution of these methods makes the process very time-consuming.</p>
 <pre class="code python literal-block">
 <span class="c1"># Original Methods</span><span class="w">
 </span><span class="nd">&#64;api</span><span class="o">.</span><span class="n">model_create_multi</span><span class="w">
-</span><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals_list</span><span class="p">):</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals_list</span><span class="p">):</span><span class="w">
 </span>    <span class="k">for</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">vals_list</span><span class="p">:</span><span class="w">
 </span>        <span class="k">if</span> <span class="s1">'code_prefix_start'</span> <span class="ow">in</span> <span class="n">vals</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">vals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code_prefix_end'</span><span class="p">):</span><span class="w">
 </span>            <span class="n">vals</span><span class="p">[</span><span class="s1">'code_prefix_end'</span><span class="p">]</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="s1">'code_prefix_start'</span><span class="p">]</span><span class="w">
@@ -383,7 +382,7 @@ ul.auto-toc {
 </span>    <span class="n">res_ids</span><span class="o">.</span><span class="n">_adapt_parent_account_group</span><span class="p">()</span><span class="w">
 </span>    <span class="k">return</span> <span class="n">res_ids</span><span class="w">
 
-</span><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span><span class="w">
 </span>    <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">AccountGroup</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span><span class="w">
 </span>    <span class="k">if</span> <span class="s1">'code_prefix_start'</span> <span class="ow">in</span> <span class="n">vals</span> <span class="ow">or</span> <span class="s1">'code_prefix_end'</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">:</span><span class="w">
 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_adapt_accounts_for_account_groups</span><span class="p">()</span><span class="w">
@@ -393,13 +392,13 @@ ul.auto-toc {
 
 </span><span class="c1"># New Methods</span><span class="w">
 </span><span class="nd">&#64;api</span><span class="o">.</span><span class="n">model_create_multi</span><span class="w">
-</span><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals_list</span><span class="p">):</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals_list</span><span class="p">):</span><span class="w">
 </span>    <span class="k">for</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">vals_list</span><span class="p">:</span><span class="w">
 </span>        <span class="k">if</span> <span class="s1">'code_prefix_start'</span> <span class="ow">in</span> <span class="n">vals</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">vals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code_prefix_end'</span><span class="p">):</span><span class="w">
 </span>            <span class="n">vals</span><span class="p">[</span><span class="s1">'code_prefix_end'</span><span class="p">]</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="s1">'code_prefix_start'</span><span class="p">]</span><span class="w">
 </span>    <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">AccountGroupInherit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">vals_list</span><span class="p">)</span><span class="w">
 
-</span><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span><span class="w">
 </span>    <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">AccountGroupInherit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
 </pre>
 <p>In addition, an action is implemented to execute the adapt methods by account group or groups.</p>
@@ -430,7 +429,7 @@ ul.auto-toc {
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/Escodoo/account-addons/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/Escodoo/account-addons/issues/new?body=module:%20account_group_disable_adapt_methods%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/Escodoo/account-addons/issues/new?body=module:%20account_group_disable_adapt_methods%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -452,7 +451,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </div>
 <div class="section" id="maintainers">
 <h2><a class="toc-backref" href="#toc-entry-6">Maintainers</a></h2>
-<p>This module is part of the <a class="reference external" href="https://github.com/Escodoo/account-addons/tree/14.0/account_group_disable_adapt_methods">Escodoo/account-addons</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/Escodoo/account-addons/tree/16.0/account_group_disable_adapt_methods">Escodoo/account-addons</a> project on GitHub.</p>
 <p>You are welcome to contribute.</p>
 </div>
 </div>
