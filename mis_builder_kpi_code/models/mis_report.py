@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class MisReportKpi(models.Model):
-
     _inherit = "mis.report.kpi"
 
     code = fields.Char()
@@ -13,7 +12,6 @@ class MisReportKpi(models.Model):
 
 
 class MisReport(models.Model):
-
     _inherit = "mis.report"
 
     use_code_column = fields.Boolean(default=False)
