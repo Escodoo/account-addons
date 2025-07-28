@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class MisReportInstance(models.Model):
-
     _inherit = "mis.report.instance"
 
     use_code_column = fields.Boolean(related="report_id.use_code_column")
@@ -13,7 +12,7 @@ class MisReportInstance(models.Model):
     def compute(self):
         self.ensure_one()
         if not self.use_code_column:
-            return super(MisReportInstance, self).compute()
+            return super().compute()
         else:
             kpi_matrix = self._compute_matrix()
             kpi_matrix_dict = kpi_matrix.as_dict()
