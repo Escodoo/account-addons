@@ -1,1 +1,1 @@
-from . import account_compensate_advance_journal
+from . import compensation_wizard

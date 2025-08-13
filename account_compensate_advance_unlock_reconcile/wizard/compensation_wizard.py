@@ -5,9 +5,9 @@
 from odoo import models
 
 
-class AccountCompensateAdvanceJournal(models.TransientModel):
-    _inherit = "account.compensate.advance.journal"
+class AccountInvoiceAdvanceCompensationWizard(models.TransientModel):
+    _inherit = "account.invoice.advance.compensation.wizard"
 
-    def _create_compensate_advance_account(self):
+    def _create_compensation_move(self):
         self = self.with_context(bypass_account_lock_to_date=True)
-        super()._create_compensate_advance_account()
+        return super()._create_compensation_move()

@@ -17,4 +17,4 @@ class AccountMove(models.Model):
             return
 
         # Call the parent method to enforce lock checks if no bypass
-        super()._check_lock_to_dates()
+        return super()._check_lock_to_dates()
