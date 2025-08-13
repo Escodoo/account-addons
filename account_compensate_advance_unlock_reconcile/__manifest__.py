@@ -5,12 +5,12 @@
     "name": "Account Compensate Advance - Unlock Reconcile in compensate",
     "summary": """
         This module allowing reconciliation in lock accounting periods""",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "Escodoo",
     "website": "https://github.com/Escodoo/account-addons",
     "depends": [
-        "account_compensate_advance",
+        "account_invoice_advance_compensation",
         "account_lock_to_date",
     ],
 }
