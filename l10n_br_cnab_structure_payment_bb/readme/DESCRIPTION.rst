@@ -1,0 +1,1 @@
+This module extends the functionality for implementing Brazilian banking automation through CNAB file exchange. It enhances the l10n_br_cnab_structure module by creating the data structure for Banco do Brasil Payments.

@@ -1,0 +1,3 @@
+"id","cnab_group_id/id","field_id/id","operator","json_value"
+"l10n_br_cnab_structure_payment_bb.cnab_line_group_field_condition_1_bb","l10n_br_cnab_structure_payment_bb.cnab_line_field_group_1_bb","l10n_br_cnab_structure_payment_bb.cnab_bb_240_pagamentos_segmento_a_21_23","in","[""001""]"
+"l10n_br_cnab_structure_payment_bb.cnab_line_group_field_condition_2_bb","l10n_br_cnab_structure_payment_bb.cnab_line_field_group_2_bb","l10n_br_cnab_structure_payment_bb.cnab_bb_240_pagamentos_segmento_a_21_23","not in","[""001""]"
