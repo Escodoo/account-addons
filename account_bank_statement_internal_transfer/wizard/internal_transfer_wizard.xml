@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="analytic_line_split_wizard_view">
+        <field
+            name="name"
+        >internal.transfer.wizard (in account_bank_statement_internal_transfer)</field>
+        <field name="model">internal.transfer.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Internal Transfer">
+                <group>
+                    <group>
+                        <field name="destination_journal_id" />
+                        <field name="payment_method_id" widget="radio" />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        string="Create"
+                        name="action_create_internal_transfer"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        string="Cancel"
+                        class="btn btn-secondary"
+                        special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="internal_transfer_wizard_action" model="ir.actions.act_window">
+        <field name="name">Account Payment Internal Transfer</field>
+        <field name="res_model">internal.transfer.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
