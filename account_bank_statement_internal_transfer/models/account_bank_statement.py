@@ -9,10 +9,15 @@ class AccountBankStatement(models.Model):
 
     payment_ids = fields.One2many(
         comodel_name="account.payment",
-        inverse_name="reconciled_statement_ids",
+        compute="_compute_payment_ids",
         readonly=True,
     )
     payment_count = fields.Integer(compute="_compute_payment_count")
+
+    @api.depends("line_ids")
+    def _compute_payment_ids(self):
+        for statement in self:
+            statement.payment_ids = self.line_ids.mapped("payment_id")
 
     @api.depends("payment_ids")
     def _compute_payment_count(self):

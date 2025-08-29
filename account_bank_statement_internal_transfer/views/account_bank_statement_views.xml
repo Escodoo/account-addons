@@ -8,21 +8,12 @@
             name="name"
         >account.bank.statement.form (in account_bank_statement_internal_transfer)</field>
         <field name="model">account.bank.statement</field>
-        <field name="inherit_id" ref="account.view_bank_statement_form" />
+        <field
+            name="inherit_id"
+            ref="account_statement_base.view_bank_statement_form"
+        />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='line_ids']/tree" position="inside">
-                <field name="payment_id" optional="hide" />
-                <button
-                    name="action_open_internal_transfer"
-                    type="object"
-                    icon="fa-exchange"
-                    string="Internal Transfer"
-                    aria-label="Internal Transfer"
-                    class="float-right"
-                    attrs="{'invisible': ['|', '|', ('is_reconciled', '=', True), ('payment_id', '!=', False), ('state', '!=', 'posted')]}"
-                />
-            </xpath>
-            <button name="button_journal_entries" position="before">
+            <button name="open_entries" position="after">
                 <field name="payment_count" invisible="1" />
                 <button
                     class="oe_stat_button"
@@ -36,16 +27,44 @@
         </field>
     </record>
 
-    <record id="view_bank_statement_line_form" model="ir.ui.view">
+    <record id="account_bank_statement_line_form" model="ir.ui.view">
         <field
             name="name"
         >bank.statement.line.form  (in account_bank_statement_internal_transfer)</field>
         <field name="model">account.bank.statement.line</field>
-        <field name="inherit_id" ref="account.view_bank_statement_line_form" />
+        <field
+            name="inherit_id"
+            ref="account_statement_base.account_bank_statement_line_form"
+        />
         <field name="arch" type="xml">
             <field name="move_id" position="after">
                 <field name="payment_id" />
             </field>
+        </field>
+    </record>
+
+    <record id="account_bank_statement_line_tree" model="ir.ui.view">
+        <field
+            name="name"
+        >bank.statement.line.tree  (in account_bank_statement_internal_transfer)</field>
+        <field name="model">account.bank.statement.line</field>
+        <field
+            name="inherit_id"
+            ref="account_statement_base.account_bank_statement_line_tree"
+        />
+        <field name="arch" type="xml">
+            <button name="action_open_journal_entry" position="after">
+                <field name="payment_id" optional="hide" />
+                <button
+                    name="action_open_internal_transfer"
+                    type="object"
+                    icon="fa-exchange"
+                    string="Internal Transfer"
+                    aria-label="Internal Transfer"
+                    class="float-right"
+                    attrs="{'invisible': ['|', '|', ('is_reconciled', '=', True), ('payment_id', '!=', False), ('state', '!=', 'posted')]}"
+                />
+            </button>
         </field>
     </record>
 
