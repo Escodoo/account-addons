@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_bank_statement_form" model="ir.ui.view">
+        <field
+            name="name"
+        >account.bank.statement.form (in account_bank_statement_internal_transfer)</field>
+        <field name="model">account.bank.statement</field>
+        <field
+            name="inherit_id"
+            ref="account_statement_base.view_bank_statement_form"
+        />
+        <field name="arch" type="xml">
+            <button name="open_entries" position="after">
+                <field name="payment_count" invisible="1" />
+                <button
+                    class="oe_stat_button"
+                    name="button_account_payments"
+                    string="Payments"
+                    type="object"
+                    attrs="{'invisible':[('payment_count','=', 0)]}"
+                    icon="fa-money"
+                />
+            </button>
+        </field>
+    </record>
+
+    <record id="account_bank_statement_line_form" model="ir.ui.view">
+        <field
+            name="name"
+        >bank.statement.line.form  (in account_bank_statement_internal_transfer)</field>
+        <field name="model">account.bank.statement.line</field>
+        <field
+            name="inherit_id"
+            ref="account_statement_base.account_bank_statement_line_form"
+        />
+        <field name="arch" type="xml">
+            <field name="move_id" position="after">
+                <field name="payment_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_bank_statement_line_tree" model="ir.ui.view">
+        <field
+            name="name"
+        >bank.statement.line.tree  (in account_bank_statement_internal_transfer)</field>
+        <field name="model">account.bank.statement.line</field>
+        <field
+            name="inherit_id"
+            ref="account_statement_base.account_bank_statement_line_tree"
+        />
+        <field name="arch" type="xml">
+            <button name="action_open_journal_entry" position="after">
+                <field name="payment_id" optional="hide" />
+                <button
+                    name="action_open_internal_transfer"
+                    type="object"
+                    icon="fa-exchange"
+                    string="Internal Transfer"
+                    aria-label="Internal Transfer"
+                    class="float-right"
+                    attrs="{'invisible': ['|', '|', ('is_reconciled', '=', True), ('payment_id', '!=', False), ('state', '!=', 'posted')]}"
+                />
+            </button>
+        </field>
+    </record>
+
+</odoo>
