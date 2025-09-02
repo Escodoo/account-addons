@@ -10,4 +10,4 @@ class AccountCompensateAdvanceJournal(models.TransientModel):
 
     def _create_compensate_advance_account(self):
         self = self.with_context(bypass_journal_lock_date=True)
-        super()._create_compensate_advance_account()
+        return super()._create_compensate_advance_account()
