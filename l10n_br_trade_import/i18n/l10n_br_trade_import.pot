@@ -4,13 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-26 22:20+0000\n"
-"PO-Revision-Date: 2023-07-26 22:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -19,12 +16,12 @@ msgstr ""
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__afrmm_value
 msgid "AFRMM"
-msgstr "AFRMM"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__third_party_partner_id
 msgid "Acquirer or the Orderer"
-msgstr "Adiquirinte ou Encomendante"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_declaration__third_party_partner_id
@@ -32,220 +29,213 @@ msgid ""
 "Acquirer or the Orderer Partner.\n"
 "Required when intermediation is 'Conta e Ordem' or 'Encomenda'"
 msgstr ""
-"Parceiro adquirente ou encomendante.\n"
-"Obrigatório quando a forma de intermediação for 'Conta e Ordem' ou "
-"'Encomenda'"
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_declaration__afrmm_value
 msgid "Additional Freight for Merchant Navy Renewal"
-msgstr "Adicional ao Frete para Renovação da Marinha Mercante"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__addition_ids
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_form
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.view_move_form_inherit
 msgid "Additions"
-msgstr "Adições"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
 msgid "Adição"
-msgstr "Adição"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__aerial
 msgid "Aerial"
-msgstr "Aérea"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__towing
 msgid "By towing."
-msgstr "Por reboque"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__conduit
 msgid "Conduct/Transmission Network"
-msgstr "Conduto/Rede Transmissão"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__intermediary_type__conta_propria
 msgid "Conta Própria"
-msgstr "Conta Própria"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__intermediary_type__conta_ordem
 msgid "Conta e Ordem"
-msgstr "Conta e Ordem"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__courier
 msgid "Courier"
-msgstr "Courier"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__create_uid
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__create_uid
 msgid "Created by"
-msgstr "Criado por"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__create_date
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__create_date
 msgid "Created on"
-msgstr "Criado em"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_form
 msgid "Customs Clearance"
-msgstr "Desembaraço Aduaneiro"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__customs_clearance_date
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_declaration__customs_clearance_date
 msgid "Customs Clearance Date"
-msgstr "Data do Desembaraço"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__customs_clearance_location
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_declaration__customs_clearance_location
 msgid "Customs Clearance Location"
-msgstr "Local do Desembaraço"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__customs_clearance_state_id
 msgid "Customs Clearance State"
-msgstr "Estado do Desembaraço"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_tree_view
 msgid "Código do Fabricante"
-msgstr "Código do Fabricante"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__import_declaration_date
 msgid "DI Date"
-msgstr "Data da DI"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__import_declaration_number
 msgid "DI Number"
-msgstr "Número da DI"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_tree_view
 msgid "Data de Registro"
-msgstr "Data de Registro"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_tree_view
 msgid "Data do desembaraço"
-msgstr "Data do desembaraço"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_form
 msgid "Date"
-msgstr "Data"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_addition__import_declaration_date
 msgid "Date of Import Declaration"
-msgstr "Data da Declaração de Importação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_account_move_line__nfe40_DI
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_fiscal_document_line__nfe40_DI
-#, fuzzy
 msgid "Declaração de Importação"
-msgstr "Delcaração de Importação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_account_move_line__nfe40_DI
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_fiscal_document_line__nfe40_DI
-#, fuzzy
 msgid "Declaração de Importação (NT 2011/004)"
 msgstr ""
-"Delcaração de Importação\n"
-"(NT 2011/004)"
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__discount_value
 msgid "Discount"
-msgstr "Desconto"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_addition__discount_value
 msgid "Discount value of the DI item - Addition"
-msgstr "Valor do desconto do item da DI – Adição"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__display_name
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__display_name
 msgid "Display Name"
-msgstr "Nome exibido"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__document_date
 msgid "Document Date"
-msgstr "Data do Documento"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__document_number
 msgid "Document Number"
-msgstr "Número do Documento"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_declaration__document_date
 msgid "Document Registration Date"
-msgstr "Data de Registro do Documento"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_form_view
 msgid "Documento de Importação"
-msgstr "Documento de Importação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__drawback
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_tree_view
 msgid "Drawback"
-msgstr "Drawback"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_addition__drawback
 msgid "Drawback concession act number"
-msgstr "Número do ato concessório de Drawback"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__intermediary_type__encomenda
 msgid "Encomenda"
-msgstr "Encomenda"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__exporting_partner_id
 msgid "Exporting"
-msgstr "Exportador"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__fict_in_out
 msgid "Fictitious In/Out"
-msgstr "Entrada/Saída Ficta"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__fluvial
 msgid "Fluvial"
-msgstr "Fluvial"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_addition__manufacturer_id
 msgid "Foreign Manufacturer"
-msgstr "Frabicante estrangeiro"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_declaration__intermediary_type
 msgid "Form of import regarding intermediation"
-msgstr "Forma de importação quanto a intermediação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model,name:l10n_br_trade_import.model_l10n_br_fiscal_document_line
@@ -258,19 +248,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__id
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model,name:l10n_br_trade_import.model_l10n_br_trade_import_addition
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_addition_form
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_addition_search
 msgid "Import Addition"
-msgstr "Adição de Importação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_account_move_line__import_addition_ids
 msgid "Import Additions"
-msgstr "Adições de Importação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.actions.act_window,name:l10n_br_trade_import.action_import_declaration
@@ -280,66 +270,65 @@ msgstr "Adições de Importação"
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_form
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_search
 msgid "Import Declaration"
-msgstr "Declaração de Importação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.document_line_form_import_inherit
 msgid "Import Documents"
-msgstr "Documentos de Importação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__in_hands
 msgid "In hands"
-msgstr "Em mãos"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__intermediary_type
 msgid "Intermediation"
-msgstr "Intermediação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__transportation_type
 msgid "International Transport Route"
-msgstr "Via de transporte internacional"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_declaration__transportation_type
 msgid "International transport route reported in the Import Declaration (DI)"
 msgstr ""
-"Via de transporte internacional informada na Declaração de Importação (DI)"
 
 #. module: l10n_br_trade_import
 #: model:ir.model,name:l10n_br_trade_import.model_account_move_line
 msgid "Journal Item"
-msgstr "Item de Diário"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__lacustrine
 msgid "Lacustrine"
-msgstr "Lacustre"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition____last_update
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration____last_update
 msgid "Last Modified on"
-msgstr "Última modificação em"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__write_uid
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__write_uid
 msgid "Last Updated by"
-msgstr "Ultima atualização por"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__write_date
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__write_date
 msgid "Last Updated on"
-msgstr "Ultima atualização em"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_tree_view
 msgid "Local do desembaraço"
-msgstr "Local do desembaraço"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_form
@@ -349,96 +338,96 @@ msgstr ""
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__manufacturer_id
 msgid "Manufacturer"
-msgstr "Fabricante"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__maritime
 msgid "Maritime"
-msgstr "Marítima"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__addition_number
 msgid "Number"
-msgstr "Número"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_addition__addition_number
 msgid "Number of Import Addition"
-msgstr "Número da Adição de Importação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_addition__import_declaration_number
 msgid "Number of Import Declaration"
-msgstr "Número da Declaração de Importação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_declaration__document_number
 msgid "Number of Import Document"
-msgstr "Numero do Documento de Importação"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_tree_view
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_tree_view
 msgid "Número"
-msgstr "Número"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__own_means
 msgid "Own Means"
-msgstr "Meios Próprios"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__postal
 msgid "Postal"
-msgstr "Postal"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__rail
 msgid "Rail"
-msgstr "Ferroviária"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__road
 msgid "Road"
-msgstr "Rodoviária"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__addtion_sequence
 msgid "Sequence"
-msgstr "Sequencia"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_addition__addtion_sequence
 msgid "Sequential number of the item within the Addition"
-msgstr "Número sequencial do item dentro da Adição"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_tree_view
 msgid "Sequência"
-msgstr "Sequência"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_form
 msgid "State"
-msgstr "UF"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_declaration__customs_clearance_state_id
 msgid "State where Customs Clearance occurred"
-msgstr "UF onde ocorreu o Desembaraço Aduaneiro"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_tree_view
 msgid "UF do desembaraço"
-msgstr "UF do desembaraço"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_tree_view
 msgid "Valor do Desconto"
-msgstr "Valor do Desconto"
+msgstr ""
 
 #. module: l10n_br_trade_import
 #. odoo-python
@@ -448,8 +437,6 @@ msgid ""
 "When the intermediation is 'Conta e Ordem' or 'Encomenda' you must provide "
 "the Acquirer or Orderer's information"
 msgstr ""
-"Quando a forma de intermediação for 'Conta e Ordem' ou 'Encomenda' você deve "
-"informar os dados do Adiquirinte ou Encomendante"
 
 #. module: l10n_br_trade_import
 #. odoo-python
@@ -459,17 +446,3 @@ msgid ""
 "When the international transport route is 'Maritime'\n"
 "You must inform the AFRMM value."
 msgstr ""
-"Quando a via de transporte internacional for 'Marítima'\n"
-"Você deve informar o valor do AFRMM."
-
-#~ msgid "Adi"
-#~ msgstr "Adi"
-
-#~ msgid "DI"
-#~ msgstr "DI"
-
-#~ msgid "Fiscal Document Line"
-#~ msgstr "Linha do Documento Fiscal"
-
-#~ msgid "Smart Search"
-#~ msgstr "Busca Inteligente"
