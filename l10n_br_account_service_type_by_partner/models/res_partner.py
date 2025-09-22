@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class ResPartner(models.Model):
-
     _inherit = "res.partner"
 
     partner_service_type_ids = fields.One2many(
