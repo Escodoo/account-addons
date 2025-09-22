@@ -6,7 +6,6 @@ from odoo import fields, models
 
 
 class AccountMoveLineCashBasisReport(models.Model):
-
     _name = "account.move.line.cash.basis.report"
     _description = "Account Move Line Cash Basis Report"
     _auto = False
@@ -184,7 +183,10 @@ class AccountMoveLineCashBasisReport(models.Model):
                      SELECT DISTINCT aml.move_id
                      FROM ONLY account_move_line aml
                      JOIN account_account account ON aml.account_id = account.id
-                     WHERE account.account_type IN ('asset_receivable', 'liability_payable')
+                     WHERE account.account_type IN (
+                        'asset_receivable',
+                        'liability_payable'
+                    )
                  )
              )),
                  payment_table AS (
@@ -254,7 +256,10 @@ class AccountMoveLineCashBasisReport(models.Model):
                      SELECT DISTINCT aml.move_id
                      FROM ONLY account_move_line aml
                      JOIN account_account account ON aml.account_id = account.id
-                     WHERE account.account_type IN ('asset_receivable', 'liability_payable')
+                     WHERE account.account_type IN (
+                        'asset_receivable',
+                        'liability_payable'
+                     )
                  )
              )
          """
