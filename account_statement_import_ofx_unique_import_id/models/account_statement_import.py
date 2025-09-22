@@ -7,7 +7,6 @@ from odoo import api, models
 
 
 class AccountStatementImport(models.TransientModel):
-
     _inherit = "account.statement.import"
 
     @api.model
