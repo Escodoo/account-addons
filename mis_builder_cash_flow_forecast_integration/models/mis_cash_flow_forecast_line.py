@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class MisCashFlowForecastLine(models.Model):
-
     _inherit = "mis.cash_flow.forecast_line"
 
     res_id = fields.Integer(string="Resource ID")
@@ -42,8 +41,8 @@ class MisCashFlowForecastLine(models.Model):
         """
         Open the parent document related to the current record.
 
-        If the parent_res_model and parent_res_id are set, it retrieves the parent record
-        and returns the action to open its form view. Otherwise, it returns False.
+        If the parent_res_model and parent_res_id are set, it retrieves the parent
+        record and returns the action to open its form view. Otherwise, it returns False
 
         :return: The action to open the parent record's form view or False if no parent
         record is found.
