@@ -65,16 +65,18 @@
                             <field name="customs_clearance_date" string="Date" />
                         </group>
                     </group>
-                    <group name="additions" string="Additions">
-                        <field name="addition_ids" nolabel="1">
-                            <tree editable="bottom">
-                                <field name="addition_number" />
-                                <field name="addtion_sequence" />
-                                <field name="manufacturer_id" />
-                                <field name="discount_value" />
-                                <field name="drawback" />
-                            </tree>
-                        </field>
+                    <group col="1">
+                        <group name="additions" string="Additions" colspan="2">
+                            <field name="addition_ids" nolabel="1" colspan="2">
+                                <tree editable="bottom">
+                                    <field name="addition_number" />
+                                    <field name="addtion_sequence" />
+                                    <field name="manufacturer_id" />
+                                    <field name="discount_value" />
+                                    <field name="drawback" />
+                                </tree>
+                            </field>
+                        </group>
                     </group>
                 </sheet>
             </form>
