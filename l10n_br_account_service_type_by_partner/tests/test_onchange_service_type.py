@@ -47,10 +47,10 @@ class TestServiceTypeOnchange(TransactionCase):
             }
         )
 
-    def test_line_onchange_product_sets_partner_service_type(self):
+    def test_line_compute_product_sets_partner_service_type(self):
         line = self.move.invoice_line_ids[0]
         line.partner_id = self.partner
-        line._onchange_product_id_fiscal()
+        line._compute_product_fiscal_fields()
         self.assertEqual(
             line.service_type_id,
             self.service_type_1009,
