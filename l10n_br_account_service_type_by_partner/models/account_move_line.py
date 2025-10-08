@@ -9,9 +9,11 @@ from odoo.addons.l10n_br_fiscal.constants.fiscal import FISCAL_IN
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    @api.onchange("product_id")
-    def _onchange_product_id_fiscal(self):
-        res = super()._onchange_product_id_fiscal()
+    @api.depends("product_id", "partner_id", "move_id.fiscal_operation_type")
+    def _compute_product_fiscal_fields(self):
+        if self._context.get("skip_compute_product_fiscal_fields"):
+            return
+        res = super()._compute_product_fiscal_fields()
         if self.product_id and self.move_id.fiscal_operation_type == FISCAL_IN:
             partner_service_type = self.partner_id.partner_service_type_ids.filtered(
                 lambda x: x.product_id == self.product_id
