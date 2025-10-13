@@ -379,7 +379,7 @@ ul.auto-toc {
 <pre class="code python literal-block">
 <span class="c1"># Original Methods</span><span class="w">
 </span><span class="nd">&#64;api</span><span class="o">.</span><span class="n">model_create_multi</span><span class="w">
-</span><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals_list</span><span class="p">):</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals_list</span><span class="p">):</span><span class="w">
 </span>    <span class="k">for</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">vals_list</span><span class="p">:</span><span class="w">
 </span>        <span class="k">if</span> <span class="s1">'code_prefix_start'</span> <span class="ow">in</span> <span class="n">vals</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">vals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code_prefix_end'</span><span class="p">):</span><span class="w">
 </span>            <span class="n">vals</span><span class="p">[</span><span class="s1">'code_prefix_end'</span><span class="p">]</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="s1">'code_prefix_start'</span><span class="p">]</span><span class="w">
@@ -388,7 +388,7 @@ ul.auto-toc {
 </span>    <span class="n">res_ids</span><span class="o">.</span><span class="n">_adapt_parent_account_group</span><span class="p">()</span><span class="w">
 </span>    <span class="k">return</span> <span class="n">res_ids</span><span class="w">
 
-</span><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span><span class="w">
 </span>    <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">AccountGroup</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span><span class="w">
 </span>    <span class="k">if</span> <span class="s1">'code_prefix_start'</span> <span class="ow">in</span> <span class="n">vals</span> <span class="ow">or</span> <span class="s1">'code_prefix_end'</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">:</span><span class="w">
 </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_adapt_accounts_for_account_groups</span><span class="p">()</span><span class="w">
@@ -398,13 +398,13 @@ ul.auto-toc {
 
 </span><span class="c1"># New Methods</span><span class="w">
 </span><span class="nd">&#64;api</span><span class="o">.</span><span class="n">model_create_multi</span><span class="w">
-</span><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals_list</span><span class="p">):</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals_list</span><span class="p">):</span><span class="w">
 </span>    <span class="k">for</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">vals_list</span><span class="p">:</span><span class="w">
 </span>        <span class="k">if</span> <span class="s1">'code_prefix_start'</span> <span class="ow">in</span> <span class="n">vals</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">vals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code_prefix_end'</span><span class="p">):</span><span class="w">
 </span>            <span class="n">vals</span><span class="p">[</span><span class="s1">'code_prefix_end'</span><span class="p">]</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="s1">'code_prefix_start'</span><span class="p">]</span><span class="w">
 </span>    <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">AccountGroupInherit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">vals_list</span><span class="p">)</span><span class="w">
 
-</span><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span><span class="w">
 </span>    <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">AccountGroupInherit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
 </pre>
 <p>In addition, an action is implemented to execute the adapt methods by account group or groups.</p>
