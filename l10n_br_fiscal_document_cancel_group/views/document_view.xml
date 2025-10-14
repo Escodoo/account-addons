@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="document_form_inherit">
+        <field
+            name="name"
+        >l10n_br_fiscal.document.form (in l10n_br_fiscal_document_cancel_group)</field>
+        <field name="model">l10n_br_fiscal.document</field>
+        <field name="inherit_id" ref="l10n_br_fiscal.document_form" />
+        <field name="arch" type="xml">
+            <button name="action_document_cancel" position="attributes">
+                <attribute
+                    name="groups"
+                >l10n_br_fiscal_document_cancel_group.group_cancel_fiscal_documents</attribute>
+            </button>
+        </field>
+    </record>
+
+</odoo>
