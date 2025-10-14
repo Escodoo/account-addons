@@ -25,7 +25,7 @@ class AccountPaymentRegister(models.TransientModel):
             wizard = self.copy(
                 default={
                     "amount": amount,
-                    "payment_date": start_date + relativedelta(months=i),
+                    "payment_date": start_date + relativedelta(months=i + 1),
                     "installment_mode": False,
                     "installment_quantity": 1,
                 }
