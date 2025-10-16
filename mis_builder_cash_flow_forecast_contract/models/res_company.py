@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class ResCompany(models.Model):
-
     _inherit = "res.company"
 
     contract_mis_cash_flow_forecast_interval = fields.Integer(
