@@ -7,7 +7,6 @@ from odoo import api, fields, models
 
 
 class ContractLine(models.Model):
-
     _inherit = "contract.line"
 
     mis_cash_flow_forecast_line_ids = fields.One2many(
@@ -54,9 +53,7 @@ class ContractLine(models.Model):
         if self.contract_id.contract_type == "sale":
             account_id = partner.property_account_receivable_id
             if account_id.company_id.id != self.contract_id.company_id.id:
-                account_id = (
-                    self.contract_id.company_id.partner_id.property_account_receivable_id
-                )
+                account_id = self.contract_id.company_id.partner_id.property_account_receivable_id
         elif self.contract_id.contract_type == "purchase":
             account_id = partner.property_account_payable_id
             if account_id.company_id.id != self.contract_id.company_id.id:
@@ -150,11 +147,9 @@ class ContractLine(models.Model):
 
     @api.model
     def create(self, values):
-        contract_lines = super(ContractLine, self).create(values)
+        contract_lines = super().create(values)
         for contract_line in contract_lines:
-            if (
-                contract_line.contract_id.company_id.enable_contract_mis_cash_flow_forecast
-            ):
+            if contract_line.contract_id.company_id.enable_contract_mis_cash_flow_forecast:
                 contract_line.with_delay()._generate_mis_cash_flow_forecast_lines()
         return contract_lines
 
@@ -179,7 +174,7 @@ class ContractLine(models.Model):
         ]
 
     def write(self, values):
-        res = super(ContractLine, self).write(values)
+        res = super().write(values)
         if any(
             [
                 field in values
