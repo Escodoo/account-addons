@@ -11,15 +11,24 @@ class ContractLine(models.Model):
 
     mis_cash_flow_forecast_line_ids = fields.One2many(
         comodel_name="mis.cash_flow.forecast_line",
-        compute="_compute_mis_cash_flow_forecast_line_ids",
-        string="Forecast Line",
-        required=False,
+        inverse_name="res_id",
+        domain=lambda self: [("res_model", "=", self._name)],
+        string="Forecast Lines",
+        readonly=True,
     )
 
     mis_cash_flow_forecast_line_count = fields.Integer(
-        compute="_compute_mis_cash_flow_forecast_line_ids",
+        compute="_compute_mis_cash_flow_forecast_line_count",
         string="Forecast Line Count",
+        store=False,
     )
+
+    @api.depends("mis_cash_flow_forecast_line_ids")
+    def _compute_mis_cash_flow_forecast_line_count(self):
+        for rec in self:
+            rec.mis_cash_flow_forecast_line_count = len(
+                rec.mis_cash_flow_forecast_line_ids
+            )
 
     def _prepare_mis_cash_flow_forecast_line(
         self, period_date_start, period_date_end, recurring_next_date
@@ -53,23 +62,20 @@ class ContractLine(models.Model):
         if self.contract_id.contract_type == "sale":
             account_id = partner.property_account_receivable_id
             if account_id.company_id.id != self.contract_id.company_id.id:
-                account_id = self.contract_id.company_id.partner_id.property_account_receivable_id
+                company_partner = self.contract_id.company_id.partner_id
+                account_id = company_partner.property_account_receivable_id
         elif self.contract_id.contract_type == "purchase":
             account_id = partner.property_account_payable_id
             if account_id.company_id.id != self.contract_id.company_id.id:
-                account_id = (
-                    self.contract_id.company_id.partner_id.property_account_payable_id
-                )
+                company_partner = self.contract_id.company_id.partner_id
+                account_id = company_partner.property_account_payable_id
 
         parent_res_id = self.contract_id
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
 
+        period_label = self._insert_markers(period_date_start, period_date_end)
         return {
-            "name": "%s - %s"
-            % (
-                self.contract_id.display_name,
-                self._insert_markers(period_date_start, period_date_end),
-            ),
+            "name": f"{self.contract_id.display_name} - {period_label}",
             "date": recurring_next_date,
             "account_id": account_id.id,
             "partner_id": self.contract_id.partner_id.id,
@@ -106,14 +112,24 @@ class ContractLine(models.Model):
         )
 
     def _generate_mis_cash_flow_forecast_lines(self):
+        """Generate forecast lines for contract lines based on recurring periods."""
+        ForecastLine = self.env["mis.cash_flow.forecast_line"]
         values = []
+
         for rec in self:
-            rec.mis_cash_flow_forecast_line_ids.unlink()
+            # Delete existing forecast lines for this contract line
+            existing_forecasts = ForecastLine.search(
+                [("res_model", "=", self._name), ("res_id", "=", rec.id)]
+            )
+            if existing_forecasts:
+                existing_forecasts.unlink()
+
             if rec.recurring_next_date:
                 period_date_start = rec.next_period_date_start
                 period_date_end = rec.next_period_date_end
                 recurring_next_date = rec.recurring_next_date
                 max_date_end = rec.date_end if not rec.is_auto_renew else False
+
                 while (
                     period_date_end
                     and rec._get_generate_mis_cash_flow_forecast_line_criteria(
@@ -127,6 +143,7 @@ class ContractLine(models.Model):
                             recurring_next_date,
                         )
                         values.append(new_vals)
+
                     period_date_start = period_date_end + relativedelta(days=1)
                     period_date_end = self.get_next_period_date_end(
                         period_date_start,
@@ -143,13 +160,16 @@ class ContractLine(models.Model):
                         max_date_end=max_date_end,
                     )
 
-        return self.env["mis.cash_flow.forecast_line"].create(values)
+        if values:
+            return ForecastLine.create(values)
+        return ForecastLine
 
     @api.model
     def create(self, values):
         contract_lines = super().create(values)
         for contract_line in contract_lines:
-            if contract_line.contract_id.company_id.enable_contract_mis_cash_flow_forecast:
+            company = contract_line.contract_id.company_id
+            if company.enable_contract_mis_cash_flow_forecast:
                 contract_line.with_delay()._generate_mis_cash_flow_forecast_lines()
         return contract_lines
 
@@ -175,52 +195,40 @@ class ContractLine(models.Model):
 
     def write(self, values):
         res = super().write(values)
-        if any(
-            [
-                field in values
-                for field in self._get_mis_cash_flow_forecast_update_trigger_fields()
-            ]
-        ):
+        trigger_fields = self._get_mis_cash_flow_forecast_update_trigger_fields()
+        if any([field in values for field in trigger_fields]):
             for rec in self:
-                if rec.contract_id.company_id.enable_contract_mis_cash_flow_forecast:
+                company = rec.contract_id.company_id
+                if company.enable_contract_mis_cash_flow_forecast:
                     rec.with_delay()._generate_mis_cash_flow_forecast_lines()
         return res
 
     def unlink(self):
+        """Delete related forecast lines before deleting contract lines."""
+        ForecastLine = self.env["mis.cash_flow.forecast_line"]
         for rec in self:
-            if rec.mis_cash_flow_forecast_line_ids:
-                rec.mis_cash_flow_forecast_line_ids.unlink()
+            forecast_lines = ForecastLine.search(
+                [("res_model", "=", self._name), ("res_id", "=", rec.id)]
+            )
+            if forecast_lines:
+                forecast_lines.unlink()
         return super().unlink()
 
     @api.model
     def cron_mis_cash_flow_generate_forecast_contract_lines(self):
+        """Cron job to regenerate forecast lines for all active contract lines."""
         offset = 0
+        contract_lines_env = self.env["contract.line"]
         while True:
-            contract_lines = self.search(
+            contract_lines = contract_lines_env.search(
                 [("is_canceled", "=", False)],
                 limit=25,
                 offset=offset,
             ).filtered(lambda x: x.create_invoice_visibility)
-            contract_lines.with_delay()._generate_mis_cash_flow_forecast_lines()
+
+            if contract_lines:
+                contract_lines.with_delay()._generate_mis_cash_flow_forecast_lines()
+
             if len(contract_lines) < 25:
                 break
             offset += 25
-
-    def _compute_mis_cash_flow_forecast_line_ids(self):
-        ForecastLine = self.env["mis.cash_flow.forecast_line"]
-        forecast_lines = ForecastLine.search(
-            [
-                ("res_model", "=", self._name),
-                ("res_id", "in", self.ids),
-            ]
-        )
-
-        result = dict.fromkeys(self.ids, ForecastLine)
-        for forecast in forecast_lines:
-            result[forecast.res_id] |= forecast
-
-        for rec in self:
-            rec.mis_cash_flow_forecast_line_ids = result[rec.id]
-            rec.mis_cash_flow_forecast_line_count = len(
-                rec.mis_cash_flow_forecast_line_ids
-            )

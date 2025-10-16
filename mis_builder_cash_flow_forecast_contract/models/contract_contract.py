@@ -4,7 +4,7 @@
 from odoo import _, api, models
 
 
-class ContractContract(models.Model):
+class Contract(models.Model):
     _inherit = "contract.contract"
 
     @api.model
@@ -17,18 +17,12 @@ class ContractContract(models.Model):
             "contract_line_ids",
         ]
 
-    def write(self, values):
-        res = super().write(values)
-        if any(
-            [
-                field in values
-                for field in self._get_mis_cash_flow_forecast_update_trigger_fields()
-            ]
-        ):
-            for rec in self:
-                if rec.company_id.enable_contract_mis_cash_flow_forecast:
-                    for line in rec.contract_line_ids:
-                        line.with_delay()._generate_mis_cash_flow_forecast_lines()
+    def _prepare_mis_cash_flow_forecast_line_values(self):
+        res = []
+        for rec in self:
+            if rec.company_id.enable_contract_mis_cash_flow_forecast:
+                for line in rec.contract_line_ids:
+                    res.append(line._prepare_mis_cash_flow_forecast_line())
         return res
 
     def unlink(self):
