@@ -5,12 +5,11 @@ from odoo import api, models
 
 
 class ResPartnerBank(models.Model):
-
     _inherit = "res.partner.bank"
 
     @api.model
     def create(self, vals):
-        res = super(ResPartnerBank, self).create(vals)
+        res = super().create(vals)
         if not self.env.context.get("no_sync_partner_bank"):
             res.sudo()._sync_partner_bank(vals)
         return res
@@ -18,7 +17,7 @@ class ResPartnerBank(models.Model):
     def write(self, vals):
         old_acc_number = self.acc_number
         old_partner_id = self.partner_id.id
-        res = super(ResPartnerBank, self).write(vals)
+        res = super().write(vals)
         if not self.env.context.get("no_sync_partner_bank"):
             self.sudo()._sync_partner_bank(vals, old_acc_number, old_partner_id)
         return res
@@ -28,11 +27,15 @@ class ResPartnerBank(models.Model):
             for bank in self:
                 for company in self.env["res.company"].search([]):
                     if company.id != bank.company_id.id:
+                        dst_partner = company.partner_id
                         partner_bank = self.env["res.partner.bank"].search(
                             [
-                                ("partner_id", "=", bank.partner_id.id),
-                                ("acc_number", "=", bank.acc_number),
-                                ("company_id", "=", company.id),
+                                ("partner_id", "=", dst_partner.id),
+                                (
+                                    "sanitized_acc_number",
+                                    "=",
+                                    bank.sanitized_acc_number,
+                                ),
                             ],
                             limit=1,
                         )
@@ -46,17 +49,25 @@ class ResPartnerBank(models.Model):
         for rec in self:
             for company in self.env["res.company"].search([]):
                 if company.id != rec.company_id.id:
+                    dst_partner = company.partner_id
+
                     partner_bank = self.env["res.partner.bank"].search(
                         [
-                            ("partner_id", "=", old_partner_id or rec.partner_id.id),
-                            ("acc_number", "=", old_acc_number or rec.acc_number),
-                            ("company_id", "=", company.id),
+                            ("partner_id", "=", dst_partner.id),
+                            (
+                                "sanitized_acc_number",
+                                "=",
+                                rec.sanitized_acc_number,
+                            ),
                         ],
                         limit=1,
                     )
                     if partner_bank:
                         partner_bank.with_context(no_sync_partner_bank=True).write(vals)
                     else:
-                        rec.with_context(no_sync_partner_bank=True).copy(
-                            {"company_id": company.id}
+                        rec.sudo().with_context(no_sync_partner_bank=True).copy(
+                            {
+                                "company_id": company.id,
+                                "partner_id": dst_partner.id,
+                            }
                         )
