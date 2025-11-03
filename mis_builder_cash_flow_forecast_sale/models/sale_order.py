@@ -6,11 +6,9 @@ from odoo import _, api, fields, models
 
 
 class SaleOrder(models.Model):
-
     _inherit = "sale.order"
 
     forecast_uninvoiced_amount = fields.Monetary(
-        string="Forecast Uninvoiced Amount",
         readonly=True,
         compute="_compute_forecast_uninvoiced_amount",
         store=True,
@@ -102,7 +100,7 @@ class SaleOrder(models.Model):
                 )
                 return [
                     (b[0], b[1], ac[1])
-                    for b, ac in zip(to_compute, to_compute_currency)
+                    for b, ac in zip(to_compute, to_compute_currency, strict=True)
                 ]
         else:
             return [(fields.Date.to_string(date), total_balance, total_amount_currency)]
@@ -141,7 +139,7 @@ class SaleOrder(models.Model):
         ]
 
     def write(self, values):
-        res = super(SaleOrder, self).write(values)
+        res = super().write(values)
         if any(
             [
                 field in values
@@ -176,12 +174,7 @@ class SaleOrder(models.Model):
             account_id = self.company_id.partner_id.property_account_receivable_id
 
         return {
-            "name": "%s - %s/%s"
-            % (
-                self.display_name,
-                payment_term_item,
-                payment_term_count,
-            ),
+            "name": f"{self.display_name} - {payment_term_item}/{payment_term_count}",
             "date": date,
             "account_id": account_id.id,
             "partner_id": self.partner_id.id,
