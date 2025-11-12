@@ -17,7 +17,7 @@ class AccountBankStatement(models.Model):
     @api.depends("line_ids")
     def _compute_payment_ids(self):
         for statement in self:
-            statement.payment_ids = self.line_ids.mapped("payment_id")
+            statement.payment_ids = statement.line_ids.mapped("payment_id")
 
     @api.depends("payment_ids")
     def _compute_payment_count(self):

@@ -11,11 +11,6 @@ class AccountBankStatementLine(models.Model):
         comodel_name="account.payment",
         readonly=True,
     )
-    payment_ids = fields.Many2one(
-        comodel_name="account.payment",
-        inverse_name="reconciled_statement_line_ids",
-        readonly=True,
-    )
 
     def action_open_internal_transfer(self):
         action = self.env["ir.actions.act_window"]._for_xml_id(
