@@ -57,12 +57,18 @@ class InternalTransferWizard(models.TransientModel):
         statement_line = self.env["account.bank.statement.line"].browse(
             context["active_id"]
         )
+        payment_ref = "{}: {} : {}".format(
+            payment_id.move_id.name, payment_line.name, context["ref"]
+        )
 
+        payment_line.write(
+            {
+                "name": payment_ref,
+            }
+        )
         statement_line.write(
             {
-                "payment_ref": "{}: {} : {}".format(
-                    payment_id.move_id.name, payment_line.name, context["ref"]
-                ),
+                "payment_ref": payment_ref,
                 "payment_id": payment_id.id,
             }
         )
