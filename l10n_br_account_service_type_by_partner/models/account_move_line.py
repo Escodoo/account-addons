@@ -11,15 +11,15 @@ class AccountMoveLine(models.Model):
 
     @api.depends("product_id", "partner_id", "move_id.fiscal_operation_type")
     def _compute_product_fiscal_fields(self):
-        if self._context.get("skip_compute_product_fiscal_fields"):
-            return
-        res = super()._compute_product_fiscal_fields()
-        if self.product_id and self.move_id.fiscal_operation_type == FISCAL_IN:
-            partner_service_type = self.partner_id.partner_service_type_ids.filtered(
-                lambda x: x.product_id == self.product_id
-            )
-            if partner_service_type:
-                self.service_type_id = partner_service_type.service_type_id
-            else:
-                self.service_type_id = self.product_id.service_type_id
-        return res
+        for line in self:
+            if line.product_id and line.move_id.fiscal_operation_type == FISCAL_IN:
+                partner_service_type = (
+                    line.partner_id.partner_service_type_ids.filtered(
+                        lambda x, product=line.product_id: x.product_id == product
+                    )[:1]
+                )
+                line.service_type_id = (
+                    partner_service_type.service_type_id
+                    if partner_service_type
+                    else line.product_id.service_type_id
+                )
