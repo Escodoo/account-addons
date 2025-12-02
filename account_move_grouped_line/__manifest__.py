@@ -8,7 +8,9 @@
     "license": "AGPL-3",
     "author": "Escodoo",
     "website": "https://github.com/Escodoo/account-addons",
-    "depends": [],
+    "depends": [
+        "account",
+    ],
     "data": [
         "views/account_move.xml",
         "security/account_move_grouped_line.xml",

@@ -27,16 +27,16 @@ Account Move Grouped Line
 |badge1| |badge2| |badge3|
 
 This module adds a new tab in the Account Move (Journal Entry) form view that displays
-journal items grouped by account, analytic account, analytic tags, and taxes.
+journal items grouped by account.
 
 The grouped view provides a consolidated summary of debit and credit amounts for each
-unique combination, making it easier to analyze and review journal entries with many lines.
+account, making it easier to analyze and review journal entries with many lines.
 
 **Key Features:**
 
 * Automatically computes grouped journal items based on account move lines
 * Displays totals for debit and credit columns
-* Groups by account, name, analytic account, analytic tags, and taxes
+* Groups journal items by account
 * Accessible from a dedicated tab in the journal entry form
 
 **Table of contents**
@@ -55,8 +55,7 @@ To use this module, you need to:
 4. View the consolidated summary of journal items grouped by account
 
 The grouped lines are automatically computed based on the journal entry lines,
-showing totals for each unique combination of account, analytic account,
-analytic tags, and taxes.
+showing summed debit and credit totals for each account.
 
 Bug Tracker
 ===========
