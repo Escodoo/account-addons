@@ -8,36 +8,36 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     grouped_items_id = fields.One2many(
-        "account.move.grouped.lines",
+        "account.move.grouped.line",
         "account_move_id",
         compute="_compute_grouped_items",
     )
 
     def _compute_grouped_items(self):
-        """create records at 'grouped.itens' based on 'line_ids'"""
+        """Create records at 'account.move.grouped.line' based on 'line_ids'."""
+        GroupedLine = self.env["account.move.grouped.line"]
         for record in self:
-            grouped_aml = self.env["account.move.line"].read_group(
-                domain=[("move_id", "=", record.id)],
-                fields=[],
-                groupby=[
-                    "account_id",
-                    "name",
-                    "analytic_account_id",
-                    "analytic_tag_ids",
-                    "tax_ids",
-                ],
-            )
+            # Group lines by account using ORM instead of read_group
+            # read_group uses direct SQL which may not see uncommitted records
+            grouped_data = {}
+            for line in record.line_ids:
+                if line.account_id:
+                    account_id = line.account_id.id
+                    if account_id not in grouped_data:
+                        grouped_data[account_id] = {"debit": 0.0, "credit": 0.0}
+                    grouped_data[account_id]["debit"] += line.debit
+                    grouped_data[account_id]["credit"] += line.credit
 
             grouped_item_lines = [
                 {
                     "account_move_id": record.id,
-                    "account_id": line.get("account_id")[0],
-                    "credit": line.get("credit"),
-                    "debit": line.get("debit"),
+                    "account_id": account_id,
+                    "debit": values["debit"],
+                    "credit": values["credit"],
                 }
-                for line in grouped_aml
+                for account_id, values in grouped_data.items()
             ]
-            grouped_lines_ids = self.env["account.move.grouped.lines"].create(
-                grouped_item_lines
-            )
-            record.grouped_items_id = [(6, 0, grouped_lines_ids.ids)]
+            if grouped_item_lines:
+                record.grouped_items_id = GroupedLine.create(grouped_item_lines)
+            else:
+                record.grouped_items_id = GroupedLine

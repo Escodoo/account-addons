@@ -6,5 +6,4 @@ To use this module, you need to:
 4. View the consolidated summary of journal items grouped by account
 
 The grouped lines are automatically computed based on the journal entry lines,
-showing totals for each unique combination of account, analytic account,
-analytic tags, and taxes.
+showing summed debit and credit totals for each account.
