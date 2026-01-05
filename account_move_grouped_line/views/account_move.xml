@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Marcel Savegnago <https://escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="account_move_form_view" model="ir.ui.view">
+        <field name="name">account.move.form.grouped.line</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@id='other_tab_entry']" position="after">
+                <page
+                    id="grouped_tab"
+                    string="Grouped Journal Items"
+                    groups="account.group_account_readonly"
+                >
+                    <field name="grouped_items_id" />
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
