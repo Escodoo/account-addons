@@ -92,7 +92,6 @@ msgstr ""
 #. module: account_bank_statement_internal_transfer
 #: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement__payment_ids
 #: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement_line__payment_id
-#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement_line__payment_ids
 msgid "Payment"
 msgstr ""
 
