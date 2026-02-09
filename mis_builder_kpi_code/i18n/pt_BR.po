@@ -1,0 +1,104 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mis_builder_kpi_code
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Wesley Oliveira, 2024"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__code
+msgid "Code"
+msgstr "Código"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report__display_name
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance__display_name
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__display_name
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_report_mis_builder_mis_report_instance_xlsx__display_name
+msgid "Display Name"
+msgstr "Nome Exibido"
+
+#. module: mis_builder_kpi_code
+#. openerp-web
+#: code:addons/mis_builder_kpi_code/static/src/xml/mis_report_widget.xml:0
+#, python-format
+msgid "Export"
+msgstr "Exportar"
+
+#. module: mis_builder_kpi_code
+#: code:addons/mis_builder_kpi_code/report/mis_report_instance_xlsx.py:0
+#, python-format
+msgid "Generated on {} at {}"
+msgstr "Gerado em {} às {}"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report__id
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance__id
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__id
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_report_mis_builder_mis_report_instance_xlsx__id
+msgid "ID"
+msgstr ""
+
+#. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report____last_update
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance____last_update
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi____last_update
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_report_mis_builder_mis_report_instance_xlsx____last_update
+msgid "Last Modified on"
+msgstr "Última Modificação em"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model,name:mis_builder_kpi_code.model_report_mis_builder_mis_report_instance_xlsx
+msgid "MIS Builder XLSX report"
+msgstr "Relatório XLSX MIS Builder"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model,name:mis_builder_kpi_code.model_mis_report_instance
+msgid "MIS Report Instance"
+msgstr "Instância do Relatório SIG"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model,name:mis_builder_kpi_code.model_mis_report_kpi
+msgid "MIS Report KPI"
+msgstr "KPI do Relatório SIG"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model,name:mis_builder_kpi_code.model_mis_report
+msgid "MIS Report Template"
+msgstr "Template do Relatório SIG"
+
+#. module: mis_builder_kpi_code
+#. openerp-web
+#: code:addons/mis_builder_kpi_code/static/src/xml/mis_report_widget.xml:0
+#, python-format
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: mis_builder_kpi_code
+#. openerp-web
+#: code:addons/mis_builder_kpi_code/static/src/xml/mis_report_widget.xml:0
+#, python-format
+msgid "Refresh"
+msgstr "Atualizar"
+
+#. module: mis_builder_kpi_code
+#. openerp-web
+#: code:addons/mis_builder_kpi_code/static/src/xml/mis_report_widget.xml:0
+#, python-format
+msgid "Settings"
+msgstr "Configurações"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report__use_code_column
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance__use_code_column
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__use_code_column
+msgid "Use Code Column"
+msgstr "Usar Coluna Código"
