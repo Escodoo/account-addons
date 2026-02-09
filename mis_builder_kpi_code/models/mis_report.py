@@ -17,9 +17,17 @@ class MisReport(models.Model):
     use_code_column = fields.Boolean(default=False)
 
     def computed_code(self, description):
-        code = ""
-        if description:
-            first_character = description[0]
-            if first_character.isdigit():
-                code = description.split(" ")[0]
-        return code
+        """Extrai o código inicial do KPI a partir do texto.
+
+        Regras:
+        - Só considera "código" quando o primeiro caractere é um dígito
+        - Exige um espaço para separar código e descrição, evitando erros
+          em casos como "1" ou "1ABC" sem separador.
+        """
+        if not isinstance(description, str) or not description:
+            return ""
+
+        if description[0].isdigit() and " " in description:
+            return description.split(" ", 1)[0]
+
+        return ""
