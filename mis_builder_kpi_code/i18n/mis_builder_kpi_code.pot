@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,40 +19,17 @@ msgid "Code"
 msgstr ""
 
 #. module: mis_builder_kpi_code
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report__display_name
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance__display_name
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__display_name
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_report_mis_builder_mis_report_instance_xlsx__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: mis_builder_kpi_code
-#. openerp-web
+#. odoo-javascript
 #: code:addons/mis_builder_kpi_code/static/src/xml/mis_report_widget.xml:0
 #, python-format
 msgid "Export"
 msgstr ""
 
 #. module: mis_builder_kpi_code
+#. odoo-python
 #: code:addons/mis_builder_kpi_code/report/mis_report_instance_xlsx.py:0
 #, python-format
-msgid "Generated on {} at {}"
-msgstr ""
-
-#. module: mis_builder_kpi_code
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report__id
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance__id
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__id
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_report_mis_builder_mis_report_instance_xlsx__id
-msgid "ID"
-msgstr ""
-
-#. module: mis_builder_kpi_code
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report____last_update
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance____last_update
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi____last_update
-#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_report_mis_builder_mis_report_instance_xlsx____last_update
-msgid "Last Modified on"
+msgid "Generated on %(date)s at %(time)s"
 msgstr ""
 
 #. module: mis_builder_kpi_code
@@ -76,21 +53,21 @@ msgid "MIS Report Template"
 msgstr ""
 
 #. module: mis_builder_kpi_code
-#. openerp-web
+#. odoo-javascript
 #: code:addons/mis_builder_kpi_code/static/src/xml/mis_report_widget.xml:0
 #, python-format
 msgid "Print"
 msgstr ""
 
 #. module: mis_builder_kpi_code
-#. openerp-web
+#. odoo-javascript
 #: code:addons/mis_builder_kpi_code/static/src/xml/mis_report_widget.xml:0
 #, python-format
 msgid "Refresh"
 msgstr ""
 
 #. module: mis_builder_kpi_code
-#. openerp-web
+#. odoo-javascript
 #: code:addons/mis_builder_kpi_code/static/src/xml/mis_report_widget.xml:0
 #, python-format
 msgid "Settings"
