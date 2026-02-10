@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase, tagged
 @tagged("post_install", "-at_install")
 class TestPostInitHook(TransactionCase):
     def setUp(self):
-        super(TestPostInitHook, self).setUp()
+        super().setUp()
         self.order_vals = {
             "partner_id": self.env.ref("base.res_partner_2").id,
             "currency_id": self.env.ref("base.USD").id,

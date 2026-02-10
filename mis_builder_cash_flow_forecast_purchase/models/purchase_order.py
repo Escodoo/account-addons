@@ -6,7 +6,6 @@ from odoo import _, api, fields, models
 
 
 class PurchaseOrder(models.Model):
-
     _inherit = "purchase.order"
 
     forecast_uninvoiced_amount = fields.Monetary(
@@ -86,21 +85,24 @@ class PurchaseOrder(models.Model):
                                         to_pay_invoice_currency, due_date>.
         """
         if self.payment_term_id:
-            to_compute = self.payment_term_id.compute(
-                total_balance, date_ref=date, currency=self.company_id.currency_id
+            terms = self.payment_term_id._compute_terms(
+                date_ref=date,
+                currency=self.currency_id,
+                company=self.company_id,
+                tax_amount=0.0,
+                tax_amount_currency=0.0,
+                sign=1,
+                untaxed_amount=total_balance,
+                untaxed_amount_currency=total_amount_currency,
             )
-            if self.currency_id == self.company_id.currency_id:
-                # Single-currency.
-                return [(b[0], b[1], b[1]) for b in to_compute]
-            else:
-                # Multi-currencies.
-                to_compute_currency = self.payment_term_id.compute(
-                    total_amount_currency, date_ref=date, currency=self.currency_id
+            return [
+                (
+                    fields.Date.to_string(t["date"]),
+                    t["company_amount"],
+                    t["foreign_amount"],
                 )
-                return [
-                    (b[0], b[1], ac[1])
-                    for b, ac in zip(to_compute, to_compute_currency)
-                ]
+                for t in terms
+            ]
         else:
             return [(fields.Date.to_string(date), total_balance, total_amount_currency)]
 
@@ -137,7 +139,7 @@ class PurchaseOrder(models.Model):
         ]
 
     def write(self, values):
-        res = super(PurchaseOrder, self).write(values)
+        res = super().write(values)
         if any(
             [
                 field in values
@@ -165,13 +167,6 @@ class PurchaseOrder(models.Model):
         self.ensure_one()
         parent_res_id = self
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
-
-        # partner = self.partner_id.with_context(force_company=self.company_id.id)
-        #
-        # account_id = partner.property_account_payable_id or self.env["ir.property"].get(
-        #     "property_account_payable_id", "res.partner"
-        # )
-
         account_id = (
             self.partner_id.property_account_payable_id.id
             or self.env["ir.property"]
@@ -180,12 +175,7 @@ class PurchaseOrder(models.Model):
         )
 
         return {
-            "name": "%s - %s/%s"
-            % (
-                self.display_name,
-                payment_term_item,
-                payment_term_count,
-            ),
+            "name": f"{self.display_name} - {payment_term_item}/{payment_term_count}",
             "date": date,
             "account_id": account_id,
             "partner_id": self.partner_id.id,

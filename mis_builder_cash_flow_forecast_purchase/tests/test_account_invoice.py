@@ -9,7 +9,7 @@ from odoo.tests.common import TransactionCase, tagged
 @tagged("post_install", "-at_install")
 class TestAccountMove(TransactionCase):
     def setUp(self):
-        super(TestAccountMove, self).setUp()
+        super().setUp()
         self.current_date = datetime.today()
         self.company = self.env.ref("base.main_company")
         self.currency = self.env.ref("base.USD")
