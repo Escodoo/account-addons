@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from odoo import fields
 from odoo.tests.common import TransactionCase, tagged
@@ -12,17 +12,27 @@ from odoo.tools.translate import _
 @tagged("post_install", "-at_install")
 class TestPurchaseOrder(TransactionCase):
     def setUp(self):
-        super(TestPurchaseOrder, self).setUp()
-        self.current_date = datetime.today()
+        super().setUp()
+        self.current_date = fields.Datetime.now()
         self.company = self.env.ref("base.main_company")
         self.currency = self.env.ref("base.USD")
         self.partner = self.env["res.partner"].create({"name": "Partner 1"})
+        self.purchase_tax = self.env["account.tax"].create(
+            {
+                "name": "Purchase Tax 10%",
+                "amount": 10,
+                "amount_type": "percent",
+                "type_tax_use": "purchase",
+                "company_id": self.company.id,
+            }
+        )
         self.product = self.env["product.product"].create(
             {
                 "name": "Produto de Teste",
                 "list_price": 10.0,
                 "standard_price": 5.0,
                 "currency_id": self.currency.id,
+                "supplier_taxes_id": [(6, 0, [self.purchase_tax.id])],
             }
         )
         self.purchase_order = self.env["purchase.order"].create(
@@ -38,6 +48,8 @@ class TestPurchaseOrder(TransactionCase):
                 "product_id": self.product.id,
                 "product_qty": 10.0,
                 "price_unit": self.product.standard_price,
+                "taxes_id": [(6, 0, [self.purchase_tax.id])],
+                "fiscal_tax_ids": [(6, 0, [self.purchase_tax.id])],
             }
         )
         self.account_move = self.env["account.move"].create(
@@ -72,7 +84,6 @@ class TestPurchaseOrder(TransactionCase):
         )
 
     def test__compute_forecast_uninvoiced_amount(self):
-
         self.purchase_order.invoice_ids.unlink()
         self.purchase_order._compute_forecast_uninvoiced_amount()
         self.assertEqual(
@@ -112,7 +123,9 @@ class TestPurchaseOrder(TransactionCase):
                 "name": self.product.name,
                 "move_id": self.invoice_1.id,
                 "product_id": self.product.id,
-                "account_id": self.product.categ_id.property_account_expense_categ_id.id,
+                "account_id": (
+                    self.product.categ_id.property_account_expense_categ_id.id
+                ),
                 "currency_id": self.currency.id,
             }
         )
@@ -142,7 +155,17 @@ class TestPurchaseOrder(TransactionCase):
         payment_term = self.env["account.payment.term"].create(
             {
                 "name": "Termo de Pagamento2",
-                "line_ids": [(0, 0, {"days": 30})],
+                "line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "value": "balance",
+                            "value_amount": 0.0,
+                            "days": 30,
+                        },
+                    )
+                ],
             }
         )
 
@@ -164,7 +187,17 @@ class TestPurchaseOrder(TransactionCase):
         payment_term = self.env["account.payment.term"].create(
             {
                 "name": "Termo de Pagamento3",
-                "line_ids": [(0, 0, {"days": 30})],
+                "line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "value": "balance",
+                            "value_amount": 0.0,
+                            "days": 30,
+                        },
+                    )
+                ],
             }
         )
         self.purchase_order.payment_term_id = payment_term.id
@@ -331,6 +364,8 @@ class TestPurchaseOrder(TransactionCase):
 
     def test_action_show_mis_forecast(self):
         action = self.purchase_order.action_show_mis_forecast()
+        expected_context = dict(self.env.context)
+        expected_context.pop("group_by", None)
         expected_values = {
             "type": "ir.actions.act_window",
             "name": _("Cash Flow Forecast - Purchase"),
@@ -340,7 +375,7 @@ class TestPurchaseOrder(TransactionCase):
                 ("parent_res_id", "=", self.purchase_order.id),
             ],
             "view_mode": "pivot,tree",
-            "context": {"allowed_company_ids": [1]},
+            "context": expected_context,
         }
         self.assertDictEqual(action, expected_values)
         self.assertEqual(action["name"], expected_values["name"])

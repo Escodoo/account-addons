@@ -5,13 +5,13 @@
     "name": "Mis Builder Cash Flow Forecast Purchase",
     "summary": """
         MIS Builder Cash Flow Forecast - Purchase""",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "Escodoo",
     "website": "https://github.com/Escodoo/account-addons",
     "depends": [
         "mis_builder_cash_flow_forecast_integration",
-        "purchase",
+        "l10n_br_purchase",
         "queue_job",
     ],
     "data": [

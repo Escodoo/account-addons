@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class ResCompany(models.Model):
-
     _inherit = "res.company"
 
     enable_purchase_mis_cash_flow_forecast = fields.Boolean(
