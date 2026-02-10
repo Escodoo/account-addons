@@ -59,11 +59,11 @@ class SaleOrder(models.Model):
 
     def _compute_mis_cash_flow_forecast_line_ids(self):
         ForecastLine = self.env["mis.cash_flow.forecast_line"]
+        if not self:
+            return
+        res_model = self.env["ir.model"]._get(self._name)
         forecast_lines = ForecastLine.search(
-            [
-                ("res_model", "=", self._name),
-                ("res_id", "in", self.ids),
-            ]
+            [("res_model_id", "=", res_model.id), ("res_id", "in", self.ids)]
         )
 
         result = dict.fromkeys(self.ids, ForecastLine)
@@ -75,6 +75,15 @@ class SaleOrder(models.Model):
             rec.mis_cash_flow_forecast_line_count = len(
                 rec.mis_cash_flow_forecast_line_ids
             )
+
+    def _get_mis_cash_flow_forecast_lines(self):
+        ForecastLine = self.env["mis.cash_flow.forecast_line"]
+        if not self:
+            return ForecastLine
+        res_model = self.env["ir.model"]._get(self._name)
+        return ForecastLine.search(
+            [("res_model_id", "=", res_model.id), ("res_id", "in", self.ids)]
+        )
 
     def _compute_payment_terms(self, date, total_balance, total_amount_currency):
         """Compute the payment terms.
@@ -156,9 +165,7 @@ class SaleOrder(models.Model):
         return res
 
     def unlink(self):
-        for rec in self:
-            if rec.mis_cash_flow_forecast_line_ids:
-                rec.mis_cash_flow_forecast_line_ids.unlink()
+        self._get_mis_cash_flow_forecast_lines().unlink()
         return super().unlink()
 
     def _prepare_mis_cash_flow_forecast_line(
@@ -188,8 +195,8 @@ class SaleOrder(models.Model):
 
     def _generate_mis_cash_flow_forecast_lines(self):
         values = []
+        self._get_mis_cash_flow_forecast_lines().unlink()
         for rec in self:
-            rec.mis_cash_flow_forecast_line_ids.unlink()
             if rec.forecast_uninvoiced_amount and rec.state in ["sale", "done"]:
                 sign = 1
                 amount_uninvoiced = rec.forecast_uninvoiced_amount * sign
