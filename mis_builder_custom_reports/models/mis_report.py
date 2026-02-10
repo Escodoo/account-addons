@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class MisReportKpi(models.Model):
-
     _inherit = "mis.report.kpi"
 
     is_profit_loss = fields.Boolean(string="Is Profit or Loss?", default=False)
