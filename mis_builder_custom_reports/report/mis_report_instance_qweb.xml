@@ -3,18 +3,6 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <template
-        id="assets_report"
-        name="mis_builder_custom_reports"
-        inherit_id="web.report_assets_common"
-    >
-        <xpath expr="." position="inside">
-            <link
-                href="/mis_builder_custom_reports/static/src/css/report.css"
-                rel="stylesheet"
-            />
-        </xpath>
-    </template>
-    <template
         id="report_mis_report_instance"
         inherit_id="mis_builder.report_mis_report_instance"
         priority="99"
@@ -22,7 +10,7 @@
         <xpath expr="//t[@t-call='web.internal_layout']" position="attributes">
             <attribute name="t-call">web.basic_layout</attribute>
         </xpath>
-        <xpath expr="//div[@class='page']" position="before">
+        <xpath expr="//div[hasclass('page')]" position="before">
             <t t-set="company_id" t-value="o.query_company_ids[0]" />
             <div
                 t-attf-class="header o_company_#{company_id.id}_layout"
@@ -77,7 +65,7 @@
                 </div>
             </div>
         </xpath>
-        <xpath expr="//div[@class='page']/h3" position="replace">
+        <xpath expr="//div[hasclass('page')]/h3" position="replace">
             <h3 />
         </xpath>
         <xpath
@@ -86,7 +74,7 @@
         >
             <attribute name="t-if">
                 not ((row.style_props.hide_empty and row.is_empty())
-                or row.style_props.hide_always) and row.row_id != "check"
+                or row.style_props.hide_always) and row.kpi.name != "check"
             </attribute>
         </xpath>
         <xpath
@@ -114,17 +102,20 @@
             </t>
         </xpath>
         <xpath
-            expr="//div[hasclass('mis_thead')]//t[@t-as='col']/div[hasclass('mis_collabel')]/t[@t-esc='col.label']"
+            expr="//div[hasclass('mis_thead')]//t[@t-out='col.label']"
             position="replace"
         >
-            <t t-if="o.hide_period_labels">
-                <span />
-            </t>
-            <t t-else="">
-                <t t-esc="col.label" />
-            </t>
+            <t t-if="o.hide_period_labels" />
+            <t t-else="" t-out="col.label" />
         </xpath>
-        <xpath expr="//div[@class='page']/h3" position="after">
+        <xpath
+            expr="//div[hasclass('mis_thead')]//t[@t-out='subcol.label']"
+            position="replace"
+        >
+            <t t-if="o.hide_period_labels" />
+            <t t-else="" t-out="subcol.label" />
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/h3" position="after">
             <div
                 t-attf-class="footer o_standard_footer o_company_#{company_id.id}_layout"
             >

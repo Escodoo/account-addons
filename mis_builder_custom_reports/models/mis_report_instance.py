@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class MisReportInstance(models.Model):
-
     _inherit = "mis.report.instance"
 
     is_round_numbers = fields.Boolean(default=False)

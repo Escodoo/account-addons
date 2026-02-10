@@ -10,7 +10,7 @@
         <field name="model">mis.report.instance</field>
         <field name="inherit_id" ref="mis_builder.mis_report_instance_view_form" />
         <field name="arch" type="xml">
-            <field name="hide_analytic_filters" position="after">
+            <field name="wide_display_by_default" position="after">
                 <field name="is_round_numbers" />
                 <field name="hide_period_labels" />
             </field>
