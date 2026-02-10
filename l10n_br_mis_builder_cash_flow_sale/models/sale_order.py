@@ -5,7 +5,6 @@ from odoo import api, models
 
 
 class SaleOrder(models.Model):
-
     _inherit = "sale.order"
 
     @api.depends(
@@ -48,4 +47,4 @@ class SaleOrder(models.Model):
                         }
                     )
         else:
-            super()._compute_forecast_uninvoiced_amount()
+            return super()._compute_forecast_uninvoiced_amount()
