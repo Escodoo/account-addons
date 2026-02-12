@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2024 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="mis_report_instance_view_form">
+        <field
+            name="name"
+        >mis.report.instance.view.form (in mis_builder_custom_reports)</field>
+        <field name="model">mis.report.instance</field>
+        <field name="inherit_id" ref="mis_builder.mis_report_instance_view_form" />
+        <field name="arch" type="xml">
+            <field name="wide_display_by_default" position="after">
+                <field name="is_round_numbers" />
+                <field name="hide_period_labels" />
+            </field>
+        </field>
+    </record>
+
+</odoo>

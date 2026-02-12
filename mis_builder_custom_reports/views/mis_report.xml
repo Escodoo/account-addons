@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="mis_report_view_kpi_form">
+        <field
+            name="name"
+        >mis.report.view.kpi.form (in mis_builder_custom_reports)</field>
+        <field name="model">mis.report.kpi</field>
+        <field name="inherit_id" ref="mis_builder.mis_report_view_kpi_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='style_expression']" position="after">
+                <field name="is_profit_loss" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

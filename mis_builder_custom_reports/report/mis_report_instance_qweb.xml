@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2024 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="report_mis_report_instance"
+        inherit_id="mis_builder.report_mis_report_instance"
+        priority="99"
+    >
+        <xpath expr="//t[@t-call='web.internal_layout']" position="attributes">
+            <attribute name="t-call">web.basic_layout</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]" position="before">
+            <t t-set="company_id" t-value="o.query_company_ids[0]" />
+            <div
+                t-attf-class="header o_company_#{company_id.id}_layout"
+                t-att-style="report_header_style"
+            >
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <t t-set="company_id" t-value="o.query_company_ids[0]" />
+                        <img
+                            t-if="company_id.logo"
+                            t-att-src="image_data_uri(company_id.logo)"
+                            style="max-height: 45px;"
+                            alt="Logo"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span
+                            style="text-decoration: underline; text-transform: uppercase;"
+                            t-field="company_id.legal_name"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span t-field="company_id.cnpj_cpf" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span
+                            style="text-transform: uppercase;"
+                            t-field="o.description"
+                        />
+                    </div>
+                </div>
+                <t t-if="o.is_round_numbers">
+                    <div class="row">
+                        <div class="col-12">
+                            <span>(In thousands of reais - R$)</span>
+                        </div>
+                    </div>
+                </t>
+                <div
+                    t-if="company_id.logo or company_id.report_header"
+                    class="row zero_min_height"
+                >
+                    <div class="col-12">
+                        <div style="border-bottom: 1px solid black;" />
+                    </div>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/h3" position="replace">
+            <h3 />
+        </xpath>
+        <xpath
+            expr="//div[hasclass('mis_tbody')]/t[@t-as='row']/div[hasclass('mis_row')]"
+            position="attributes"
+        >
+            <attribute name="t-if">
+                not ((row.style_props.hide_empty and row.is_empty())
+                or row.style_props.hide_always) and row.kpi.name != "check"
+            </attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('mis_tbody')]/t[@t-as='row']/div[hasclass('mis_row')]//div[hasclass('mis_amount')]/t"
+            position="replace"
+        >
+            <t t-if="cell.row.kpi.type == 'str'">
+                <span />
+            </t>
+            <t t-elif="cell and cell.val_rendered">
+                <t t-if="cell.val_rendered in ['', '0']">
+                    <span>-</span>
+                </t>
+                <t t-elif="float(cell.val or 0) &lt; 0">
+                    <span>(</span>
+                    <t t-esc="cell.val_rendered.replace('‑', '')" />
+                    <span>)</span>
+                </t>
+                <t t-else="">
+                    <t t-esc="cell.val_rendered" />
+                </t>
+            </t>
+            <t t-else="">
+                <span>-</span>
+            </t>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('mis_thead')]//t[@t-out='col.label']"
+            position="replace"
+        >
+            <t t-if="o.hide_period_labels" />
+            <t t-else="" t-out="col.label" />
+        </xpath>
+        <xpath
+            expr="//div[hasclass('mis_thead')]//t[@t-out='subcol.label']"
+            position="replace"
+        >
+            <t t-if="o.hide_period_labels" />
+            <t t-else="" t-out="subcol.label" />
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/h3" position="after">
+            <div
+                t-attf-class="footer o_standard_footer o_company_#{company_id.id}_layout"
+            >
+                <div style="padding: 10px 0;" />
+                <div class="mis_footer_line" />
+                <div class="row">
+                    <div class="col-5" name="company_info">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="mis_footer_icon">
+                                            <div class="fa fa-map-marker" />
+                                        </div>
+                                    </td>
+                                    <td class="mis_footer_text">
+                                        <span t-field="company_id.street_name" />,
+                                        <span t-field="company_id.street_number" />,
+                                        <t t-if="company_id.street2">
+                                            <span t-field="company_id.street2" />,
+                                        </t>
+                                        <span t-field="company_id.district" />,
+                                        <span t-field="company_id.city_id.name" /> -
+                                        <span t-field="company_id.state_id.code" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-3" name="phone">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="mis_footer_icon">
+                                            <div class="fa fa-phone" />
+                                        </div>
+                                    </td>
+                                    <td class="mis_footer_text">
+                                        <span t-field="company_id.phone" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <t t-if="company_id.website">
+                        <div class="col-4" name="website">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="mis_footer_icon">
+                                                <div class="fa fa-globe" />
+                                            </div>
+                                        </td>
+                                        <td class="mis_footer_text">
+                                            <span t-field="company_id.website" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
