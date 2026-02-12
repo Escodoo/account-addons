@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,24 +15,27 @@ msgstr ""
 
 #. module: mis_builder_custom_reports
 #: model_terms:ir.ui.view,arch_db:mis_builder_custom_reports.report_mis_report_instance
+msgid "<span>(</span>"
+msgstr ""
+
+#. module: mis_builder_custom_reports
+#: model_terms:ir.ui.view,arch_db:mis_builder_custom_reports.report_mis_report_instance
 msgid "<span>(In thousands of reais - R$)</span>"
 msgstr ""
 
 #. module: mis_builder_custom_reports
-#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance__display_name
-#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi__display_name
-msgid "Display Name"
+#: model_terms:ir.ui.view,arch_db:mis_builder_custom_reports.report_mis_report_instance
+msgid "<span>)</span>"
+msgstr ""
+
+#. module: mis_builder_custom_reports
+#: model_terms:ir.ui.view,arch_db:mis_builder_custom_reports.report_mis_report_instance
+msgid "<span>-</span>"
 msgstr ""
 
 #. module: mis_builder_custom_reports
 #: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance__hide_period_labels
 msgid "Hide Period Labels"
-msgstr ""
-
-#. module: mis_builder_custom_reports
-#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance__id
-#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi__id
-msgid "ID"
 msgstr ""
 
 #. module: mis_builder_custom_reports
@@ -43,12 +46,6 @@ msgstr ""
 #. module: mis_builder_custom_reports
 #: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance__is_round_numbers
 msgid "Is Round Numbers"
-msgstr ""
-
-#. module: mis_builder_custom_reports
-#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_instance____last_update
-#: model:ir.model.fields,field_description:mis_builder_custom_reports.field_mis_report_kpi____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: mis_builder_custom_reports
