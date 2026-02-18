@@ -96,21 +96,31 @@ class SaleOrder(models.Model):
                                         to_pay_invoice_currency, due_date>.
         """
         if self.payment_term_id:
-            to_compute = self.payment_term_id.compute(
-                total_balance, date_ref=date, currency=self.company_id.currency_id
+            sign_source = (
+                total_amount_currency
+                if not self.currency_id.is_zero(total_amount_currency)
+                else total_balance
             )
-            if self.currency_id == self.company_id.currency_id:
-                # Single-currency.
-                return [(b[0], b[1], b[1]) for b in to_compute]
-            else:
-                # Multi-currencies.
-                to_compute_currency = self.payment_term_id.compute(
-                    total_amount_currency, date_ref=date, currency=self.currency_id
+            sign = 1 if sign_source >= 0 else -1
+
+            terms = self.payment_term_id._compute_terms(
+                date_ref=date,
+                currency=self.currency_id,
+                company=self.company_id,
+                tax_amount=0.0,
+                tax_amount_currency=0.0,
+                sign=sign,
+                untaxed_amount=total_balance,
+                untaxed_amount_currency=total_amount_currency,
+            )
+            return [
+                (
+                    fields.Date.to_string(term["date"]),
+                    term["company_amount"],
+                    term["foreign_amount"],
                 )
-                return [
-                    (b[0], b[1], ac[1])
-                    for b, ac in zip(to_compute, to_compute_currency, strict=True)
-                ]
+                for term in terms
+            ]
         else:
             return [(fields.Date.to_string(date), total_balance, total_amount_currency)]
 
