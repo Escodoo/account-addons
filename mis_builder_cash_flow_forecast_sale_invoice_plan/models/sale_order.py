@@ -6,7 +6,6 @@ from odoo import fields, models
 
 
 class SaleOrder(models.Model):
-
     _inherit = "sale.order"
 
     def _compute_payment_terms(self, date, total_balance, total_amount_currency):
@@ -55,8 +54,3 @@ class SaleOrder(models.Model):
                     )
 
         return values
-
-    # @api.model
-    # def _get_mis_cash_flow_forecast_update_trigger_fields(self):
-    #     fields = super().self._get_mis_cash_flow_forecast_update_trigger_fields()
-    #     return fields + ['invoice_plan_ids']

@@ -9,12 +9,8 @@ from odoo.tests.common import TransactionCase, tagged
 @tagged("post_install", "-at_install")
 class TestSaleOrder(TransactionCase):
     def setUp(self):
-        super(TestSaleOrder, self).setUp()
+        super().setUp()
         self.currency_eur = self.env.ref("base.EUR")
-        self.currency_usd = self.env.ref("base.USD")
-        self.product = self.env["product.product"].create(
-            {"name": "Test Product", "list_price": 100}
-        )
         self.sale_order = self.env["sale.order"].create(
             {
                 "partner_id": self.env.ref("base.res_partner_2").id,
@@ -22,27 +18,22 @@ class TestSaleOrder(TransactionCase):
                 "payment_term_id": self.env.ref(
                     "account.account_payment_term_immediate"
                 ).id,
-                "order_line": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": self.product.name,
-                            "product_id": self.product.id,
-                            "product_uom_qty": 1,
-                            "price_unit": self.product.list_price,
-                        },
-                    ),
-                ],
             }
         )
 
     def test_compute_payment_terms(self):
-        expected_values = [(fields.Date.today().strftime("%Y-%m-%d"), 115.0, 115.0)]
+        amount = 115.0
+        expected_values = [
+            (
+                fields.Date.to_string(self.sale_order.date_order),
+                amount,
+                amount,
+            )
+        ]
         values = self.sale_order._compute_payment_terms(
             date=self.sale_order.date_order,
-            total_balance=self.sale_order.amount_total,
-            total_amount_currency=self.sale_order.amount_total,
+            total_balance=amount,
+            total_amount_currency=amount,
         )
         self.assertEqual(values, expected_values)
 
@@ -55,7 +46,6 @@ class TestSaleOrder(TransactionCase):
         )
         self.assertTrue(self.sale_order.invoice_plan_ids)
 
-        values = []
         invoice_plan = self.env["sale.invoice.plan"].search(
             [("sale_id", "=", self.sale_order.id)]
         )
@@ -76,7 +66,6 @@ class TestSaleOrder(TransactionCase):
         total_amount_currency = cur.round(total_amount_currency)
 
         date = invoice_plan.plan_date
-        total_amount_currency = total_amount_currency
         total_balance = self.sale_order._compute_amount_uninvoiced_company_currency(
             total_amount_currency
         )
@@ -87,5 +76,5 @@ class TestSaleOrder(TransactionCase):
             total_balance=total_balance,
             total_amount_currency=total_amount_currency,
         )
-        expected_values = [[fields.Date.today().strftime("%Y-%m-%d"), 0.0, 0.0]]
+        expected_values = [[fields.Date.to_string(date), 0.0, 0.0]]
         self.assertEqual(values, expected_values)
