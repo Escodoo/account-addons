@@ -15,6 +15,7 @@ class TestMisBuilderCashFlowForecastSale(TransactionCase):
         super().setUpClass()
 
         cls.company = cls.env.ref("base.main_company")
+        cls.company.country_id = cls.env.ref("base.us")
         cls.company.enable_sale_mis_cash_flow_forecast = True
 
         # Contas mínimas para criar linhas e faturas em draft
