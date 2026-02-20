@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 ===========================================
 Account Reconciliation Widget Order By DESC
 ===========================================
@@ -13,16 +17,18 @@ Account Reconciliation Widget Order By DESC
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-Escodoo%2Faccount--addons-lightgray.png?logo=github
-    :target: https://github.com/Escodoo/account-addons/tree/14.0/account_reconciliation_widget_order_by_desc
+    :target: https://github.com/Escodoo/account-addons/tree/16.0/account_reconciliation_widget_order_by_desc
     :alt: Escodoo/account-addons
 
 |badge1| |badge2| |badge3|
 
-This module contains a modification in the bank statement reconciliation logic, rewriting the function to return accounting move lines formatted for the bank statement reconciliation widget. The order of the fields 'date_maturity' and 'id' is altered to DESC, moving 'date_maturity' to the first position and '{amout}' to the second.
+This module adapts the bank statement reconciliation behavior for Odoo 16 with
+``account_reconcile_oca``. It updates the reconciliation form context to sort
+candidate move lines by ``date_maturity desc, id desc``.
 
 **Table of contents**
 
@@ -35,7 +41,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/Escodoo/account-addons/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/Escodoo/account-addons/issues/new?body=module:%20account_reconciliation_widget_order_by_desc%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/Escodoo/account-addons/issues/new?body=module:%20account_reconciliation_widget_order_by_desc%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -54,10 +60,19 @@ Contributors
 
   * Marcel Savegnago <marcel.savegnago@escodoo.com.br>
   * Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
+  * Cristiano Mafra Junior <cristiano.mafra@escodoo.com.br>
 
 Maintainers
 ~~~~~~~~~~~
 
-This module is part of the `Escodoo/account-addons <https://github.com/Escodoo/account-addons/tree/14.0/account_reconciliation_widget_order_by_desc>`_ project on GitHub.
+.. |maintainer-kaynnan, CristianoMafraJunior| image:: https://github.com/kaynnan, CristianoMafraJunior.png?size=40px
+    :target: https://github.com/kaynnan, CristianoMafraJunior
+    :alt: kaynnan, CristianoMafraJunior
+
+Current maintainer:
+
+|maintainer-kaynnan, CristianoMafraJunior| 
+
+This module is part of the `Escodoo/account-addons <https://github.com/Escodoo/account-addons/tree/16.0/account_reconciliation_widget_order_by_desc>`_ project on GitHub.
 
 You are welcome to contribute.
