@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="bank_statement_line_form_reconcile_order_desc" model="ir.ui.view">
+        <field name="model">account.bank.statement.line</field>
+        <field
+            name="inherit_id"
+            ref="account_reconcile_oca.bank_statement_line_form_reconcile_view"
+        />
+        <field name="arch" type="xml">
+            <field name="add_account_move_line_id" position="attributes">
+                <attribute name="context">
+                    {
+                        'search_default_partner_id': partner_id,
+                        'tree_view_ref': 'account_reconcile_oca.account_move_line_tree_reconcile_view',
+                        'search_view_ref': 'account_reconcile_oca.account_move_line_search_reconcile_view',
+                        'order': 'date_maturity desc, id desc'
+                    }
+                </attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
