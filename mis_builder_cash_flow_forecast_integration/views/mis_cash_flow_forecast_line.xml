@@ -2,7 +2,6 @@
 <!-- Copyright 2022 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record model="ir.ui.view" id="mis_cash_flow_forecast_line_form_view">
         <field
             name="name"
@@ -115,5 +114,4 @@
     >
         <field name="view_mode">tree,graph,pivot,form</field>
     </record>
-
 </odoo>
