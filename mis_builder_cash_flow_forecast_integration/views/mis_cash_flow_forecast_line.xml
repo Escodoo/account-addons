@@ -19,7 +19,7 @@
                     icon="fa-bars"
                     type="object"
                     name="action_open_document_related"
-                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                    invisible="(not res_model or not res_id)"
                 />
                 <button
                     string="Parent Document"
@@ -27,7 +27,7 @@
                     icon="fa-bars"
                     type="object"
                     name="action_open_parent_document_related"
-                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                    invisible="(not res_model or not res_id)"
                 />
             </sheet>
             <field name="balance" position="after">
@@ -61,7 +61,7 @@
                     icon="fa-bars"
                     type="object"
                     name="action_open_document_related"
-                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                    invisible="(not res_model or not res_id)"
                 />
                 <field name="parent_res_model_id" />
                 <field name="parent_res_model" invisible="1" />
@@ -72,7 +72,7 @@
                     icon="fa-bars"
                     type="object"
                     name="action_open_parent_document_related"
-                    attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"
+                    invisible="(not res_model or not res_id)"
                 />
             </field>
         </field>
@@ -112,6 +112,6 @@
         id="mis_builder_cash_flow.action_mis_cash_flow_forecast_line"
         model="ir.actions.act_window"
     >
-        <field name="view_mode">tree,graph,pivot,form</field>
+        <field name="view_mode">list,graph,pivot,form</field>
     </record>
 </odoo>
