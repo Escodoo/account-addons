@@ -101,7 +101,7 @@ class TestMisBuilderCustomReports(TransactionCase):
                     (
                         0,
                         0,
-                        {"name": "bale[200%]", "subkpi_id": report.subkpi_ids[0].id},
+                        {"name": "partner.debit", "subkpi_id": report.subkpi_ids[0].id},
                     ),
                 ],
             }

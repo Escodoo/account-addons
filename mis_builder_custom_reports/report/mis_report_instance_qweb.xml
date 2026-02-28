@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- Copyright 2024 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
-     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <template
         id="report_mis_report_instance"
@@ -19,11 +17,10 @@
                 <div class="row mb-3">
                     <div class="col-3">
                         <t t-set="company_id" t-value="o.query_company_ids[0]" />
-                        <img
+                        <span
                             t-if="company_id.logo"
-                            t-att-src="image_data_uri(company_id.logo)"
-                            style="max-height: 45px;"
-                            alt="Logo"
+                            t-field="company_id.logo"
+                            t-options='{"widget": "image", "style": "max-height: 45px;"}'
                         />
                     </div>
                 </div>
@@ -37,7 +34,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <span t-field="company_id.cnpj_cpf" />
+                        <span t-field="company_id.vat" />
                     </div>
                 </div>
                 <div class="row">
@@ -68,15 +65,20 @@
         <xpath expr="//div[hasclass('page')]/h3" position="replace">
             <h3 />
         </xpath>
+
         <xpath
             expr="//div[hasclass('mis_tbody')]/t[@t-as='row']/div[hasclass('mis_row')]"
             position="attributes"
         >
             <attribute name="t-if">
-                not ((row.style_props.hide_empty and row.is_empty())
-                or row.style_props.hide_always) and row.kpi.name != "check"
+                not (
+                    ((row.style_props.hide_empty and row.is_empty())
+                    or row.style_props.hide_always)
+                    and row.kpi.name != "check"
+                )
             </attribute>
         </xpath>
+
         <xpath
             expr="//div[hasclass('mis_tbody')]/t[@t-as='row']/div[hasclass('mis_row')]//div[hasclass('mis_amount')]/t"
             position="replace"
@@ -90,7 +92,7 @@
                 </t>
                 <t t-elif="float(cell.val or 0) &lt; 0">
                     <span>(</span>
-                    <t t-esc="cell.val_rendered.replace('‑', '')" />
+                    <t t-esc="cell.val_rendered.replace('-', '')" />
                     <span>)</span>
                 </t>
                 <t t-else="">
@@ -101,6 +103,7 @@
                 <span>-</span>
             </t>
         </xpath>
+
         <xpath
             expr="//div[hasclass('mis_thead')]//t[@t-out='col.label']"
             position="replace"
@@ -115,6 +118,7 @@
             <t t-if="o.hide_period_labels" />
             <t t-else="" t-out="subcol.label" />
         </xpath>
+
         <xpath expr="//div[hasclass('page')]/h3" position="after">
             <div
                 t-attf-class="footer o_standard_footer o_company_#{company_id.id}_layout"
