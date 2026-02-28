@@ -205,14 +205,17 @@ class TestMisBuilderCashFlowForecastSale(TransactionCase):
         def _with_delay(self, *args, **kwargs):
             return self
 
-        with patch.object(
-            SaleOrderModel,
-            "with_delay",
-            autospec=True,
-            side_effect=_with_delay,
-        ), patch.object(
-            SaleOrderModel, "_generate_mis_cash_flow_forecast_lines", autospec=True
-        ) as gen:
+        with (
+            patch.object(
+                SaleOrderModel,
+                "with_delay",
+                autospec=True,
+                side_effect=_with_delay,
+            ),
+            patch.object(
+                SaleOrderModel, "_generate_mis_cash_flow_forecast_lines", autospec=True
+            ) as gen,
+        ):
             order.write({"partner_id": self.partner2.id})
             self.assertGreaterEqual(gen.call_count, 1)
 
@@ -225,18 +228,22 @@ class TestMisBuilderCashFlowForecastSale(TransactionCase):
             return self
 
         # Evita postar de verdade (precisaria de configuração completa contábil)
-        with patch(
-            "odoo.addons.account.models.account_move.AccountMove.action_post",
-            autospec=True,
-            return_value=True,
-        ), patch.object(
-            SaleOrderModel,
-            "with_delay",
-            autospec=True,
-            side_effect=_with_delay,
-        ), patch.object(
-            SaleOrderModel, "_generate_mis_cash_flow_forecast_lines", autospec=True
-        ) as gen:
+        with (
+            patch(
+                "odoo.addons.account.models.account_move.AccountMove.action_post",
+                autospec=True,
+                return_value=True,
+            ),
+            patch.object(
+                SaleOrderModel,
+                "with_delay",
+                autospec=True,
+                side_effect=_with_delay,
+            ),
+            patch.object(
+                SaleOrderModel, "_generate_mis_cash_flow_forecast_lines", autospec=True
+            ) as gen,
+        ):
             move.action_post()
             self.assertGreaterEqual(gen.call_count, 1)
 
@@ -248,20 +255,25 @@ class TestMisBuilderCashFlowForecastSale(TransactionCase):
         def _with_delay(self, *args, **kwargs):
             return self
 
-        with patch(
-            "odoo.addons.account.models.account_move.AccountMove.button_cancel",
-            autospec=True,
-            return_value=True,
-        ), patch.object(
-            SaleOrderModel,
-            "with_delay",
-            autospec=True,
-            side_effect=_with_delay,
-        ), patch.object(
-            SaleOrderModel, "_compute_forecast_uninvoiced_amount", autospec=True
-        ) as comp, patch.object(
-            SaleOrderModel, "_generate_mis_cash_flow_forecast_lines", autospec=True
-        ) as gen:
+        with (
+            patch(
+                "odoo.addons.account.models.account_move.AccountMove.button_cancel",
+                autospec=True,
+                return_value=True,
+            ),
+            patch.object(
+                SaleOrderModel,
+                "with_delay",
+                autospec=True,
+                side_effect=_with_delay,
+            ),
+            patch.object(
+                SaleOrderModel, "_compute_forecast_uninvoiced_amount", autospec=True
+            ) as comp,
+            patch.object(
+                SaleOrderModel, "_generate_mis_cash_flow_forecast_lines", autospec=True
+            ) as gen,
+        ):
             move.button_cancel()
             self.assertGreaterEqual(comp.call_count, 1)
             self.assertGreaterEqual(gen.call_count, 1)
@@ -274,20 +286,25 @@ class TestMisBuilderCashFlowForecastSale(TransactionCase):
         def _with_delay(self, *args, **kwargs):
             return self
 
-        with patch(
-            "odoo.addons.account.models.account_move.AccountMove.button_draft",
-            autospec=True,
-            return_value=True,
-        ), patch.object(
-            SaleOrderModel,
-            "with_delay",
-            autospec=True,
-            side_effect=_with_delay,
-        ), patch.object(
-            SaleOrderModel, "_compute_forecast_uninvoiced_amount", autospec=True
-        ) as comp, patch.object(
-            SaleOrderModel, "_generate_mis_cash_flow_forecast_lines", autospec=True
-        ) as gen:
+        with (
+            patch(
+                "odoo.addons.account.models.account_move.AccountMove.button_draft",
+                autospec=True,
+                return_value=True,
+            ),
+            patch.object(
+                SaleOrderModel,
+                "with_delay",
+                autospec=True,
+                side_effect=_with_delay,
+            ),
+            patch.object(
+                SaleOrderModel, "_compute_forecast_uninvoiced_amount", autospec=True
+            ) as comp,
+            patch.object(
+                SaleOrderModel, "_generate_mis_cash_flow_forecast_lines", autospec=True
+            ) as gen,
+        ):
             move.button_draft()
             self.assertGreaterEqual(comp.call_count, 1)
             self.assertGreaterEqual(gen.call_count, 1)
@@ -300,16 +317,20 @@ class TestMisBuilderCashFlowForecastSale(TransactionCase):
         def _with_delay(self, *args, **kwargs):
             return self
 
-        with patch.object(
-            SaleOrderModel,
-            "with_delay",
-            autospec=True,
-            side_effect=_with_delay,
-        ), patch.object(
-            SaleOrderModel, "_compute_forecast_uninvoiced_amount", autospec=True
-        ) as comp, patch.object(
-            SaleOrderModel, "_generate_mis_cash_flow_forecast_lines", autospec=True
-        ) as gen:
+        with (
+            patch.object(
+                SaleOrderModel,
+                "with_delay",
+                autospec=True,
+                side_effect=_with_delay,
+            ),
+            patch.object(
+                SaleOrderModel, "_compute_forecast_uninvoiced_amount", autospec=True
+            ) as comp,
+            patch.object(
+                SaleOrderModel, "_generate_mis_cash_flow_forecast_lines", autospec=True
+            ) as gen,
+        ):
             self.env["account.move"].create(
                 {
                     "move_type": "out_invoice",
