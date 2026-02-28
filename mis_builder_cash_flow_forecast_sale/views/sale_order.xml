@@ -20,7 +20,7 @@
                     icon="fa-area-chart"
                     name="action_show_mis_forecast"
                     help="MIS Builder Cash Flow Forecast"
-                    attrs="{'invisible': [('mis_cash_flow_forecast_line_count', '=', 0)]}"
+                    invisible="mis_cash_flow_forecast_line_count == 0"
                 >
                     <div class="o_form_field o_stat_info">
                         <span class="o_stat_text">Cash Flow Forecast
