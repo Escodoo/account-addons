@@ -5,7 +5,7 @@
     "name": "Account Bank Statement Internal Transfer",
     "summary": """
         Create Internal Transfers from Bank Statements""",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "author": "Escodoo",
     "website": "https://github.com/Escodoo/account-addons",

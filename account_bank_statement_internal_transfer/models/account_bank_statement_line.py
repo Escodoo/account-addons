@@ -9,6 +9,7 @@ class AccountBankStatementLine(models.Model):
 
     payment_id = fields.Many2one(
         comodel_name="account.payment",
+        string="Statement Payment",
         readonly=True,
     )
 
@@ -16,13 +17,17 @@ class AccountBankStatementLine(models.Model):
         action = self.env["ir.actions.act_window"]._for_xml_id(
             "account_bank_statement_internal_transfer.internal_transfer_wizard_action"
         )
-        action["context"] = {
-            "active_id": self.id,
-            "company_id": self.company_id.id,
-            "journal_id": self.statement_id.journal_id.id,
-            "amount": self.amount,
-            "currency_id": self.currency_id.id,
-            "date": self.date,
-            "ref": self.payment_ref,
-        }
+        ctx = dict(self.env.context, **action.get("context", {}))
+        ctx.update(
+            {
+                "active_id": self.id,
+                "company_id": self.company_id.id,
+                "journal_id": self.statement_id.journal_id.id,
+                "amount": self.amount,
+                "currency_id": self.currency_id.id,
+                "date": self.date,
+                "ref": self.payment_ref,
+            }
+        )
+        action["context"] = ctx
         return action

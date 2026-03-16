@@ -17,8 +17,8 @@ class InternalTransferWizard(models.TransientModel):
         string="Destination Journal",
         domain=_get_destination_journal_domain,
     )
-    payment_method_id = fields.Many2one(
-        comodel_name="account.payment.method",
+    payment_method_line_id = fields.Many2one(
+        comodel_name="account.payment.method.line",
         string="Payment Method",
         domain=[("code", "not in", ("240", "400", "500"))],
     )
@@ -32,27 +32,28 @@ class InternalTransferWizard(models.TransientModel):
             payment_type = "outbound"
             payment_amount = context["amount"] * -1
 
+        company = self.env["res.company"].browse(context["company_id"])
+
         payment_id = self.env["account.payment"].create(
             {
                 "name": "/",
-                "company_id": context["company_id"],
+                "company_id": company.id,
                 "payment_type": payment_type,
                 "partner_type": "customer",
-                "is_internal_transfer": True,
                 "journal_id": context["journal_id"],
-                "destination_journal_id": self.destination_journal_id.id,
-                "payment_method_id": self.payment_method_id.id,
+                "payment_method_line_id": self.payment_method_line_id.id,
                 "amount": payment_amount,
                 "currency_id": context["currency_id"],
                 "date": context["date"],
-                "ref": context["ref"],
+                "memo": context["ref"],
+                "destination_account_id": company.transfer_account_id.id,
                 "partner_bank_id": self.destination_journal_id.bank_account_id.id,
             }
         )
         payment_id.action_post()
 
         payment_line = payment_id.move_id.line_ids.filtered(
-            lambda x: x.account_id.id != payment_id.destination_account_id.id
+            lambda x: x.account_id != payment_id.destination_account_id
         )
         statement_line = self.env["account.bank.statement.line"].browse(
             context["active_id"]

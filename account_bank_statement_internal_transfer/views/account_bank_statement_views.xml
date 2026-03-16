@@ -2,7 +2,6 @@
 <!-- Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record id="view_bank_statement_form" model="ir.ui.view">
         <field
             name="name"
@@ -20,7 +19,7 @@
                     name="button_account_payments"
                     string="Payments"
                     type="object"
-                    attrs="{'invisible':[('payment_count','=', 0)]}"
+                    invisible="payment_count == 0"
                     icon="fa-money"
                 />
             </button>
@@ -62,10 +61,9 @@
                     string="Internal Transfer"
                     aria-label="Internal Transfer"
                     class="float-right"
-                    attrs="{'invisible': ['|', '|', ('is_reconciled', '=', True), ('payment_id', '!=', False), ('state', '!=', 'posted')]}"
+                    invisible="is_reconciled or payment_id or state != 'posted'"
                 />
             </button>
         </field>
     </record>
-
 </odoo>

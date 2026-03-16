@@ -2,8 +2,7 @@
 <!-- Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
-    <record model="ir.ui.view" id="analytic_line_split_wizard_view">
+    <record model="ir.ui.view" id="internal_transfer_wizard_view">
         <field
             name="name"
         >internal.transfer.wizard (in account_bank_statement_internal_transfer)</field>
@@ -13,7 +12,7 @@
                 <group>
                     <group>
                         <field name="destination_journal_id" />
-                        <field name="payment_method_id" widget="radio" />
+                        <field name="payment_method_line_id" widget="radio" />
                     </group>
                 </group>
                 <footer>
@@ -39,5 +38,4 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
-
 </odoo>

@@ -101,7 +101,7 @@ msgid "Payment Count"
 msgstr ""
 
 #. module: account_bank_statement_internal_transfer
-#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__payment_method_id
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__payment_method_line_id
 msgid "Payment Method"
 msgstr ""
 

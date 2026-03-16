@@ -7,14 +7,19 @@ from odoo import _, api, fields, models
 class AccountBankStatement(models.Model):
     _inherit = "account.bank.statement"
 
-    payment_ids = fields.One2many(
+    payment_ids = fields.Many2many(
         comodel_name="account.payment",
         compute="_compute_payment_ids",
+        string="Payments",
         readonly=True,
     )
-    payment_count = fields.Integer(compute="_compute_payment_count")
 
-    @api.depends("line_ids")
+    payment_count = fields.Integer(
+        compute="_compute_payment_count",
+        string="Payments Count",
+    )
+
+    @api.depends("line_ids.payment_id")
     def _compute_payment_ids(self):
         for statement in self:
             statement.payment_ids = statement.line_ids.mapped("payment_id")
