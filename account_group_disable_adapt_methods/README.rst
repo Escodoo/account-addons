@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ===================================
 Account Group Disable Adapt Methods
 ===================================
@@ -17,50 +13,54 @@ Account Group Disable Adapt Methods
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-Escodoo%2Faccount--addons-lightgray.png?logo=github
-    :target: https://github.com/Escodoo/account-addons/tree/16.0/account_group_disable_adapt_methods
+    :target: https://github.com/Escodoo/account-addons/tree/18.0/account_group_disable_adapt_methods
     :alt: Escodoo/account-addons
 
 |badge1| |badge2| |badge3|
 
-This module disables the execution of the adapt methods that are executed in the write and create methods of the account.group model. This is justified in cases of mass update of account.group since the execution of these methods makes the process very time-consuming.
+This module disables the execution of the adapt methods that are
+executed in the write and create methods of the account.group model.
+This is justified in cases of mass update of account.group since the
+execution of these methods makes the process very time-consuming.
 
-.. code-block:: python
+.. code:: python
 
-    # Original Methods
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if 'code_prefix_start' in vals and not vals.get('code_prefix_end'):
-                vals['code_prefix_end'] = vals['code_prefix_start']
-        res_ids = super(AccountGroup, self).create(vals_list)
-        res_ids._adapt_accounts_for_account_groups()
-        res_ids._adapt_parent_account_group()
-        return res_ids
+   # Original Methods
+   @api.model_create_multi
+   def create(self, vals_list):
+       for vals in vals_list:
+           if 'code_prefix_start' in vals and not vals.get('code_prefix_end'):
+               vals['code_prefix_end'] = vals['code_prefix_start']
+       res_ids = super(AccountGroup, self).create(vals_list)
+       res_ids._adapt_accounts_for_account_groups()
+       res_ids._adapt_parent_account_group()
+       return res_ids
 
-    def write(self, vals):
-        res = super(AccountGroup, self).write(vals)
-        if 'code_prefix_start' in vals or 'code_prefix_end' in vals:
-            self._adapt_accounts_for_account_groups()
-            self._adapt_parent_account_group()
-        return res
+   def write(self, vals):
+       res = super(AccountGroup, self).write(vals)
+       if 'code_prefix_start' in vals or 'code_prefix_end' in vals:
+           self._adapt_accounts_for_account_groups()
+           self._adapt_parent_account_group()
+       return res
 
 
-    # New Methods
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if 'code_prefix_start' in vals and not vals.get('code_prefix_end'):
-                vals['code_prefix_end'] = vals['code_prefix_start']
-        return super(AccountGroupInherit, self).create(vals_list)
+   # New Methods
+   @api.model_create_multi
+   def create(self, vals_list):
+       for vals in vals_list:
+           if 'code_prefix_start' in vals and not vals.get('code_prefix_end'):
+               vals['code_prefix_end'] = vals['code_prefix_start']
+       return super(AccountGroupInherit, self).create(vals_list)
 
-    def write(self, vals):
-        return super(AccountGroupInherit, self).write(vals)
+   def write(self, vals):
+       return super(AccountGroupInherit, self).write(vals)
 
-In addition, an action is implemented to execute the adapt methods by account group or groups.
+In addition, an action is implemented to execute the adapt methods by
+account group or groups.
 
 **Table of contents**
 
@@ -70,10 +70,14 @@ In addition, an action is implemented to execute the adapt methods by account gr
 Usage
 =====
 
-#. Install this module.
-#. Update account.group data
-#. After updating the data, it is possible to select the account groups that will be updated and click on the actions button and execute the "Run Adapt Methods" action so that the adapt methods are executed.
-#. After executing the adapt methods of all necessary groups, it is recommended to uninstall this module and only reinstall it again in a major update of account.group.
+1. Install this module.
+2. Update account.group data
+3. After updating the data, it is possible to select the account groups
+   that will be updated and click on the actions button and execute the
+   "Run Adapt Methods" action so that the adapt methods are executed.
+4. After executing the adapt methods of all necessary groups, it is
+   recommended to uninstall this module and only reinstall it again in a
+   major update of account.group.
 
 Bug Tracker
 ===========
@@ -81,7 +85,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/Escodoo/account-addons/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/Escodoo/account-addons/issues/new?body=module:%20account_group_disable_adapt_methods%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/Escodoo/account-addons/issues/new?body=module:%20account_group_disable_adapt_methods%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -89,20 +93,28 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Escodoo
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Escodoo <https://www.escodoo.com.br>`_:
+- `Escodoo <https://www.escodoo.com.br>`__:
 
-  * Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+  - Marcel Savegnago <marcel.savegnago@escodoo.com.br>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
-This module is part of the `Escodoo/account-addons <https://github.com/Escodoo/account-addons/tree/16.0/account_group_disable_adapt_methods>`_ project on GitHub.
+.. |maintainer-marcelsavegnago| image:: https://github.com/marcelsavegnago.png?size=40px
+    :target: https://github.com/marcelsavegnago
+    :alt: marcelsavegnago
+
+Current maintainer:
+
+|maintainer-marcelsavegnago| 
+
+This module is part of the `Escodoo/account-addons <https://github.com/Escodoo/account-addons/tree/18.0/account_group_disable_adapt_methods>`_ project on GitHub.
 
 You are welcome to contribute.
