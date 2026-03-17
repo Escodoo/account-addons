@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 =========================
 Account Move Grouped Line
 =========================
@@ -17,27 +13,29 @@ Account Move Grouped Line
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-Escodoo%2Faccount--addons-lightgray.png?logo=github
-    :target: https://github.com/Escodoo/account-addons/tree/16.0/account_move_grouped_line
+    :target: https://github.com/Escodoo/account-addons/tree/18.0/account_move_grouped_line
     :alt: Escodoo/account-addons
 
 |badge1| |badge2| |badge3|
 
-This module adds a new tab in the Account Move (Journal Entry) form view that displays
-journal items grouped by account.
+This module adds a new tab in the Account Move (Journal Entry) form view
+that displays journal items grouped by account.
 
-The grouped view provides a consolidated summary of debit and credit amounts for each
-account, making it easier to analyze and review journal entries with many lines.
+The grouped view provides a consolidated summary of debit and credit
+amounts for each account, making it easier to analyze and review journal
+entries with many lines.
 
 **Key Features:**
 
-* Automatically computes grouped journal items based on account move lines
-* Displays totals for debit and credit columns
-* Groups journal items by account
-* Accessible from a dedicated tab in the journal entry form
+- Automatically computes grouped journal items based on account move
+  lines
+- Displays totals for debit and credit columns
+- Groups journal items by account
+- Accessible from a dedicated tab in the journal entry form
 
 **Table of contents**
 
@@ -54,8 +52,8 @@ To use this module, you need to:
 3. Navigate to the "Grouped Journal Items" tab
 4. View the consolidated summary of journal items grouped by account
 
-The grouped lines are automatically computed based on the journal entry lines,
-showing summed debit and credit totals for each account.
+The grouped lines are automatically computed based on the journal entry
+lines, showing summed debit and credit totals for each account.
 
 Bug Tracker
 ===========
@@ -63,7 +61,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/Escodoo/account-addons/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/Escodoo/account-addons/issues/new?body=module:%20account_move_grouped_line%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/Escodoo/account-addons/issues/new?body=module:%20account_move_grouped_line%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -71,20 +69,20 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Escodoo
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Escodoo <https://www.escodoo.com.br>`_:
+- `Escodoo <https://www.escodoo.com.br>`__:
 
-  * Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+  - Marcel Savegnago <marcel.savegnago@escodoo.com.br>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
-This module is part of the `Escodoo/account-addons <https://github.com/Escodoo/account-addons/tree/16.0/account_move_grouped_line>`_ project on GitHub.
+This module is part of the `Escodoo/account-addons <https://github.com/Escodoo/account-addons/tree/18.0/account_move_grouped_line>`_ project on GitHub.
 
 You are welcome to contribute.
