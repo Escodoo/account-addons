@@ -2,7 +2,6 @@
 <!-- Copyright 2023 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record model="ir.ui.view" id="account_move_line_cash_basis_report_form_view">
         <field
             name="name"
@@ -28,7 +27,6 @@
                                     <field
                                         name="account_id"
                                         options="{'no_create': True}"
-                                        domain="[('company_id', '=', company_id)]"
                                         readonly="1"
                                     />
                                     <field name="debit" readonly="1" />
@@ -40,7 +38,7 @@
                                     <field
                                         name="statement_id"
                                         readonly="True"
-                                        attrs="{'invisible': [('statement_id','=',False)]}"
+                                        invisible="not statement_id"
                                     />
                                 </group>
                                 <group string="Dates">
@@ -48,7 +46,7 @@
                                         name="date"
                                         groups="account.group_account_readonly"
                                     />
-<!--                                    <field name="date_maturity"/>-->
+                                    <!--                                    <field name="date_maturity"/>-->
                                 </group>
                                 <group
                                     string="Currency"
@@ -57,10 +55,7 @@
                                     <field name="currency_id" invisible="1" />
                                     <field name="amount_currency" />
                                 </group>
-                                <group
-                                    string="Product"
-                                    attrs="{'invisible': [('product_id', '=', False)]}"
-                                >
+                                <group string="Product" invisible="not product_id">
                                     <field name="product_id" readonly="1" />
                                 </group>
                             </group>
@@ -73,7 +68,7 @@
                             <field name="date" invisible="1" />
                             <field
                                 name="analytic_line_ids"
-                                context="{'tree_view_ref':'analytic.view_account_analytic_line_tree', 'default_general_account_id':account_id, 'default_name': name, 'default_date':date, 'amount': (debit or 0.0)-(credit or 0.0)}"
+                                context="{'list_view_ref':'analytic.view_account_analytic_line_tree', 'default_general_account_id':account_id, 'default_name': name, 'default_date':date, 'amount': (debit or 0.0)-(credit or 0.0)}"
                             />
                         </page>
                     </notebook>
@@ -230,7 +225,7 @@
         >account.move.line.cash.basis.report.tree (in account_move_line_cash_basis_report)</field>
         <field name="model">account.move.line.cash.basis.report</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="date" />
                 <field name="journal_id" optional="show" />
                 <field name="name" optional="show" />
@@ -242,7 +237,7 @@
                 <field name="balance" optional="hidden" />
                 <field name="account_internal_type" optional="hidden" />
                 <field name="account_internal_group" optional="hidden" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -266,13 +261,13 @@
         >account.move.line.cash.basis.report.kanban (in account_move_line_cash_basis_report)</field>
         <field name="model">account.move.line.cash.basis.report</field>
         <field name="arch" type="xml">
-             <kanban class="o_kanban_mobile" create="false" group_create="false">
+            <kanban class="o_kanban_mobile" create="false" group_create="false">
                 <field name="date" />
                 <field name="move_id" />
                 <field name="name" />
                 <field name="partner_id" />
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="row mb4">
                                 <strong class="col-6">
@@ -284,7 +279,8 @@
                                         aria-label="Date"
                                         role="img"
                                         title="Date"
-                                    /><field name="date" />
+                                    />
+                                    <field name="date" />
                                 </strong>
                                 <div class="col-10">
                                     <span t-esc="record.name.value" />
@@ -303,7 +299,7 @@
     >
         <field name="name">Account Move Line Cash Basis Report</field>
         <field name="res_model">account.move.line.cash.basis.report</field>
-        <field name="view_mode">tree,pivot,graph,kanban,form</field>
+        <field name="view_mode">list,pivot,graph,kanban,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>
@@ -314,5 +310,4 @@
         <field name="action" ref="account_move_line_cash_basis_report_act_window" />
         <field name="sequence" eval="16" />
     </record>
-
 </odoo>

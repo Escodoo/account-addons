@@ -2,7 +2,6 @@
 <!-- Copyright 2023 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record id="account_move_line_cash_basis_report_rule" model="ir.rule">
         <field name="name">Entry lines Cash Basis</field>
         <field name="model_id" ref="model_account_move_line_cash_basis_report" />
@@ -55,5 +54,4 @@
         <field name="perm_write" eval="0" />
         <field name="perm_unlink" eval="0" />
     </record>
-
 </odoo>
