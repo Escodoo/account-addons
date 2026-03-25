@@ -67,15 +67,7 @@ class TestAnalyticRestrictions(TransactionCase):
     def test_admin_group_full_access_rights(self):
         for model_name in self.model_names:
             m = self.env[model_name].with_user(self.user_admin)
-            self.assertTrue(
-                m.check_access_rights("read", raise_exception=False), model_name
-            )
-            self.assertTrue(
-                m.check_access_rights("create", raise_exception=False), model_name
-            )
-            self.assertTrue(
-                m.check_access_rights("write", raise_exception=False), model_name
-            )
-            self.assertTrue(
-                m.check_access_rights("unlink", raise_exception=False), model_name
-            )
+            self.assertIsNone(m.check_access("read"), model_name)
+            self.assertIsNone(m.check_access("create"), model_name)
+            self.assertIsNone(m.check_access("write"), model_name)
+            self.assertIsNone(m.check_access("unlink"), model_name)
