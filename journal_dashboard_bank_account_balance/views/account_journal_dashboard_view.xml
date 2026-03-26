@@ -2,7 +2,6 @@
 <!-- Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record id="account_journal_dashboard_kanban_view" model="ir.ui.view">
         <field
             name="name"
@@ -27,5 +26,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>
