@@ -2,10 +2,8 @@
 <!-- Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record id="group_cancel_fiscal_documents" model="res.groups">
         <field name="name">Cancel Fiscal Documents</field>
         <field name="comment">Allow to cancel fiscal documents</field>
     </record>
-
 </odoo>

@@ -2,7 +2,6 @@
 <!-- Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record model="ir.ui.view" id="document_form_inherit">
         <field
             name="name"
@@ -17,5 +16,4 @@
             </button>
         </field>
     </record>
-
 </odoo>
