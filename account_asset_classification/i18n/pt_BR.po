@@ -1,0 +1,56 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_asset_classification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-08 20:30+0000\n"
+"PO-Revision-Date: 2024-11-08 20:30+0000\n"
+"Last-Translator: Wesley Oliveira, 2024"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_asset_classification
+#: model:ir.model.fields,field_description:account_asset_classification.field_account_move_line__asset_classification
+msgid "Asset Classification"
+msgstr "Classificação de Ativo"
+
+#. module: account_asset_classification
+#: model:ir.model.fields.selection,name:account_asset_classification.selection__account_move_line__asset_classification__depression
+msgid "Depression"
+msgstr "Baixa"
+
+#. module: account_asset_classification
+#: model:ir.model.fields,field_description:account_asset_classification.field_account_move_line__display_name
+msgid "Display Name"
+msgstr "Nome exibido"
+
+#. module: account_asset_classification
+#: model:ir.model.fields.selection,name:account_asset_classification.selection__account_move_line__asset_classification__entry
+msgid "Entry"
+msgstr "Entrada"
+
+#. module: account_asset_classification
+#: model:ir.model.fields,field_description:account_asset_classification.field_account_move_line__id
+msgid "ID"
+msgstr ""
+
+#. module: account_asset_classification
+#: model:ir.model,name:account_asset_classification.model_account_move_line
+msgid "Journal Item"
+msgstr "Item de Diário"
+
+#. module: account_asset_classification
+#: model:ir.model.fields,field_description:account_asset_classification.field_account_move_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificação em"
+
+#. module: account_asset_classification
+#: model:ir.model.fields.selection,name:account_asset_classification.selection__account_move_line__asset_classification__reclassification
+msgid "Reclassification"
+msgstr "Reclassificação"
