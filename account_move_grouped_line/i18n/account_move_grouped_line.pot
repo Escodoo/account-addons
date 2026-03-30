@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -61,7 +61,6 @@ msgstr ""
 #. module: account_move_grouped_line
 #: model:ir.model.fields,field_description:account_move_grouped_line.field_account_bank_statement_line__grouped_items_id
 #: model:ir.model.fields,field_description:account_move_grouped_line.field_account_move__grouped_items_id
-#: model:ir.model.fields,field_description:account_move_grouped_line.field_account_payment__grouped_items_id
 msgid "Grouped Items"
 msgstr ""
 
@@ -79,11 +78,6 @@ msgstr ""
 #: model:ir.model,name:account_move_grouped_line.model_account_move
 #: model:ir.model.fields,field_description:account_move_grouped_line.field_account_move_grouped_line__account_move_id
 msgid "Journal Entry"
-msgstr ""
-
-#. module: account_move_grouped_line
-#: model:ir.model.fields,field_description:account_move_grouped_line.field_account_move_grouped_line____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: account_move_grouped_line
