@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ===============================
 Sync Multi Company Bank Account
 ===============================
@@ -17,18 +13,25 @@ Sync Multi Company Bank Account
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-Escodoo%2Faccount--addons-lightgray.png?logo=github
-    :target: https://github.com/Escodoo/account-addons/tree/16.0/sync_multi_company_bank_account
+    :target: https://github.com/Escodoo/account-addons/tree/18.0/sync_multi_company_bank_account
     :alt: Escodoo/account-addons
 
 |badge1| |badge2| |badge3|
 
-The Multi-Company Bank Account Synchronization module aims to ensure that all companies within a business group have the same bank accounts registered and updated, so that all of them can carry out financial transactions without data compatibility issues.
+The Multi-Company Bank Account Synchronization module aims to ensure
+that all companies within a business group have the same bank accounts
+registered and updated, so that all of them can carry out financial
+transactions without data compatibility issues.
 
-The synchronization is performed automatically, so that the addition, update or deletion of a bank account in one of the companies is reflected in all other companies of the group. To ensure data integrity, the module also checks whether the bank account can be deleted without compromising the integrity of the records in other companies.
+The synchronization is performed automatically, so that the addition,
+update or deletion of a bank account in one of the companies is
+reflected in all other companies of the group. To ensure data integrity,
+the module also checks whether the bank account can be deleted without
+compromising the integrity of the records in other companies.
 
 **Table of contents**
 
@@ -38,7 +41,8 @@ The synchronization is performed automatically, so that the addition, update or 
 Usage
 =====
 
-To use the Multi-Company Bank Account Synchronization module, follow these steps:
+To use the Multi-Company Bank Account Synchronization module, follow
+these steps:
 
 Install the module in your Odoo system.
 
@@ -48,7 +52,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/Escodoo/account-addons/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/Escodoo/account-addons/issues/new?body=module:%20sync_multi_company_bank_account%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/Escodoo/account-addons/issues/new?body=module:%20sync_multi_company_bank_account%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -56,21 +60,21 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Escodoo
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Escodoo <https://www.escodoo.com.br>`_:
+- `Escodoo <https://www.escodoo.com.br>`__:
 
-  * Marcel Savegnago <marcel.savegnago@escodoo.com.br>
-  * Cristiano Mafra Junior  <cristiano.mafra@escodoo.com.br>
+  - Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+  - Cristiano Mafra Junior <cristiano.mafra@escodoo.com.br>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
-This module is part of the `Escodoo/account-addons <https://github.com/Escodoo/account-addons/tree/16.0/sync_multi_company_bank_account>`_ project on GitHub.
+This module is part of the `Escodoo/account-addons <https://github.com/Escodoo/account-addons/tree/18.0/sync_multi_company_bank_account>`_ project on GitHub.
 
 You are welcome to contribute.

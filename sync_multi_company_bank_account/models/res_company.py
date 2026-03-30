@@ -38,8 +38,9 @@ class ResCompany(models.Model):
                     }
                 )
 
-    @api.model
-    def create(self, vals):
-        company = super().create(vals)
-        company.copy_bank_accounts()
-        return company
+    @api.model_create_multi
+    def create(self, vals_list):
+        companies = super().create(vals_list)
+        for company in companies:
+            company.copy_bank_accounts()
+        return companies

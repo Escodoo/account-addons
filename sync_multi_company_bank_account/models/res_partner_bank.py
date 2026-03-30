@@ -7,11 +7,12 @@ from odoo import api, models
 class ResPartnerBank(models.Model):
     _inherit = "res.partner.bank"
 
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
         if not self.env.context.get("no_sync_partner_bank"):
-            res.sudo()._sync_partner_bank(vals)
+            for record, vals in zip(res, vals_list, strict=False):
+                record.sudo()._sync_partner_bank(vals)
         return res
 
     def write(self, vals):

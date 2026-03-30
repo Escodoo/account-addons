@@ -1,13 +1,10 @@
 # Copyright 2023 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import SUPERUSER_ID, api
 
-
-def post_init_hook(cr, registry):
-    env = api.Environment(cr, SUPERUSER_ID, {})
+def post_init_hook(env):
+    cr = env.cr
     cr.execute("SELECT * FROM res_partner_bank")
-    res_partner_bank = []
     res_partner_bank = cr.dictfetchall()
     if res_partner_bank:
         bank_accounts = env["res.partner.bank"]
