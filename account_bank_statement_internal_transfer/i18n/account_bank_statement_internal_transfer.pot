@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,12 +29,12 @@ msgid "Bank Statement Line"
 msgstr ""
 
 #. module: account_bank_statement_internal_transfer
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.analytic_line_split_wizard_view
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.internal_transfer_wizard_view
 msgid "Cancel"
 msgstr ""
 
 #. module: account_bank_statement_internal_transfer
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.analytic_line_split_wizard_view
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.internal_transfer_wizard_view
 msgid "Create"
 msgstr ""
 
@@ -65,18 +65,13 @@ msgstr ""
 
 #. module: account_bank_statement_internal_transfer
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.account_bank_statement_line_tree
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.analytic_line_split_wizard_view
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.internal_transfer_wizard_view
 msgid "Internal Transfer"
 msgstr ""
 
 #. module: account_bank_statement_internal_transfer
 #: model:ir.model,name:account_bank_statement_internal_transfer.model_internal_transfer_wizard
 msgid "Internal Transfer Wizard"
-msgstr ""
-
-#. module: account_bank_statement_internal_transfer
-#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: account_bank_statement_internal_transfer
@@ -90,17 +85,6 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: account_bank_statement_internal_transfer
-#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement__payment_ids
-#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement_line__payment_id
-msgid "Payment"
-msgstr ""
-
-#. module: account_bank_statement_internal_transfer
-#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement__payment_count
-msgid "Payment Count"
-msgstr ""
-
-#. module: account_bank_statement_internal_transfer
 #: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__payment_method_line_id
 msgid "Payment Method"
 msgstr ""
@@ -108,7 +92,17 @@ msgstr ""
 #. module: account_bank_statement_internal_transfer
 #. odoo-python
 #: code:addons/account_bank_statement_internal_transfer/models/account_bank_statement.py:0
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement__payment_ids
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.view_bank_statement_form
-#, python-format
 msgid "Payments"
+msgstr ""
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement__payment_count
+msgid "Payments Count"
+msgstr ""
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement_line__payment_id
+msgid "Statement Payment"
 msgstr ""
