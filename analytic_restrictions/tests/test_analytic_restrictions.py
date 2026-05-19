@@ -20,6 +20,9 @@ class TestAnalyticRestrictions(TransactionCase):
             cls.env.ref("analytic.model_account_analytic_account").model,
             cls.env.ref("analytic.model_account_analytic_line").model,
             cls.env.ref("analytic.model_account_analytic_distribution_model").model,
+            cls.env.ref("analytic.model_account_analytic_plan").model,
+            cls.env.ref("analytic.model_account_analytic_applicability").model,
+            cls.env.ref("account_analytic_tag.model_account_analytic_tag").model,
         ]
 
         cls.user_analytic = cls.env["res.users"].create(
@@ -39,16 +42,8 @@ class TestAnalyticRestrictions(TransactionCase):
             }
         )
 
-    def test_admin_group_implies_analytic_group(self):
-        self.assertTrue(
-            self.user_admin.has_group(
-                "analytic_restrictions.group_analytic_accounting_admin"
-            )
-        )
-        self.assertTrue(self.user_admin.has_group("analytic.group_analytic_accounting"))
-
     def test_acl_records_loaded(self):
-        ro = self.env.ref("analytic_restrictions.access_account_analytic_account")
+        ro = self.env.ref("analytic.access_account_analytic_account")
         self.assertTrue(ro.perm_read)
         self.assertFalse(ro.perm_write)
         self.assertFalse(ro.perm_create)
@@ -64,18 +59,18 @@ class TestAnalyticRestrictions(TransactionCase):
         self.assertTrue(admin.perm_unlink)
         self.assertEqual(admin.group_id, self.group_admin)
 
-    def test_admin_group_full_access_rights(self):
+    def test_analytic_group_is_read_only(self):
         for model_name in self.model_names:
-            m = self.env[model_name].with_user(self.user_admin)
+            m = self.env[model_name].with_user(self.user_analytic)
             self.assertTrue(
                 m.check_access_rights("read", raise_exception=False), model_name
             )
-            self.assertTrue(
+            self.assertFalse(
                 m.check_access_rights("create", raise_exception=False), model_name
             )
-            self.assertTrue(
+            self.assertFalse(
                 m.check_access_rights("write", raise_exception=False), model_name
             )
-            self.assertTrue(
+            self.assertFalse(
                 m.check_access_rights("unlink", raise_exception=False), model_name
             )

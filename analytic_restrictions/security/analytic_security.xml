@@ -5,7 +5,156 @@
         <field name="category_id" ref="base.module_category_hidden" />
         <field
             name="implied_ids"
-            eval="[(Command.link(ref('analytic.group_analytic_accounting')))]"
+            eval="[
+                Command.link(ref('analytic.group_analytic_accounting')),
+                Command.link(ref('account_analytic_tag.group_analytic_tags')),
+            ]"
         />
+    </record>
+
+    <!-- analytic -->
+    <record id="analytic.access_account_analytic_account" model="ir.model.access">
+        <field name="name">account.analytic.account.read</field>
+        <field name="model_id" ref="analytic.model_account_analytic_account" />
+        <field name="group_id" ref="analytic.group_analytic_accounting" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record id="analytic.access_account_analytic_line" model="ir.model.access">
+        <field name="name">account.analytic.line.read</field>
+        <field name="model_id" ref="analytic.model_account_analytic_line" />
+        <field name="group_id" ref="analytic.group_analytic_accounting" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record
+        id="analytic.access_account_analytic_distribution_model"
+        model="ir.model.access"
+    >
+        <field name="name">account.analytic.distribution.model.read</field>
+        <field
+            name="model_id"
+            ref="analytic.model_account_analytic_distribution_model"
+        />
+        <field name="group_id" ref="analytic.group_analytic_accounting" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record id="analytic.access_account_analytic_plan" model="ir.model.access">
+        <field name="name">account.analytic.plan.read</field>
+        <field name="model_id" ref="analytic.model_account_analytic_plan" />
+        <field name="group_id" ref="analytic.group_analytic_accounting" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record id="analytic.access_account_analytic_applicability" model="ir.model.access">
+        <field name="name">account.analytic.applicability.read</field>
+        <field name="model_id" ref="analytic.model_account_analytic_applicability" />
+        <field name="group_id" ref="analytic.group_analytic_accounting" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <!-- account_analytic_tag -->
+    <record
+        id="account_analytic_tag.access_account_analytic_tag_manager"
+        model="ir.model.access"
+    >
+        <field name="name">account.analytic.tag.read</field>
+        <field name="model_id" ref="account_analytic_tag.model_account_analytic_tag" />
+        <field name="group_id" ref="account.group_account_manager" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <!-- project -->
+    <record id="project.access_account_analytic_line_project" model="ir.model.access">
+        <field name="name">account.analytic.line.read</field>
+        <field name="model_id" ref="analytic.model_account_analytic_line" />
+        <field name="group_id" ref="project.group_project_manager" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <!-- account -->
+    <record id="account.access_account_analytic_accountant" model="ir.model.access">
+        <field name="name">account.analytic.account.read</field>
+        <field name="model_id" ref="analytic.model_account_analytic_account" />
+        <field name="group_id" ref="account.group_account_user" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record
+        id="account.access_account_analytic_plan_accountant"
+        model="ir.model.access"
+    >
+        <field name="name">account.analytic.plan.read</field>
+        <field name="model_id" ref="analytic.model_account_analytic_plan" />
+        <field name="group_id" ref="account.group_account_user" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record
+        id="account.access_account_analytic_applicability_accountant"
+        model="ir.model.access"
+    >
+        <field name="name">account.analytic.applicability.read</field>
+        <field name="model_id" ref="analytic.model_account_analytic_applicability" />
+        <field name="group_id" ref="account.group_account_user" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record
+        id="account.access_account_analytic_distribution_invoice"
+        model="ir.model.access"
+    >
+        <field name="name">account.analytic.distribution.model.read</field>
+        <field
+            name="model_id"
+            ref="analytic.model_account_analytic_distribution_model"
+        />
+        <field name="group_id" ref="account.group_account_invoice" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <!-- hr_timesheet -->
+    <record id="hr_timesheet.access_account_analytic_user" model="ir.model.access">
+        <field name="name">account.analytic.account.read</field>
+        <field name="model_id" ref="analytic.model_account_analytic_account" />
+        <field name="group_id" ref="hr_timesheet.group_hr_timesheet_user" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
     </record>
 </odoo>

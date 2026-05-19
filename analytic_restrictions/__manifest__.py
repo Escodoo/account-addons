@@ -9,10 +9,17 @@
     "license": "AGPL-3",
     "author": "Escodoo",
     "website": "https://github.com/Escodoo/account-addons",
-    "depends": ["analytic", "account_analytic_tag", "account"],
+    "depends": [
+        "analytic",
+        "account_analytic_tag",
+        "account",
+        "project",
+        "hr_timesheet",
+    ],
     "data": [
         "security/analytic_security.xml",
         "security/ir.model.access.csv",
     ],
     "demo": [],
+    "uninstall_hook": "uninstall_hook",
 }
