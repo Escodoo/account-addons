@@ -157,4 +157,31 @@
         <field name="perm_create" eval="False" />
         <field name="perm_unlink" eval="False" />
     </record>
+
+    <!-- purchase_blanket_order restrictions - read-only access for analytic group -->
+    <record id="blanket_order_analytic_accounting" model="ir.model.access">
+        <field name="name">purchase.blanket.order.read</field>
+        <field
+            name="model_id"
+            ref="purchase_blanket_order.model_purchase_blanket_order"
+        />
+        <field name="group_id" ref="analytic.group_analytic_accounting" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record id="blanket_order_line_analytic_accounting" model="ir.model.access">
+        <field name="name">purchase.blanket.order.line.read</field>
+        <field
+            name="model_id"
+            ref="purchase_blanket_order.model_purchase_blanket_order_line"
+        />
+        <field name="group_id" ref="analytic.group_analytic_accounting" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
 </odoo>

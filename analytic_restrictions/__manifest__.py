@@ -15,6 +15,7 @@
         "account",
         "project",
         "hr_timesheet",
+        "purchase_blanket_order",
     ],
     "data": [
         "security/analytic_security.xml",
