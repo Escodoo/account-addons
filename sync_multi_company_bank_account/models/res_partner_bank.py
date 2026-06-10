@@ -10,7 +10,9 @@ class ResPartnerBank(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
-        if not self.env.context.get("no_sync_partner_bank"):
+        if not self.env.context.get(
+            "no_sync_partner_bank"
+        ) and not self.env.context.get("sync_in_progress"):
             for record, vals in zip(res, vals_list, strict=False):
                 record.sudo()._sync_partner_bank(vals)
         return res
@@ -66,7 +68,10 @@ class ResPartnerBank(models.Model):
                     if partner_bank:
                         partner_bank.with_context(no_sync_partner_bank=True).write(vals)
                     else:
-                        rec.sudo().with_context(no_sync_partner_bank=True).copy(
+                        self.env.flush_all()
+                        rec.sudo().with_context(
+                            no_sync_partner_bank=True, sync_in_progress=True
+                        ).copy(
                             {
                                 "company_id": company.id,
                                 "partner_id": dst_partner.id,
