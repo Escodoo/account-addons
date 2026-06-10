@@ -16,6 +16,8 @@ _ORIGINAL_PERMS = {
     "account.access_account_analytic_applicability_accountant": (1, 1, 1, 1),
     "account.access_account_analytic_distribution_invoice": (1, 1, 1, 1),
     "hr_timesheet.access_account_analytic_user": (1, 1, 0, 0),
+    "analytic_restrictions.blanket_order_analytic_accounting": (1, 0, 0, 0),
+    "analytic_restrictions.blanket_order_line_analytic_accounting": (1, 0, 0, 0),
 }
 
 

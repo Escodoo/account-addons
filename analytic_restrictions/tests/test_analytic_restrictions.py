@@ -23,6 +23,10 @@ class TestAnalyticRestrictions(TransactionCase):
             cls.env.ref("analytic.model_account_analytic_plan").model,
             cls.env.ref("analytic.model_account_analytic_applicability").model,
             cls.env.ref("account_analytic_tag.model_account_analytic_tag").model,
+            cls.env.ref("purchase_blanket_order.model_purchase_blanket_order").model,
+            cls.env.ref(
+                "purchase_blanket_order.model_purchase_blanket_order_line"
+            ).model,
         ]
 
         cls.user_analytic = cls.env["res.users"].create(
