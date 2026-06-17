@@ -2,7 +2,6 @@
 <!-- Copyright 2022 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record id="purchase_order_form" model="ir.ui.view">
         <field
             name="name"
@@ -21,7 +20,7 @@
                     icon="fa-area-chart"
                     name="action_show_mis_forecast"
                     help="MIS Builder Cash Flow Forecast"
-                    attrs="{'invisible': [('mis_cash_flow_forecast_line_count', '=', 0)]}"
+                    invisible="mis_cash_flow_forecast_line_count == 0"
                 >
                     <div class="o_form_field o_stat_info">
                         <span class="o_stat_text">Cash Flow Forecast

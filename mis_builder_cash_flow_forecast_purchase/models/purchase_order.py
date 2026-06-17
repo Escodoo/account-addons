@@ -101,7 +101,7 @@ class PurchaseOrder(models.Model):
                     t["company_amount"],
                     t["foreign_amount"],
                 )
-                for t in terms
+                for t in terms["line_ids"]
             ]
         else:
             return [(fields.Date.to_string(date), total_balance, total_amount_currency)]
@@ -167,12 +167,11 @@ class PurchaseOrder(models.Model):
         self.ensure_one()
         parent_res_id = self
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
-        account_id = (
-            self.partner_id.property_account_payable_id.id
-            or self.env["ir.property"]
-            ._get("property_account_payable_id", "res.partner")
-            .id
-        )
+        partner = self.partner_id.with_company(self.company_id)
+        account_id = partner.property_account_payable_id
+        if account_id.company_ids and self.company_id not in account_id.company_ids:
+            account_id = False
+        account_id = account_id.id if account_id else False
 
         return {
             "name": f"{self.display_name} - {payment_term_item}/{payment_term_count}",

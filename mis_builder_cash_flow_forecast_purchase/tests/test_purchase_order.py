@@ -11,75 +11,92 @@ from odoo.tools.translate import _
 
 @tagged("post_install", "-at_install")
 class TestPurchaseOrder(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.current_date = fields.Datetime.now()
-        self.company = self.env.ref("base.main_company")
-        self.currency = self.env.ref("base.USD")
-        self.partner = self.env["res.partner"].create({"name": "Partner 1"})
-        self.purchase_tax = self.env["account.tax"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.current_date = fields.Datetime.now()
+        cls.company = cls.env.ref("base.main_company")
+        cls.company.country_id = cls.env.ref("base.us")
+        cls.company.enable_purchase_mis_cash_flow_forecast = True
+        cls.env["account.chart.template"].try_loading(
+            "generic_coa", company=cls.company, install_demo=False
+        )
+        cls.account_payable = cls.env["account.account"].search(
+            [("account_type", "=", "liability_payable")], limit=1
+        )
+        cls.account_expense = cls.env["account.account"].search(
+            [("account_type", "=", "expense")], limit=1
+        )
+        cls.currency = cls.env.ref("base.USD")
+        cls.partner = cls.env["res.partner"].create(
+            {
+                "name": "Partner 1",
+                "property_account_payable_id": cls.account_payable.id,
+            }
+        )
+        cls.purchase_tax = cls.env["account.tax"].create(
             {
                 "name": "Purchase Tax 10%",
                 "amount": 10,
                 "amount_type": "percent",
                 "type_tax_use": "purchase",
-                "company_id": self.company.id,
+                "company_id": cls.company.id,
             }
         )
-        self.product = self.env["product.product"].create(
+        cls.product = cls.env["product.product"].create(
             {
                 "name": "Produto de Teste",
                 "list_price": 10.0,
                 "standard_price": 5.0,
-                "currency_id": self.currency.id,
-                "supplier_taxes_id": [(6, 0, [self.purchase_tax.id])],
+                "currency_id": cls.currency.id,
+                "supplier_taxes_id": [(6, 0, [cls.purchase_tax.id])],
             }
         )
-        self.purchase_order = self.env["purchase.order"].create(
+        cls.purchase_order = cls.env["purchase.order"].create(
             {
-                "partner_id": self.partner.id,
-                "date_order": self.current_date,
-                "company_id": self.company.id,
+                "partner_id": cls.partner.id,
+                "date_order": cls.current_date,
+                "company_id": cls.company.id,
             }
         )
-        self.purchase_order_line = self.env["purchase.order.line"].create(
+        cls.purchase_order_line = cls.env["purchase.order.line"].create(
             {
-                "order_id": self.purchase_order.id,
-                "product_id": self.product.id,
+                "order_id": cls.purchase_order.id,
+                "product_id": cls.product.id,
                 "product_qty": 10.0,
-                "price_unit": self.product.standard_price,
-                "taxes_id": [(6, 0, [self.purchase_tax.id])],
-                "fiscal_tax_ids": [(6, 0, [self.purchase_tax.id])],
+                "price_unit": cls.product.standard_price,
+                "taxes_id": [(6, 0, [cls.purchase_tax.id])],
+                "fiscal_tax_ids": [(6, 0, [cls.purchase_tax.id])],
             }
         )
-        self.account_move = self.env["account.move"].create(
+        cls.account_move = cls.env["account.move"].create(
             {
                 "name": "Movimentação de Teste",
             }
         )
-        self.invoice_line = self.env["account.move.line"].create(
+        cls.invoice_line = cls.env["account.move.line"].create(
             {
-                "move_id": self.account_move.id,
-                "name": self.product.name,
-                "product_id": self.product.id,
+                "move_id": cls.account_move.id,
+                "name": cls.product.name,
+                "product_id": cls.product.id,
                 "quantity": 5.0,
-                "price_unit": self.product.list_price,
-                "account_id": self.partner.property_account_payable_id.id,
-                "purchase_line_id": self.purchase_order_line.id,
+                "price_unit": cls.product.list_price,
+                "account_id": cls.account_payable.id,
+                "purchase_line_id": cls.purchase_order_line.id,
             }
         )
-        self.invoice_1 = self.env["account.move"].create(
+        cls.invoice_1 = cls.env["account.move"].create(
             {
                 "move_type": "in_invoice",
-                "partner_id": self.purchase_order.partner_id.id,
-                "invoice_date": self.current_date,
+                "partner_id": cls.purchase_order.partner_id.id,
+                "invoice_date": cls.current_date,
             }
         )
-        self.invoice_2 = self.env["account.move"].create(
+        cls.invoice_2 = cls.env["account.move"].create(
             {
                 "move_type": "in_invoice",
-                "partner_id": self.purchase_order.partner_id.id,
-                "invoice_date": self.current_date,
+                "partner_id": cls.purchase_order.partner_id.id,
+                "invoice_date": cls.current_date,
             }
         )
 
@@ -160,9 +177,9 @@ class TestPurchaseOrder(TransactionCase):
                         0,
                         0,
                         {
-                            "value": "balance",
-                            "value_amount": 0.0,
-                            "days": 30,
+                            "value": "percent",
+                            "value_amount": 100.0,
+                            "nb_days": 30,
                         },
                     )
                 ],
@@ -192,9 +209,9 @@ class TestPurchaseOrder(TransactionCase):
                         0,
                         0,
                         {
-                            "value": "balance",
-                            "value_amount": 0.0,
-                            "days": 30,
+                            "value": "percent",
+                            "value_amount": 100.0,
+                            "nb_days": 30,
                         },
                     )
                 ],
