@@ -18,24 +18,25 @@ class TestMisBuilderCashFlowForecastSale(TransactionCase):
         cls.company.country_id = cls.env.ref("base.us")
         cls.company.enable_sale_mis_cash_flow_forecast = True
 
-        # Contas mínimas para criar linhas e faturas em draft
-        cls.account_receivable = cls.env["account.account"].create(
-            {
-                "name": "Receivable (test)",
-                "code": "TREC",
-                "account_type": "asset_receivable",
-                "reconcile": True,
-                "company_id": cls.company.id,
-            }
+        # Load US chart of accounts for proper accounting setup
+        cls.env["account.chart.template"].try_loading(
+            "generic_coa", company=cls.company, install_demo=False
         )
-        cls.account_income = cls.env["account.account"].create(
-            {
-                "name": "Income (test)",
-                "code": "TINC",
-                "account_type": "income",
-                "reconcile": False,
-                "company_id": cls.company.id,
-            }
+
+        # Use existing accounts from the chart instead of creating new ones
+        cls.account_receivable = cls.env["account.account"].search(
+            [
+                ("account_type", "=", "asset_receivable"),
+                ("company_ids", "in", cls.company.id),
+            ],
+            limit=1,
+        )
+        cls.account_income = cls.env["account.account"].search(
+            [
+                ("account_type", "=", "income"),
+                ("company_ids", "in", cls.company.id),
+            ],
+            limit=1,
         )
 
         # Garante receivable no parceiro e no parceiro da empresa

@@ -187,8 +187,8 @@ class SaleOrder(models.Model):
 
         partner = self.partner_id.with_company(self.company_id)
         account_id = partner.property_account_receivable_id
-        if account_id.company_id.id != self.company_id.id:
-            account_id = self.company_id.partner_id.property_account_receivable_id
+        if account_id.company_ids and self.company_id not in account_id.company_ids:
+            account_id = False
 
         return {
             "name": f"{self.display_name} - {payment_term_item}/{payment_term_count}",

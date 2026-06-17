@@ -34,7 +34,7 @@ class AccountMove(models.Model):
                 order.with_delay()._generate_mis_cash_flow_forecast_lines()
         return res
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals_list):
         moves = super().create(vals_list)
         for move in moves:
