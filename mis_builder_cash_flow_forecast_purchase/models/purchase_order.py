@@ -57,7 +57,7 @@ class PurchaseOrder(models.Model):
 
     def _compute_mis_cash_flow_forecast_line_ids(self):
         ForecastLine = self.env["mis.cash_flow.forecast_line"]
-        forecast_lines = ForecastLine.search(
+        forecast_lines = ForecastLine.sudo().search(
             [
                 ("res_model", "=", self._name),
                 ("res_id", "in", self.ids),
