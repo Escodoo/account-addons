@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="operation_line_form_inherit">
+        <field
+            name="name"
+        >l10n_br_fiscal.operation.line.form (in l10n_br_fiscal_difal_inside)</field>
+        <field name="model">l10n_br_fiscal.operation.line</field>
+        <field name="inherit_id" ref="l10n_br_fiscal.operation_line_form" />
+        <field name="arch" type="xml">
+            <group name="gereral_settings" position="inside">
+                <field name="difal_inside_basis" />
+            </group>
+        </field>
+    </record>
+
+</odoo>
