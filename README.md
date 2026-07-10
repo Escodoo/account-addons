@@ -1,14 +1,27 @@
+<<<<<<< before updating
 <!-- [![Runbot Status](https://runbot.odoo-community.org/runbot/badge/flat//14.0.svg)](https://runbot.odoo-community.org/runbot/repo/github-com-oca-account-addons-) -->
 <!-- [![Build Status](https://travis-ci.com/Escodoo/account-addons.svg?branch=14.0)](https://travis-ci.com/Escodoo/account-addons) -->
 [![tests](https://github.com/Escodoo/account-addons/actions/workflows/test.yml/badge.svg)](https://github.com/Escodoo/account-addons/actions/workflows/test.yml)
+=======
+
+
+# Account Addons
+<!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
+[![Pre-commit Status](https://github.com/Escodoo/account-addons/actions/workflows/pre-commit.yml/badge.svg?branch=14.0)](https://github.com/Escodoo/account-addons/actions/workflows/pre-commit.yml?query=branch%3A14.0)
+[![Build Status](https://github.com/Escodoo/account-addons/actions/workflows/test.yml/badge.svg?branch=14.0)](https://github.com/Escodoo/account-addons/actions/workflows/test.yml?query=branch%3A14.0)
+>>>>>>> after updating
 [![codecov](https://codecov.io/gh/Escodoo/account-addons/branch/14.0/graph/badge.svg)](https://codecov.io/gh/Escodoo/account-addons)
 <!-- [![Translation Status](https://translation.odoo-community.org/widgets/account-addons-14-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/account-addons-14-0/?utm_source=widget) -->
 
 <!-- /!\ do not modify above this line -->
 
+<<<<<<< before updating
 # Escodoo Odoo Account Addons
 
 Escodoo add-ons used to extend or customize Odoo Account app functions.
+=======
+TODO: add repo description.
+>>>>>>> after updating
 
 <!-- /!\ do not modify below this line -->
 
