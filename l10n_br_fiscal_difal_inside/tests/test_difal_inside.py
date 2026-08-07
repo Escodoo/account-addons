@@ -65,6 +65,22 @@ class TestDifalInside(SavepointCase):
         self.assertEqual(line.icmsfcp_base, 28313.57)
         self.assertEqual(line.icmsfcp_value, 283.14)
 
+    def test_difal_inside_fcp_computed_before_icms(self):
+        """The FCP base follows the grossed up base whatever the tax order.
+
+        When the ICMS FCP tax group is set to be computed before the ICMS one,
+        the core cannot copy the DIFAL base into the FCP base.
+        """
+        self.product.icms_origin = "1"
+        self._enable_inside_mode()
+        self.env.ref("l10n_br_fiscal.tax_group_icmsfcp").compute_sequence = 10
+
+        line = self._create_document_line(22226.15)
+
+        self.assertEqual(line.icms_destination_base, 28313.57)
+        self.assertEqual(line.icmsfcp_base, 28313.57)
+        self.assertEqual(line.icmsfcp_value, 283.14)
+
     def test_difal_inside_without_fcp(self):
         """Without an FCP rate the base is grossed up by the ICMS only."""
         fcp_definitions = self.env["l10n_br_fiscal.tax.definition"].search(
