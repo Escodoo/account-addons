@@ -66,11 +66,7 @@ class TestDifalInside(SavepointCase):
         self.assertEqual(line.icmsfcp_value, 283.14)
 
     def test_difal_inside_fcp_computed_before_icms(self):
-        """The FCP base follows the grossed up base whatever the tax order.
-
-        When the ICMS FCP tax group is set to be computed before the ICMS one,
-        the core cannot copy the DIFAL base into the FCP base.
-        """
+        """The FCP base follows the grossed up base whatever the tax group order."""
         self.product.icms_origin = "1"
         self._enable_inside_mode()
         self.env.ref("l10n_br_fiscal.tax_group_icmsfcp").compute_sequence = 10
@@ -80,6 +76,37 @@ class TestDifalInside(SavepointCase):
         self.assertEqual(line.icms_destination_base, 28313.57)
         self.assertEqual(line.icmsfcp_base, 28313.57)
         self.assertEqual(line.icmsfcp_value, 283.14)
+
+    def test_difal_inside_after_recompute(self):
+        """The bases are kept when the taxes are computed again, like on a save."""
+        self.product.icms_origin = "1"
+        self._enable_inside_mode()
+
+        line = self._create_document_line(22226.15)
+
+        line._update_fiscal_taxes()
+
+        self.assertEqual(line.icms_destination_base, 28313.57)
+        self.assertEqual(line.icms_destination_value, 4671.74)
+        self.assertEqual(line.icmsfcp_base, 28313.57)
+        self.assertEqual(line.icmsfcp_value, 283.14)
+
+    def test_difal_inside_compute_taxes_twice(self):
+        """Computing the taxes twice gives the same amounts."""
+        self.product.icms_origin = "1"
+        self._enable_inside_mode()
+
+        line = self._create_document_line(22226.15)
+
+        first = line._compute_taxes(line.fiscal_tax_ids)
+        second = line._compute_taxes(line.fiscal_tax_ids)
+
+        self.assertEqual(second["taxes"]["icms"]["icms_dest_base"], 28313.57)
+        self.assertEqual(second["taxes"]["icms"]["icms_dest_value"], 4671.74)
+        self.assertEqual(second["taxes"]["icmsfcp"]["base"], 28313.57)
+        self.assertEqual(second["taxes"]["icmsfcp"]["tax_value"], 283.14)
+        self.assertEqual(first["amount_included"], second["amount_included"])
+        self.assertEqual(first["amount_not_included"], second["amount_not_included"])
 
     def test_difal_inside_without_fcp(self):
         """Without an FCP rate the base is grossed up by the ICMS only."""
@@ -119,8 +146,7 @@ class TestDifalInside(SavepointCase):
     def test_difal_oca_default_unchanged(self):
         """The standard OCA behavior is preserved on the default mode.
 
-        Same assertions of the l10n_br_fiscal test_difal_calculation test:
-        PE is a unique base state, so the DIFAL base is the operation base.
+        Same assertions of the l10n_br_fiscal test_difal_calculation test.
         """
         line = self._create_document_line(100.0)
 

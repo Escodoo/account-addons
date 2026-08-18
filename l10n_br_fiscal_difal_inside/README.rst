@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 ===========================
 L10n Br Fiscal Difal Inside
 ===========================
@@ -13,7 +17,7 @@ L10n Br Fiscal Difal Inside
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-Escodoo%2Faccount--addons-lightgray.png?logo=github
@@ -41,8 +45,10 @@ To use this module, you need to:
 
 1. Go to Fiscal > Configuration > Fiscal Operation and open the desired operation.
 2. Open the fiscal operation line applicable to the products.
-3. Set "DIFAL Base Mode" to "Inside Basis (Gross-up)".
+3. Check "DIFAL Inside Basis".
 4. Use the fiscal operation line in the orders and invoice lines.
+
+The recomposed base is also kept when the invoice is saved.
 
 Bug Tracker
 ===========
