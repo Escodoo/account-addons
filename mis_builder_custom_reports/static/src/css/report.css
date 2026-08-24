@@ -1,0 +1,32 @@
+.mis_table .mis_cell.mis_amount {
+    text-align: center;
+}
+.mis_footer_line {
+    padding: 20px 0;
+    border-top: 2px solid #b294de;
+}
+.mis_footer_icon {
+    color: white;
+    background: #b294de;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    display: table;
+    text-align: center;
+    font-size: 18px;
+}
+.mis_footer_icon div {
+    display: table-cell;
+    vertical-align: middle;
+}
+.mis_footer_text {
+    padding-left: 10px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 12px;
+    color: #818080;
+}
+.mis_table .mis_row {
+    border-color: none;
+    border-bottom: none;
+}
