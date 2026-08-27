@@ -54,7 +54,11 @@ class TestSaleProductionDate(common.TransactionCase):
             "production_date": production_date,
             "order_line": [(0, 0, line_vals)],
         }
-        return self.sale_obj.create(order_vals)
+        order = self.sale_obj.create(order_vals)
+        # Keep the order out of the fiscal operation flow.
+        if "fiscal_operation_id" in order._fields:
+            order.fiscal_operation_id = False
+        return order
 
     def test_prepare_invoice_propagates_production_date(self):
         order = self._create_sale_order(production_date=self.production_date)
