@@ -65,6 +65,28 @@ class TestDifalInside(SavepointCase):
         self.assertEqual(line.icmsfcp_base, 28313.57)
         self.assertEqual(line.icmsfcp_value, 283.14)
 
+        # the interstate ICMS shares the grossed up base
+        self.assertEqual(line.icms_base, 28313.57)
+        self.assertEqual(line.icms_value, 1132.54)
+
+    def test_difal_inside_base_composition(self):
+        """The grossed up base is goods + interstate ICMS + DIFAL + FCP.
+
+        This identity is what the gross-up means, and it only holds when the
+        interstate ICMS is taken from the grossed up base as well.
+        """
+        self.product.icms_origin = "1"
+        self._enable_inside_mode()
+
+        goods = 22226.15
+        line = self._create_document_line(goods)
+
+        self.assertAlmostEqual(
+            line.icms_destination_base,
+            goods + line.icms_value + line.icms_destination_value + line.icmsfcp_value,
+            places=2,
+        )
+
     def test_difal_inside_fcp_computed_before_icms(self):
         """The FCP base follows the grossed up base whatever the tax order.
 
