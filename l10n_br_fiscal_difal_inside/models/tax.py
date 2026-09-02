@@ -81,6 +81,15 @@ class Tax(models.Model):
             }
         )
 
+        # The interstate ICMS shares the grossed up base.
+        percent_amount = tax_dict.get("percent_amount", icms_origin_perc)
+        tax_dict.update(
+            {
+                "base": difal_icms_base,
+                "tax_value": currency.round(difal_icms_base * (percent_amount / 100)),
+            }
+        )
+
         return taxes_dict
 
     @api.model
