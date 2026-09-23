@@ -167,17 +167,17 @@ class PurchaseOrder(models.Model):
         self.ensure_one()
         parent_res_id = self
         parent_res_model_id = self.env["ir.model"]._get(parent_res_id._name)
-        account_id = (
-            self.partner_id.property_account_payable_id.id
-            or self.env["ir.property"]
-            ._get("property_account_payable_id", "res.partner")
-            .id
-        )
+        partner = self.partner_id.with_company(self.company_id)
+        account_id = partner.property_account_payable_id
+        if account_id.company_id.id != self.company_id.id:
+            account_id = self.company_id.partner_id.with_company(
+                self.company_id
+            ).property_account_payable_id
 
         return {
             "name": f"{self.display_name} - {payment_term_item}/{payment_term_count}",
             "date": date,
-            "account_id": account_id,
+            "account_id": account_id.id,
             "partner_id": self.partner_id.id,
             "balance": amount,
             "company_id": self.company_id.id,
