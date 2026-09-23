@@ -1,11 +1,12 @@
 # Copyright 2026 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.tests import SavepointCase
-from odoo.tests.common import Form
+from odoo.tests import TransactionCase
+from odoo.tests.common import Form, tagged
 
 
-class TestDifalInside(SavepointCase):
+@tagged("post_install", "-at_install")
+class TestDifalInside(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
