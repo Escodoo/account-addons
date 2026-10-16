@@ -4,6 +4,8 @@
 
 from odoo.tests.common import TransactionCase
 
+from odoo.addons.sync_multi_company_bank_account.hooks import post_init_hook
+
 
 class TestResPartnerBank(TransactionCase):
     @classmethod
@@ -88,3 +90,28 @@ class TestResPartnerBank(TransactionCase):
         )
 
         self.assertEqual(company2_bank.acc_number, "888444333")
+
+    def test_post_init_hook_copies_existing_bank_accounts(self):
+        """Bank accounts that predate the module are copied to the other
+        companies, each one owned by its own company partner."""
+        self.env["res.partner.bank"].with_context(no_sync_partner_bank=True).create(
+            {
+                "acc_number": "555000111",
+                "partner_id": self.company1.partner_id.id,
+                "company_id": self.company1.id,
+            }
+        )
+
+        post_init_hook(self.env)
+
+        company2_bank = self.env["res.partner.bank"].search(
+            [
+                ("partner_id", "=", self.company2.partner_id.id),
+                ("acc_number", "=", "555000111"),
+            ]
+        )
+        company1_bank = self.company1.partner_id.bank_ids.filtered(
+            lambda bank: bank.acc_number == "555000111"
+        )
+        self.assertEqual(len(company1_bank), 1)
+        self.assertEqual(len(company2_bank), 1)
