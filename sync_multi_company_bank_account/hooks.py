@@ -19,4 +19,9 @@ def post_init_hook(env):
                     ):
                         bank_account.sudo().with_context(
                             no_sync_partner_bank=True
-                        ).copy({"company_id": company.id})
+                        ).copy(
+                            {
+                                "company_id": company.id,
+                                "partner_id": company.partner_id.id,
+                            }
+                        )
