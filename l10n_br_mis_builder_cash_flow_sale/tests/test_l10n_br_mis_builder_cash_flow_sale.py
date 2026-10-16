@@ -3,11 +3,12 @@
 
 from odoo import fields
 from odoo.tests import tagged
-from odoo.tests.common import TransactionCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
 @tagged("post_install", "-at_install")
-class TestL10nBrMisBuilderCashFlowForecastSale(TransactionCase):
+class TestL10nBrMisBuilderCashFlowForecastSale(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -21,7 +22,7 @@ class TestL10nBrMisBuilderCashFlowForecastSale(TransactionCase):
                 "code": "BRTREC",
                 "account_type": "asset_receivable",
                 "reconcile": True,
-                "company_id": cls.company.id,
+                "company_ids": [(6, 0, [cls.company.id])],
             }
         )
         cls.partner = cls.env["res.partner"].create(
