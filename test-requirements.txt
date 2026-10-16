@@ -1,2 +1,3 @@
 xsdata
 odoo-addon-account_invoice_advance_compensation @ git+https://github.com/OCA/account-invoicing.git@refs/pull/2284/head#subdirectory=account_invoice_advance_compensation
+odoo-addon-l10n_br_coa_generic>=18.0dev,<18.1dev
