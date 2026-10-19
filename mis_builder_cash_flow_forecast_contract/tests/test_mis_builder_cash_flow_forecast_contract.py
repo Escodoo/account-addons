@@ -180,7 +180,7 @@ class TestMisBuilderCashFlowForecastContract(AccountTestInvoicingCommon):
         line_id = self.contract_line.id
 
         # Cancel the contract line before unlinking (required by contract module)
-        self.contract_line.cancel()
+        self.contract_line.write({"is_canceled": True})
         self.contract_line.unlink()
 
         remaining_forecasts = self.env["mis.cash_flow.forecast_line"].search(
@@ -366,6 +366,17 @@ class TestMisBuilderCashFlowForecastContract(AccountTestInvoicingCommon):
             values["account_id"], self.partner.property_account_payable_id.id
         )
         self.assertEqual(values["balance"], -100.0)
+
+    def test_archiving_contract_removes_its_forecasts(self):
+        self.contract_line._generate_mis_cash_flow_forecast_lines()
+        self.assertTrue(self.contract_line.mis_cash_flow_forecast_line_ids)
+        with trap_jobs() as trap:
+            self.contract.active = False
+            trap.assert_enqueued_job(
+                self.contract_line._generate_mis_cash_flow_forecast_lines
+            )
+            trap.perform_enqueued_jobs()
+        self.assertFalse(self.contract_line.mis_cash_flow_forecast_line_ids)
 
     def test_batch_create_schedules_each_contract_line(self):
         values = self.contract_line.copy_data()[0]

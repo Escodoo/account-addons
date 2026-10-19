@@ -11,6 +11,9 @@ class Contract(models.Model):
     def _get_mis_cash_flow_forecast_update_trigger_fields(self):
         return [
             "partner_id",
+            "company_id",
+            "contract_type",
+            "active",
             "pricelist_id",
             "fiscal_position_id",
             "currency_id",
@@ -44,12 +47,14 @@ class Contract(models.Model):
             self._get_mis_cash_flow_forecast_update_trigger_fields()
         ):
             for contract in self:
-                contract.contract_line_ids.with_delay()._generate_mis_cash_flow_forecast_lines()
+                lines = contract.with_context(active_test=False).contract_line_ids
+                if lines:
+                    lines.with_delay()._generate_mis_cash_flow_forecast_lines()
         return result
 
     def unlink(self):
         for rec in self:
-            for line in rec.contract_line_ids:
+            for line in rec.with_context(active_test=False).contract_line_ids:
                 if line.mis_cash_flow_forecast_line_ids:
                     line.mis_cash_flow_forecast_line_ids.unlink()
         return super().unlink()

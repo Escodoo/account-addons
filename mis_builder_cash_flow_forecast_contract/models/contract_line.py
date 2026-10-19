@@ -108,7 +108,7 @@ class ContractLine(models.Model):
         contract_forecast_end_date = (
             self._get_mis_cash_flow_contract_forecast_end_date()
         )
-        if not self.date_end or self.is_auto_renew:
+        if not self.date_end:
             return period_date_end < contract_forecast_end_date
         return (
             period_date_end <= self.date_end
@@ -132,7 +132,7 @@ class ContractLine(models.Model):
                 period_date_start = rec.next_period_date_start
                 period_date_end = rec.next_period_date_end
                 recurring_next_date = rec.recurring_next_date
-                max_date_end = rec.date_end if not rec.is_auto_renew else False
+                max_date_end = rec.date_end
 
                 while (
                     period_date_end
@@ -195,7 +195,6 @@ class ContractLine(models.Model):
             "recurring_interval",
             "is_canceled",
             "active",
-            "is_auto_renew",
         ]
 
     def write(self, values):
