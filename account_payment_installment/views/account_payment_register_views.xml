@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_account_payment_register_form" model="ir.ui.view">
+        <field
+            name="name"
+        >account.payment.register.form (in account_payment_installment)</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form" />
+        <field name="arch" type="xml">
+            <field name="payment_date" position="before">
+                <field name="installment_mode" />
+                <field name="installment_quantity" invisible="not installment_mode" />
+            </field>
+            <field name="amount" position="attributes">
+                <attribute name="readonly">installment_mode</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

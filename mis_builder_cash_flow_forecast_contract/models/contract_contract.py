@@ -22,8 +22,30 @@ class Contract(models.Model):
         for rec in self:
             if rec.company_id.enable_contract_mis_cash_flow_forecast:
                 for line in rec.contract_line_ids:
-                    res.append(line._prepare_mis_cash_flow_forecast_line())
+                    if (
+                        line.next_period_date_end
+                        and line.recurring_next_date
+                        and line._get_generate_mis_cash_flow_forecast_line_criteria(
+                            line.next_period_date_end
+                        )
+                    ):
+                        res.append(
+                            line._prepare_mis_cash_flow_forecast_line(
+                                line.next_period_date_start,
+                                line.next_period_date_end,
+                                line.recurring_next_date,
+                            )
+                        )
         return res
+
+    def write(self, values):
+        result = super().write(values)
+        if set(values).intersection(
+            self._get_mis_cash_flow_forecast_update_trigger_fields()
+        ):
+            for contract in self:
+                contract.contract_line_ids.with_delay()._generate_mis_cash_flow_forecast_lines()
+        return result
 
     def unlink(self):
         for rec in self:
@@ -45,6 +67,6 @@ class Contract(models.Model):
                 ("parent_res_model", "=", self._name),
                 ("parent_res_id", "=", self.id),
             ],
-            "view_mode": "pivot,tree",
+            "view_mode": "pivot,list",
             "context": context,
         }

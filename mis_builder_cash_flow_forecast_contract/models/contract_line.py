@@ -61,13 +61,17 @@ class ContractLine(models.Model):
 
         if self.contract_id.contract_type == "sale":
             account_id = partner.property_account_receivable_id
-            if account_id.company_id.id != self.contract_id.company_id.id:
-                company_partner = self.contract_id.company_id.partner_id
+            if self.contract_id.company_id not in account_id.company_ids:
+                company_partner = self.contract_id.company_id.partner_id.with_company(
+                    self.contract_id.company_id
+                )
                 account_id = company_partner.property_account_receivable_id
         elif self.contract_id.contract_type == "purchase":
             account_id = partner.property_account_payable_id
-            if account_id.company_id.id != self.contract_id.company_id.id:
-                company_partner = self.contract_id.company_id.partner_id
+            if self.contract_id.company_id not in account_id.company_ids:
+                company_partner = self.contract_id.company_id.partner_id.with_company(
+                    self.contract_id.company_id
+                )
                 account_id = company_partner.property_account_payable_id
 
         parent_res_id = self.contract_id
@@ -164,9 +168,9 @@ class ContractLine(models.Model):
             return ForecastLine.create(values)
         return ForecastLine
 
-    @api.model
-    def create(self, values):
-        contract_lines = super().create(values)
+    @api.model_create_multi
+    def create(self, vals_list):
+        contract_lines = super().create(vals_list)
         for contract_line in contract_lines:
             company = contract_line.contract_id.company_id
             if company.enable_contract_mis_cash_flow_forecast:
@@ -185,6 +189,7 @@ class ContractLine(models.Model):
             "price_unit",
             "discount",
             "recurring_invoicing_type",
+            "recurring_invoicing_offset",
             "recurring_next_date",
             "recurring_rule_type",
             "recurring_interval",
@@ -220,15 +225,17 @@ class ContractLine(models.Model):
         offset = 0
         contract_lines_env = self.env["contract.line"]
         while True:
-            contract_lines = contract_lines_env.search(
+            batch = contract_lines_env.search(
                 [("is_canceled", "=", False)],
                 limit=25,
                 offset=offset,
-            ).filtered(lambda x: x.create_invoice_visibility)
+                order="id",
+            )
+            contract_lines = batch.filtered(lambda line: line.create_invoice_visibility)
 
             if contract_lines:
                 contract_lines.with_delay()._generate_mis_cash_flow_forecast_lines()
 
-            if len(contract_lines) < 25:
+            if len(batch) < 25:
                 break
-            offset += 25
+            offset += len(batch)

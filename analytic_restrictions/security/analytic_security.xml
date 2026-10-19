@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_analytic_accounting_admin" model="res.groups">
+        <field name="name">Analytic Accounting Admin</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field
+            name="implied_ids"
+            eval="[(Command.link(ref('analytic.group_analytic_accounting')))]"
+        />
+    </record>
+</odoo>

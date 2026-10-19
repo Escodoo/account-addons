@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Marcel Savegnago <https://escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="account_move_grouped_line_tree_view" model="ir.ui.view">
+        <field name="name">account.move.grouped.line.tree</field>
+        <field name="model">account.move.grouped.line</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="account_id" />
+                <field name="name" />
+                <field name="debit" sum="Total Debit" />
+                <field name="credit" sum="Total Credit" />
+                <field name="account_move_id" invisible="1" />
+            </list>
+        </field>
+    </record>
+</odoo>

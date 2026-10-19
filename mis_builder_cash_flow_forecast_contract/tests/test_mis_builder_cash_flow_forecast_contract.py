@@ -4,16 +4,20 @@
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields
-from odoo.tests.common import TransactionCase
+from odoo.tests import tagged
+
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from odoo.addons.queue_job.tests.common import trap_jobs
 
 
-class TestMisBuilderCashFlowForecastContract(TransactionCase):
+@tagged("post_install", "-at_install")
+class TestMisBuilderCashFlowForecastContract(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
 
         # Setup company with forecast enabled
-        cls.company = cls.env.ref("base.main_company")
+        cls.company = cls.env.company
         cls.company.write(
             {
                 "enable_contract_mis_cash_flow_forecast": True,
@@ -27,6 +31,12 @@ class TestMisBuilderCashFlowForecastContract(TransactionCase):
             {
                 "name": "Test Partner",
                 "company_id": cls.company.id,
+                "property_account_receivable_id": cls.company_data[
+                    "default_account_receivable"
+                ].id,
+                "property_account_payable_id": cls.company_data[
+                    "default_account_payable"
+                ].id,
             }
         )
 
@@ -130,7 +140,12 @@ class TestMisBuilderCashFlowForecastContract(TransactionCase):
         self.contract_line._generate_mis_cash_flow_forecast_lines()
 
         # Update price_unit (trigger field)
-        self.contract_line.write({"price_unit": 150.0})
+        with trap_jobs() as trap:
+            self.contract_line.write({"price_unit": 150.0})
+            trap.assert_enqueued_job(
+                self.contract_line._generate_mis_cash_flow_forecast_lines
+            )
+            trap.perform_enqueued_jobs()
 
         # Forecast lines should be regenerated
         forecast_lines = self.env["mis.cash_flow.forecast_line"].search(
@@ -144,6 +159,7 @@ class TestMisBuilderCashFlowForecastContract(TransactionCase):
             forecast_lines,
             "Forecast lines should still exist after update",
         )
+        self.assertEqual(set(forecast_lines.mapped("balance")), {150.0})
 
     def test_forecast_deletion_on_unlink(self):
         """Test that forecast lines are deleted when contract line is deleted."""
@@ -318,6 +334,66 @@ class TestMisBuilderCashFlowForecastContract(TransactionCase):
             action,
             "Action should have domain filter",
         )
+        self.assertEqual(action["view_mode"], "pivot,list")
+
+    def test_contract_prepares_current_period_values(self):
+        values = self.contract._prepare_mis_cash_flow_forecast_line_values()
+        self.assertEqual(len(values), 1)
+        self.assertEqual(values[0]["res_id"], self.contract_line.id)
+        self.assertEqual(values[0]["date"], self.contract_line.recurring_next_date)
+
+    def test_partner_change_regenerates_forecasts(self):
+        self.contract_line._generate_mis_cash_flow_forecast_lines()
+        partner = self.partner.copy({"name": "Replacement contract partner"})
+        with trap_jobs() as trap:
+            self.contract.partner_id = partner
+            trap.assert_enqueued_job(
+                self.contract.contract_line_ids._generate_mis_cash_flow_forecast_lines
+            )
+            trap.perform_enqueued_jobs()
+        self.assertEqual(
+            self.contract_line.mis_cash_flow_forecast_line_ids.partner_id, partner
+        )
+
+    def test_purchase_contract_uses_payable_account_and_negative_balance(self):
+        self.contract.contract_type = "purchase"
+        values = self.contract_line._prepare_mis_cash_flow_forecast_line(
+            self.contract_line.next_period_date_start,
+            self.contract_line.next_period_date_end,
+            self.contract_line.recurring_next_date,
+        )
+        self.assertEqual(
+            values["account_id"], self.partner.property_account_payable_id.id
+        )
+        self.assertEqual(values["balance"], -100.0)
+
+    def test_batch_create_schedules_each_contract_line(self):
+        values = self.contract_line.copy_data()[0]
+        with trap_jobs() as trap:
+            lines = self.env["contract.line"].create([dict(values), dict(values)])
+            self.assertEqual(len(lines), 2)
+            for line in lines:
+                trap.assert_enqueued_job(line._generate_mis_cash_flow_forecast_lines)
+            trap.perform_enqueued_jobs()
+        for line in lines:
+            self.assertTrue(line.mis_cash_flow_forecast_line_ids)
+
+    def test_cron_continues_after_a_batch_of_future_contract_lines(self):
+        values = self.contract_line.copy_data()[0]
+        values.update(
+            date_start=fields.Date.today() + relativedelta(months=1),
+            date_end=fields.Date.today() + relativedelta(months=3),
+        )
+        with trap_jobs():
+            self.env["contract.line"].create([dict(values) for _ in range(25)])
+            eligible = self.contract_line.copy()
+        with trap_jobs() as trap:
+            self.env[
+                "contract.line"
+            ].cron_mis_cash_flow_generate_forecast_contract_lines()
+            trap.assert_enqueued_job(eligible._generate_mis_cash_flow_forecast_lines)
+            trap.perform_enqueued_jobs()
+        self.assertTrue(eligible.mis_cash_flow_forecast_line_ids)
 
     def test_prepare_forecast_line_values(self):
         """Test preparation of forecast line values."""
