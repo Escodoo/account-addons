@@ -27,15 +27,12 @@
                     icon="fa-bars"
                     type="object"
                     name="action_open_parent_document_related"
-                    invisible="(not res_model or not res_id)"
+                    invisible="(not parent_res_model or not parent_res_id)"
                 />
             </sheet>
             <field name="balance" position="after">
                 <field name="res_model_id" invisible="1" />
-                <field name="res_model" invisible="1" />
-                <field name="res_id" invisible="1" />
                 <field name="parent_res_model_id" />
-                <field name="parent_res_model" invisible="1" />
                 <field name="parent_res_id" />
             </field>
         </field>
@@ -53,7 +50,6 @@
         <field name="arch" type="xml">
             <field name="balance" position="after">
                 <field name="res_model_id" />
-                <field name="res_model" invisible="1" />
                 <field name="res_id" />
                 <button
                     string="Document"
@@ -64,7 +60,6 @@
                     invisible="(not res_model or not res_id)"
                 />
                 <field name="parent_res_model_id" />
-                <field name="parent_res_model" invisible="1" />
                 <field name="parent_res_id" />
                 <button
                     string="Parent Document"
@@ -72,7 +67,7 @@
                     icon="fa-bars"
                     type="object"
                     name="action_open_parent_document_related"
-                    invisible="(not res_model or not res_id)"
+                    invisible="(not parent_res_model or not parent_res_id)"
                 />
             </field>
         </field>
