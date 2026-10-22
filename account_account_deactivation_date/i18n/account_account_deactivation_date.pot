@@ -1,0 +1,88 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_account_deactivation_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_account_deactivation_date
+#: model:ir.model,name:account_account_deactivation_date.model_account_account
+msgid "Account"
+msgstr ""
+
+#. module: account_account_deactivation_date
+#: model:ir.actions.server,name:account_account_deactivation_date.ir_cron_deprecate_due_accounts_ir_actions_server
+msgid "Account: Deprecate accounts on their deactivation date"
+msgstr ""
+
+#. module: account_account_deactivation_date
+#: model:ir.model.fields,field_description:account_account_deactivation_date.field_account_account__deactivation_date
+msgid "Deactivation Date"
+msgstr ""
+
+#. module: account_account_deactivation_date
+#: model:ir.model.fields,help:account_account_deactivation_date.field_account_account__deactivation_date
+msgid ""
+"From this date on, journal entries can no longer use the account and, once "
+"the date is reached, the account is deprecated. Entries dated before it "
+"remain valid."
+msgstr ""
+
+#. module: account_account_deactivation_date
+#: model_terms:ir.ui.view,arch_db:account_account_deactivation_date.view_account_search
+msgid "Inactive Account"
+msgstr ""
+
+#. module: account_account_deactivation_date
+#: model:ir.model,name:account_account_deactivation_date.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_account_deactivation_date
+#: model:ir.model,name:account_account_deactivation_date.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_account_deactivation_date
+#: model_terms:ir.ui.view,arch_db:account_account_deactivation_date.view_account_search
+msgid "Scheduled Deactivation"
+msgstr ""
+
+#. module: account_account_deactivation_date
+#. odoo-python
+#: code:addons/account_account_deactivation_date/models/account_move_line.py:0
+msgid ""
+"The account %(account)s is inactive since %(date)s and cannot be used in "
+"entries dated %(line_date)s."
+msgstr ""
+
+#. module: account_account_deactivation_date
+#. odoo-python
+#: code:addons/account_account_deactivation_date/models/account_account.py:0
+msgid ""
+"The account could not be deprecated on its deactivation date: %(error)s"
+msgstr ""
+
+#. module: account_account_deactivation_date
+#. odoo-python
+#: code:addons/account_account_deactivation_date/models/account_account.py:0
+msgid ""
+"The deactivation date of account %(account)s must be later than %(date)s, "
+"the date of its last posted journal item."
+msgstr ""
+
+#. module: account_account_deactivation_date
+#. odoo-python
+#: code:addons/account_account_deactivation_date/models/account_account.py:0
+msgid ""
+"You cannot set a deactivation date on accounts used in a tax distribution: "
+"%(accounts)s"
+msgstr ""
