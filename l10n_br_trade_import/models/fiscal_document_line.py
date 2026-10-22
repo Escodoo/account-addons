@@ -21,7 +21,7 @@ class FiscalDocumentLine(models.Model):
     @api.depends("account_line_ids.import_addition_ids", "document_id.state_edoc")
     def _compute_nfe40_DI(self):
         for line in self:
-            if line.document_id._need_compute_nfe_tags:
+            if line.document_id._need_compute_nfe_tags():
                 import_declarations = line.account_line_ids.import_addition_ids.mapped(
                     "import_declaration_id"
                 )
@@ -72,7 +72,7 @@ class FiscalDocumentLine(models.Model):
                         "nfe40_nDI": di.document_number,
                         "nfe40_dDI": di.document_date,
                         "nfe40_xLocDesemb": di.customs_clearance_location,
-                        "nfe40_UFDesemb": di.customs_clearance_state_id.code,
+                        "state_clearance_id": di.customs_clearance_state_id.id,
                         "nfe40_dDesemb": di.customs_clearance_date,
                         "nfe40_tpViaTransp": map_transportation_type[
                             di.transportation_type
@@ -81,8 +81,7 @@ class FiscalDocumentLine(models.Model):
                         "nfe40_tpIntermedio": map_intermediary_type[
                             di.intermediary_type
                         ],
-                        "nfe40_CNPJ": di.third_party_partner_id.cnpj_cpf,
-                        "nfe40_UFTerceiro": di.third_party_partner_id.state_id.code,
+                        "partner_acquirer_id": di.third_party_partner_id.id,
                         "nfe40_cExportador": di.exporting_partner_id.id,
                         "nfe40_adi": nfe40_nAdicao_dicts,
                         # Link to the nfe40_nAdicao records

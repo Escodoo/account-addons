@@ -10,7 +10,7 @@
     "author": "Engenere, Escodoo, Odoo Community Association (OCA)",
     "maintainers": ["antoniospneto", "felipemotter"],
     "website": "https://github.com/Escodoo/account-addons",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "development_status": "Beta",
     "depends": [
         "l10n_br_nfe",
@@ -22,9 +22,6 @@
         "views/import_declaration.xml",
         "views/import_addition.xml",
         "views/account_move_views.xml",
-        "views/nfe_adi_view.xml",
-        "views/nfe_di_view.xml",
-        "views/nfe_document_view.xml",
     ],
     "installable": True,
 }

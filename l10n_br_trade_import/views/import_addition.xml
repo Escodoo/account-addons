@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="import_addition_search" model="ir.ui.view">
         <field name="name">l10n_br_trade_import.addition.search</field>
         <field name="model">l10n_br_trade_import.addition</field>
@@ -19,7 +18,7 @@
         <field name="name">l10n_br_trade_import.addition.tree</field>
         <field name="model">l10n_br_trade_import.addition</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="import_declaration_number" />
                 <field name="import_declaration_date" />
                 <field name="addition_number" />
@@ -27,7 +26,7 @@
                 <field name="manufacturer_id" />
                 <field name="discount_value" />
                 <field name="drawback" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -49,5 +48,4 @@
             </form>
         </field>
     </record>
-
 </odoo>
