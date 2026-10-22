@@ -43,7 +43,9 @@ class TestImportDeclaration(BaseCommon):
             }
         )
         self.assertEqual(declaration.addition_ids, addition)
-        self.assertEqual(addition.import_declaration_number, declaration.document_number)
+        self.assertEqual(
+            addition.import_declaration_number, declaration.document_number
+        )
         self.assertEqual(addition.import_declaration_date, declaration.document_date)
 
     def test_third_party_required_when_not_own_account(self):
