@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -40,11 +40,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_form
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.view_move_form_inherit
 msgid "Additions"
-msgstr ""
-
-#. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
-msgid "Adição"
 msgstr ""
 
 #. module: l10n_br_trade_import
@@ -112,12 +107,6 @@ msgid "Customs Clearance State"
 msgstr ""
 
 #. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_tree_view
-msgid "Código do Fabricante"
-msgstr ""
-
-#. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__import_declaration_date
 msgid "DI Date"
 msgstr ""
@@ -125,16 +114,6 @@ msgstr ""
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__import_declaration_number
 msgid "DI Number"
-msgstr ""
-
-#. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_tree_view
-msgid "Data de Registro"
-msgstr ""
-
-#. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_tree_view
-msgid "Data do desembaraço"
 msgstr ""
 
 #. module: l10n_br_trade_import
@@ -191,14 +170,7 @@ msgid "Document Registration Date"
 msgstr ""
 
 #. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_form_view
-msgid "Documento de Importação"
-msgstr ""
-
-#. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__drawback
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_tree_view
 msgid "Drawback"
 msgstr ""
 
@@ -223,6 +195,11 @@ msgid "Fictitious In/Out"
 msgstr ""
 
 #. module: l10n_br_trade_import
+#: model:ir.model,name:l10n_br_trade_import.model_l10n_br_fiscal_document_line
+msgid "Fiscal Document Line"
+msgstr ""
+
+#. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__fluvial
 msgid "Fluvial"
 msgstr ""
@@ -235,13 +212,6 @@ msgstr ""
 #. module: l10n_br_trade_import
 #: model:ir.model.fields,help:l10n_br_trade_import.field_l10n_br_trade_import_declaration__intermediary_type
 msgid "Form of import regarding intermediation"
-msgstr ""
-
-#. module: l10n_br_trade_import
-#: model:ir.model,name:l10n_br_trade_import.model_l10n_br_fiscal_document_line
-msgid ""
-"Grupo a ser informado nas vendas interestarduais para consumidor final,\n"
-"não contribuinte de ICMS"
 msgstr ""
 
 #. module: l10n_br_trade_import
@@ -270,11 +240,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_form
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_search
 msgid "Import Declaration"
-msgstr ""
-
-#. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.document_line_form_import_inherit
-msgid "Import Documents"
 msgstr ""
 
 #. module: l10n_br_trade_import
@@ -308,12 +273,6 @@ msgid "Lacustrine"
 msgstr ""
 
 #. module: l10n_br_trade_import
-#: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition____last_update
-#: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: l10n_br_trade_import
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__write_uid
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__write_uid
 msgid "Last Updated by"
@@ -323,11 +282,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_addition__write_date
 #: model:ir.model.fields,field_description:l10n_br_trade_import.field_l10n_br_trade_import_declaration__write_date
 msgid "Last Updated on"
-msgstr ""
-
-#. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_tree_view
-msgid "Local do desembaraço"
 msgstr ""
 
 #. module: l10n_br_trade_import
@@ -366,13 +320,6 @@ msgid "Number of Import Document"
 msgstr ""
 
 #. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_tree_view
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_tree_view
-msgid "Número"
-msgstr ""
-
-#. module: l10n_br_trade_import
 #: model:ir.model.fields.selection,name:l10n_br_trade_import.selection__l10n_br_trade_import_declaration__transportation_type__own_means
 msgid "Own Means"
 msgstr ""
@@ -403,12 +350,6 @@ msgid "Sequential number of the item within the Addition"
 msgstr ""
 
 #. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_tree_view
-msgid "Sequência"
-msgstr ""
-
-#. module: l10n_br_trade_import
 #: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.import_declaration_form
 msgid "State"
 msgstr ""
@@ -419,20 +360,8 @@ msgid "State where Customs Clearance occurred"
 msgstr ""
 
 #. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_di_tree_view
-msgid "UF do desembaraço"
-msgstr ""
-
-#. module: l10n_br_trade_import
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_form_view
-#: model_terms:ir.ui.view,arch_db:l10n_br_trade_import.l10n_br_nfe_adi_tree_view
-msgid "Valor do Desconto"
-msgstr ""
-
-#. module: l10n_br_trade_import
 #. odoo-python
 #: code:addons/l10n_br_trade_import/models/l10n_br_import_declaration.py:0
-#, python-format
 msgid ""
 "When the intermediation is 'Conta e Ordem' or 'Encomenda' you must provide "
 "the Acquirer or Orderer's information"
@@ -441,7 +370,6 @@ msgstr ""
 #. module: l10n_br_trade_import
 #. odoo-python
 #: code:addons/l10n_br_trade_import/models/l10n_br_import_declaration.py:0
-#, python-format
 msgid ""
 "When the international transport route is 'Maritime'\n"
 "You must inform the AFRMM value."
