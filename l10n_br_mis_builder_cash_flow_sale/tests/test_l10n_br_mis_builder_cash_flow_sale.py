@@ -101,6 +101,41 @@ class TestL10nBrMisBuilderCashFlowForecastSale(BaseCommon):
         order._compute_forecast_uninvoiced_amount()
         self.assertEqual(order.forecast_uninvoiced_amount, 0.0)
 
+    def test_compute_mixed_country_orders(self):
+        br_order = self._create_sale_order(price_unit=150.0)
+        us_company = self.env["res.company"].create(
+            {"name": "US Company (BR test)", "country_id": self.env.ref("base.us").id}
+        )
+        us_partner = self.env["res.partner"].create({"name": "US Partner (BR test)"})
+        us_order = (
+            self.env["sale.order"]
+            .with_company(us_company)
+            .create(
+                {
+                    "partner_id": us_partner.id,
+                    "company_id": us_company.id,
+                    "order_line": [
+                        (
+                            0,
+                            0,
+                            {
+                                "product_id": self.product.id,
+                                "product_uom_qty": 1.0,
+                                "price_unit": 150.0,
+                                "tax_id": [(6, 0, [])],
+                            },
+                        )
+                    ],
+                }
+            )
+        )
+        orders = br_order | us_order
+        orders._compute_forecast_uninvoiced_amount()
+        self.assertEqual(
+            br_order.forecast_uninvoiced_amount, br_order.amount_financial_total
+        )
+        self.assertEqual(us_order.forecast_uninvoiced_amount, us_order.amount_total)
+
     def test_compute_updates_stored_value_when_canceled(self):
         order = self._create_sale_order(price_unit=150.0)
         order.write({"forecast_uninvoiced_amount": 42.0, "state": "cancel"})
