@@ -47,6 +47,12 @@ class ResPartnerBank(models.Model):
         return super().unlink()
 
     def _sync_partner_bank(self, vals, old_acc_number=None, old_partner_id=None):
+        # The owner of each copy is the company partner, it must never be synced
+        sync_vals = {
+            key: value
+            for key, value in vals.items()
+            if key not in ("partner_id", "company_id")
+        }
         for rec in self:
             for company in self.env["res.company"].search([]):
                 if company.id != rec.company_id.id:
@@ -64,7 +70,9 @@ class ResPartnerBank(models.Model):
                         limit=1,
                     )
                     if partner_bank:
-                        partner_bank.with_context(no_sync_partner_bank=True).write(vals)
+                        partner_bank.with_context(no_sync_partner_bank=True).write(
+                            sync_vals
+                        )
                     else:
                         rec.sudo().with_context(no_sync_partner_bank=True).copy(
                             {
