@@ -66,7 +66,6 @@ class TestPurchaseOrder(TransactionCase):
                 "product_qty": 10.0,
                 "price_unit": cls.product.standard_price,
                 "taxes_id": [(6, 0, [cls.purchase_tax.id])],
-                "fiscal_tax_ids": [(6, 0, [cls.purchase_tax.id])],
             }
         )
         cls.account_move = cls.env["account.move"].create(
