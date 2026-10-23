@@ -11,30 +11,32 @@ class MisReportInstance(models.Model):
 
     def compute(self):
         self.ensure_one()
+        kpi_matrix_dict = super().compute()
         if not self.use_code_column:
-            return super().compute()
-        else:
-            kpi_matrix = self._compute_matrix()
-            kpi_matrix_dict = kpi_matrix.as_dict()
-
-            empty_col = [{"label": "", "description": "", "colspan": 1}]
-            kpi_matrix_dict["header"][0]["cols"] = (
-                empty_col + kpi_matrix_dict["header"][0]["cols"]
-            )
-            kpi_matrix_dict["header"][1]["cols"] = (
-                empty_col + kpi_matrix_dict["header"][1]["cols"]
-            )
-
-            for idx, row in enumerate(kpi_matrix_dict["body"]):
-                label = row["label"]
-                code = self.report_id.computed_code(label)
-                if code:
-                    label = label.split(" ", 1)[1]
-                    kpi_matrix_dict["body"][idx].update(
-                        {
-                            "code": code,
-                            "label": label,
-                        }
-                    )
-
             return kpi_matrix_dict
+
+        # tells the widget to render the code cell on every row,
+        # keeping rows without code aligned with the headers
+        kpi_matrix_dict["use_code_column"] = True
+
+        empty_col = [{"label": "", "description": "", "colspan": 1}]
+        kpi_matrix_dict["header"][0]["cols"] = (
+            empty_col + kpi_matrix_dict["header"][0]["cols"]
+        )
+        kpi_matrix_dict["header"][1]["cols"] = (
+            empty_col + kpi_matrix_dict["header"][1]["cols"]
+        )
+
+        for idx, row in enumerate(kpi_matrix_dict["body"]):
+            label = row["label"]
+            code = self.report_id.computed_code(label)
+            if code:
+                label = label.split(" ", 1)[1]
+                kpi_matrix_dict["body"][idx].update(
+                    {
+                        "code": code,
+                        "label": label,
+                    }
+                )
+
+        return kpi_matrix_dict

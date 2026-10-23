@@ -6,7 +6,7 @@ import numbers
 from collections import defaultdict
 from datetime import datetime
 
-from odoo import _, fields, models
+from odoo import fields, models
 
 from odoo.addons.mis_builder.models.accounting_none import AccountingNone
 from odoo.addons.mis_builder.models.data_error import DataError
@@ -30,6 +30,7 @@ class MisBuilderXlsx(models.AbstractModel):
             return super().generate_xlsx_report(workbook, data, objects)
         # get the computed result of the report
         matrix = objects._compute_matrix()
+        notes = objects.get_notes_by_cell_id()
         style_obj = self.env["mis.report.style"]
 
         # create worksheet
@@ -133,6 +134,7 @@ class MisBuilderXlsx(models.AbstractModel):
             )
             for cell in row.iter_cells():
                 col_pos += 1
+                self._mis_builder_add_annotation(sheet, cell, row_pos, col_pos, notes)
                 if not cell or cell.val is AccountingNone:
                     # TODO col/subcol format
                     sheet.write(row_pos, col_pos, "", row_format)
@@ -166,7 +168,7 @@ class MisBuilderXlsx(models.AbstractModel):
         # Add date/time footer
         row_pos += 1
         footer_format = workbook.add_format(
-            {"italic": True, "font_color": "#202020", "size": 9}
+            {"italic": True, "font_color": "#202020", "font_size": 9}
         )
         lang_model = self.env["res.lang"]
         lang = lang_model._lang_get(self.env.user.lang)
@@ -174,14 +176,16 @@ class MisBuilderXlsx(models.AbstractModel):
         now_tz = fields.Datetime.context_timestamp(
             self.env["res.users"], datetime.now()
         )
-        create_date = _("Generated on %(date)s at %(time)s") % {
-            "date": now_tz.strftime(lang.date_format),
-            "time": now_tz.strftime(lang.time_format),
-        }
+        create_date = self.env._(
+            "Generated on %(gen_date)s at %(gen_time)s",
+            gen_date=now_tz.strftime(lang.date_format),
+            gen_time=now_tz.strftime(lang.time_format),
+        )
         sheet.write(row_pos, 0, create_date, footer_format)
 
         # adjust col widths
         sheet.set_column(0, 1, min(label_col_width, MAX_COL_WIDTH) * COL_WIDTH)
-        if col_width:
-            for cidx, width in col_width.items():
-                sheet.set_column(cidx, cidx, min(width, MAX_COL_WIDTH) * COL_WIDTH)
+        data_col_width = min(MAX_COL_WIDTH, max(col_width.values()))
+        min_col_pos = min(col_width.keys())
+        max_col_pos = max(col_width.keys())
+        sheet.set_column(min_col_pos, max_col_pos, data_col_width * COL_WIDTH)

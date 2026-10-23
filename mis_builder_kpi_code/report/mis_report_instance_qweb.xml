@@ -34,13 +34,13 @@
                 <t
                     t-if="o.report_id.use_code_column and o.report_id.computed_code(row.label)"
                 >
-                    <t t-esc="row.label.split(' ', 1)[1]" />
+                    <t t-out="row.label.split(' ', 1)[1]" />
                 </t>
                 <t t-else="">
-                    <t t-esc="row.label" />
+                    <t t-out="row.label" />
                     <t t-if="row.description">
                         <br />
-                        <t t-esc="row.description" />
+                        <t t-out="row.description" />
                     </t>
                 </t>
             </div>
@@ -54,7 +54,7 @@
                     t-att-style="style_obj.to_css_style(row.style_props)"
                     class="mis_cell mis_rowlabel"
                 >
-                    <t t-esc="o.report_id.computed_code(row.label)" />
+                    <t t-out="o.report_id.computed_code(row.label)" />
                 </div>
             </t>
         </xpath>
