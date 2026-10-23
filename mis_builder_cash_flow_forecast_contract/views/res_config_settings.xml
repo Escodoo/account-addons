@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="res_config_settings_form_view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="contract.res_config_settings_form_view" />
+        <field name="arch" type="xml">
+            <block name="contract" position="inside">
+                <setting
+                    id="enable_contract_mis_cash_flow_forecast"
+                    company_dependent="1"
+                    help="Enable MIS Builder Cash Flow get Contract Forecast"
+                >
+                    <field name="enable_contract_mis_cash_flow_forecast" />
+                    <div
+                        class="content-group"
+                        invisible="not enable_contract_mis_cash_flow_forecast"
+                    >
+                        <label
+                            for="contract_mis_cash_flow_forecast_interval"
+                            string="Forecast Interval"
+                            class="o_light_label"
+                        />
+                        <field
+                            name="contract_mis_cash_flow_forecast_interval"
+                            class="oe_inline"
+                        />
+                        <field
+                            name="contract_mis_cash_flow_forecast_rule_type"
+                            class="oe_inline"
+                        />
+                    </div>
+                </setting>
+            </block>
+        </field>
+    </record>
+</odoo>
