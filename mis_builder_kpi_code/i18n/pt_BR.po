@@ -1,0 +1,52 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mis_builder_kpi_code
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Wesley Oliveira, 2024\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__code
+msgid "Code"
+msgstr "Código"
+
+#. module: mis_builder_kpi_code
+#. odoo-python
+#: code:addons/mis_builder_kpi_code/report/mis_report_instance_xlsx.py:0
+msgid "Generated on %(gen_date)s at %(gen_time)s"
+msgstr "Gerado em %(gen_date)s às %(gen_time)s"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model,name:mis_builder_kpi_code.model_report_mis_builder_mis_report_instance_xlsx
+msgid "MIS Builder XLSX report"
+msgstr "Relatório XLSX MIS Builder"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model,name:mis_builder_kpi_code.model_mis_report_instance
+msgid "MIS Report Instance"
+msgstr "Instância do Relatório SIG"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model,name:mis_builder_kpi_code.model_mis_report_kpi
+msgid "MIS Report KPI"
+msgstr "KPI do Relatório SIG"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model,name:mis_builder_kpi_code.model_mis_report
+msgid "MIS Report Template"
+msgstr "Template do Relatório SIG"
+
+#. module: mis_builder_kpi_code
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report__use_code_column
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_instance__use_code_column
+#: model:ir.model.fields,field_description:mis_builder_kpi_code.field_mis_report_kpi__use_code_column
+msgid "Use Code Column"
+msgstr "Usar Coluna Código"
