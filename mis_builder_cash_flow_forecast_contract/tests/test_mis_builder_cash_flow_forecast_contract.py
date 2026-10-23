@@ -13,6 +13,7 @@ from odoo.addons.queue_job.tests.common import trap_jobs
 @tagged("post_install", "-at_install")
 class TestMisBuilderCashFlowForecastContract(AccountTestInvoicingCommon):
     @classmethod
+    @AccountTestInvoicingCommon.setup_chart_template("generic_coa")
     def setUpClass(cls):
         super().setUpClass()
 
