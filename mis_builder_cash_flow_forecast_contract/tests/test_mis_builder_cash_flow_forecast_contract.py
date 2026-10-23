@@ -387,13 +387,19 @@ class TestMisBuilderCashFlowForecastContract(AccountTestInvoicingCommon):
                 trap.assert_enqueued_job(line._generate_mis_cash_flow_forecast_lines)
             trap.perform_enqueued_jobs()
         for line in lines:
-            self.assertTrue(line.mis_cash_flow_forecast_line_ids)
+            self.assertTrue(
+                self.env["mis.cash_flow.forecast_line"].search(
+                    [("res_model", "=", "contract.line"), ("res_id", "=", line.id)]
+                )
+            )
 
     def test_cron_continues_after_a_batch_of_future_contract_lines(self):
         values = self.contract_line.copy_data()[0]
+        future_start = fields.Date.today() + relativedelta(months=1)
         values.update(
-            date_start=fields.Date.today() + relativedelta(months=1),
+            date_start=future_start,
             date_end=fields.Date.today() + relativedelta(months=3),
+            recurring_next_date=future_start,
         )
         with trap_jobs():
             self.env["contract.line"].create([dict(values) for _ in range(25)])
@@ -404,7 +410,11 @@ class TestMisBuilderCashFlowForecastContract(AccountTestInvoicingCommon):
             ].cron_mis_cash_flow_generate_forecast_contract_lines()
             trap.assert_enqueued_job(eligible._generate_mis_cash_flow_forecast_lines)
             trap.perform_enqueued_jobs()
-        self.assertTrue(eligible.mis_cash_flow_forecast_line_ids)
+        self.assertTrue(
+            self.env["mis.cash_flow.forecast_line"].search(
+                [("res_model", "=", "contract.line"), ("res_id", "=", eligible.id)]
+            )
+        )
 
     def test_prepare_forecast_line_values(self):
         """Test preparation of forecast line values."""
