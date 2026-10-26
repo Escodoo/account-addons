@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
+from odoo.tools.safe_eval import safe_eval
 
 
 class AccountBankStatementLine(models.Model):
@@ -17,7 +18,10 @@ class AccountBankStatementLine(models.Model):
         action = self.env["ir.actions.act_window"]._for_xml_id(
             "account_bank_statement_internal_transfer.internal_transfer_wizard_action"
         )
-        ctx = dict(self.env.context, **action.get("context", {}))
+        action_context = action.get("context") or {}
+        if isinstance(action_context, str):
+            action_context = safe_eval(action_context, dict(self.env.context))
+        ctx = dict(self.env.context, **action_context)
         ctx.update(
             {
                 "active_id": self.id,
