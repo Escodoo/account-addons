@@ -112,7 +112,7 @@ class TestInternalTransferWizard(TransactionCase):
         self.assertEqual(action["context"]["amount"], self.statement_line.amount)
         wizard = (
             self.env["internal.transfer.wizard"]
-            .with_context(action["context"])
+            .with_context(**action["context"])
             .create({})
         )
         self.assertEqual(wizard.destination_journal_id, self.bank_journal_2)
