@@ -2,7 +2,6 @@
 <!-- Copyright 2021 - TODAY, Marcel Savegnago <marcel.savegnago@escodoo.com.br>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record model="ir.ui.view" id="res_config_settings_form_view">
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="contract.res_config_settings_form_view" />
@@ -53,7 +52,6 @@
                                         class="oe_inline"
                                     />
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -61,5 +59,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>
