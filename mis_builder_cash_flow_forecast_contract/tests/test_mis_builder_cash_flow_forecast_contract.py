@@ -75,6 +75,20 @@ class TestMisBuilderCashFlowForecastContract(TransactionCase):
             "Forecast line count should be greater than 0",
         )
 
+    def test_forecast_lines_field_after_generation(self):
+        """The computed forecast line fields must be fresh after a generation.
+
+        The fields are computed from another model, so a value read before the
+        generation must not stay cached once the forecast lines are created.
+        """
+        self.assertFalse(self.contract_line.mis_cash_flow_forecast_line_ids)
+        self.contract_line._generate_mis_cash_flow_forecast_lines()
+        self.assertTrue(self.contract_line.mis_cash_flow_forecast_line_ids)
+        self.assertEqual(
+            self.contract_line.mis_cash_flow_forecast_line_count,
+            len(self.contract_line.mis_cash_flow_forecast_line_ids),
+        )
+
     def test_generate_forecast_lines(self):
         """Test generation of forecast lines."""
         self.contract_line._generate_mis_cash_flow_forecast_lines()
@@ -163,8 +177,6 @@ class TestMisBuilderCashFlowForecastContract(TransactionCase):
 
         line_id = self.contract_line.id
 
-        # Cancel the contract line before unlinking (required by contract module)
-        self.contract_line.cancel()
         self.contract_line.unlink()
 
         remaining_forecasts = self.env["mis.cash_flow.forecast_line"].search(

@@ -17,19 +17,8 @@ class Contract(models.Model):
             "contract_line_ids",
         ]
 
-    def _prepare_mis_cash_flow_forecast_line_values(self):
-        res = []
-        for rec in self:
-            if rec.company_id.enable_contract_mis_cash_flow_forecast:
-                for line in rec.contract_line_ids:
-                    res.append(line._prepare_mis_cash_flow_forecast_line())
-        return res
-
     def unlink(self):
-        for rec in self:
-            for line in rec.contract_line_ids:
-                if line.mis_cash_flow_forecast_line_ids:
-                    line.mis_cash_flow_forecast_line_ids.unlink()
+        self.contract_line_ids._get_mis_cash_flow_forecast_lines().unlink()
         return super().unlink()
 
     def action_show_mis_forecast(self):
@@ -45,6 +34,6 @@ class Contract(models.Model):
                 ("parent_res_model", "=", self._name),
                 ("parent_res_id", "=", self.id),
             ],
-            "view_mode": "pivot,tree",
+            "view_mode": "pivot,list",
             "context": context,
         }
