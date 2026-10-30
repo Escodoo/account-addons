@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<templates>
+    <t
+        t-name="mis_builder.MisReportWidget"
+        t-inherit="mis_builder.MisReportWidget"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//tbody/tr/td[1]" position="before">
+            <td
+                t-if="state.mis_report_data.use_code_column"
+                t-att="{'style': row.style}"
+            >
+                <t t-out="row.code" />
+            </td>
+        </xpath>
+    </t>
+</templates>
