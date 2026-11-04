@@ -106,3 +106,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement_line__payment_id
 msgid "Statement Payment"
 msgstr ""
+
+#. module: account_bank_statement_internal_transfer
+#. odoo-python
+#: code:addons/account_bank_statement_internal_transfer/models/account_bank_statement_line.py:0
+msgid "The internal transfer action context must be a dictionary."
+msgstr ""
