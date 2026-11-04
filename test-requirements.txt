@@ -1,3 +1,7 @@
 xsdata
+# signxml 3.2 uses crypto.verify, deprecated in pyOpenSSL 23.3 and removed in 24.1.
+pyOpenSSL>=23.2,<23.3
+# Older urllib3 imports cryptography internals that no longer exist.
+urllib3>=1.26.18,<2
 odoo-addon-account_invoice_advance_compensation @ git+https://github.com/OCA/account-invoicing.git@refs/pull/2284/head#subdirectory=account_invoice_advance_compensation
 odoo-addon-l10n_br_coa_generic>=18.0dev,<18.1dev

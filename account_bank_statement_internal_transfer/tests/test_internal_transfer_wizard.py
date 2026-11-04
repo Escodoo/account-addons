@@ -1,7 +1,10 @@
 # Copyright 2025 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from unittest.mock import patch
+
 from odoo import fields
+from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
@@ -76,6 +79,76 @@ class TestInternalTransferWizard(TransactionCase):
                 "date": fields.Date.today(),
             }
         )
+
+    def test_open_internal_transfer(self):
+        action = self.statement_line.action_open_internal_transfer()
+
+        self.assertEqual(action["res_model"], "internal.transfer.wizard")
+        self.assertEqual(action["target"], "new")
+        self.assertIsInstance(action["context"], dict)
+        for key, value in {
+            "active_id": self.statement_line.id,
+            "company_id": self.company.id,
+            "journal_id": self.bank_journal_1.id,
+            "amount": self.statement_line.amount,
+            "currency_id": self.statement_line.currency_id.id,
+            "date": self.statement_line.date,
+            "ref": self.statement_line.payment_ref,
+        }.items():
+            self.assertEqual(action["context"][key], value)
+
+    def test_open_internal_transfer_with_action_context(self):
+        action_record = self.env.ref(
+            "account_bank_statement_internal_transfer.internal_transfer_wizard_action"
+        )
+        action_record.context = (
+            "{'default_destination_journal_id': %d, "
+            "'source_line_id': active_id, 'amount': 999}"
+        ) % self.bank_journal_2.id
+
+        action = self.statement_line.with_context(
+            active_id=self.statement_line.id, transfer_context_marker=True
+        ).action_open_internal_transfer()
+
+        self.assertTrue(action["context"]["transfer_context_marker"])
+        self.assertEqual(action["context"]["source_line_id"], self.statement_line.id)
+        self.assertEqual(action["context"]["amount"], self.statement_line.amount)
+        wizard = (
+            self.env["internal.transfer.wizard"]
+            .with_context(**action["context"])
+            .create({})
+        )
+        self.assertEqual(wizard.destination_journal_id, self.bank_journal_2)
+
+    def test_open_internal_transfer_with_invalid_action_context(self):
+        for value in ("[]", "None", "False", "42", "'invalid'", [1]):
+            with self.subTest(context=value):
+                with patch.object(
+                    type(self.env["ir.actions.act_window"]),
+                    "_for_xml_id",
+                    return_value={"context": value},
+                ):
+                    with self.assertRaisesRegex(
+                        UserError,
+                        "The internal transfer action context must be a dictionary",
+                    ):
+                        self.statement_line.action_open_internal_transfer()
+
+    def test_open_internal_transfer_with_mapping_or_empty_context(self):
+        for value in ({"transfer_context_marker": True}, {}, False, None, ""):
+            with self.subTest(context=value):
+                with patch.object(
+                    type(self.env["ir.actions.act_window"]),
+                    "_for_xml_id",
+                    return_value={"context": value},
+                ):
+                    action = self.statement_line.with_context(
+                        caller_context_marker=True
+                    ).action_open_internal_transfer()
+                self.assertTrue(action["context"]["caller_context_marker"])
+                self.assertEqual(action["context"]["active_id"], self.statement_line.id)
+                if value:
+                    self.assertTrue(action["context"]["transfer_context_marker"])
 
     def test_internal_transfer_inbound(self):
         wizard = (
