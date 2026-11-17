@@ -1,0 +1,156 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_bank_statement_internal_transfer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-17 20:56+0000\n"
+"PO-Revision-Date: 2026-11-17 20:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.actions.act_window,name:account_bank_statement_internal_transfer.internal_transfer_wizard_action
+msgid "Account Payment Internal Transfer"
+msgstr "Transferência Interna"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__amount
+msgid "Amount"
+msgstr "Valor"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model,name:account_bank_statement_internal_transfer.model_account_bank_statement
+msgid "Bank Statement"
+msgstr "Extrato Bancário"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model,name:account_bank_statement_internal_transfer.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr "Linha do Extrato Bancário"
+
+#. module: account_bank_statement_internal_transfer
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.analytic_line_split_wizard_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_bank_statement_internal_transfer
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.analytic_line_split_wizard_view
+msgid "Create"
+msgstr "Criar"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__create_uid
+msgid "Created by"
+msgstr "Criado por"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__create_date
+msgid "Created on"
+msgstr "Criado em"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__currency_id
+msgid "Currency"
+msgstr "Moeda"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__display_name
+msgid "Display Name"
+msgstr "Nome Exibido"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,help:account_bank_statement_internal_transfer.field_internal_transfer_wizard__transfer_type
+msgid ""
+"Given by the sign of the statement line amount: positive is an inbound "
+"transfer, negative is an outbound one."
+msgstr "Definido pelo sinal do valor da linha do extrato: positivo é uma entrada, negativo é uma saída."
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields.selection,name:account_bank_statement_internal_transfer.selection__internal_transfer_wizard__transfer_type__inbound
+msgid "Inbound"
+msgstr "Entrada"
+
+#. module: account_bank_statement_internal_transfer
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.account_bank_statement_line_tree
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.analytic_line_split_wizard_view
+msgid "Internal Transfer"
+msgstr "Transferência Interna"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model,name:account_bank_statement_internal_transfer.model_internal_transfer_wizard
+msgid "Internal Transfer Wizard"
+msgstr "Assistente de Transferência Interna"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard____last_update
+msgid "Last Modified on"
+msgstr "Última Modificação em"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última Atualização por"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__write_date
+msgid "Last Updated on"
+msgstr "Última Atualização em"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__destination_journal_id
+msgid "Other Journal"
+msgstr "Outro Banco"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields.selection,name:account_bank_statement_internal_transfer.selection__internal_transfer_wizard__transfer_type__outbound
+msgid "Outbound"
+msgstr "Saída"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement__payment_ids
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement_line__payment_id
+msgid "Payment"
+msgstr "Pagamento"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_account_bank_statement__payment_count
+msgid "Payment Count"
+msgstr "Quantidade de Pagamentos"
+
+#. module: account_bank_statement_internal_transfer
+#. odoo-python
+#: code:addons/account_bank_statement_internal_transfer/models/account_bank_statement.py:0
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_internal_transfer.view_bank_statement_form
+#, python-format
+msgid "Payments"
+msgstr "Pagamentos"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__journal_id
+msgid "Statement Journal"
+msgstr "Banco do Extrato"
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,help:account_bank_statement_internal_transfer.field_internal_transfer_wizard__destination_journal_id
+msgid ""
+"The other bank or cash journal of the transfer: where the money comes from "
+"on an inbound transfer, or where it goes on an outbound one."
+msgstr "O outro banco ou caixa da transferência: de onde o dinheiro vem, numa entrada, ou para onde vai, numa saída."
+
+#. module: account_bank_statement_internal_transfer
+#: model:ir.model.fields,field_description:account_bank_statement_internal_transfer.field_internal_transfer_wizard__transfer_type
+msgid "Transfer Type"
+msgstr "Tipo de Transferência"
