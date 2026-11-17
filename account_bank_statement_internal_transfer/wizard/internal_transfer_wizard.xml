@@ -12,8 +12,11 @@
             <form string="Internal Transfer">
                 <group>
                     <group>
-                        <field name="destination_journal_id" />
-                        <field name="payment_method_id" widget="radio" />
+                        <field name="transfer_type" />
+                        <field name="journal_id" />
+                        <field name="amount" />
+                        <field name="currency_id" invisible="1" />
+                        <field name="destination_journal_id" required="1" />
                     </group>
                 </group>
                 <footer>

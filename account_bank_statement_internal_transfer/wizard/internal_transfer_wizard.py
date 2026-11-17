@@ -12,25 +12,58 @@ class InternalTransferWizard(models.TransientModel):
         journal_id = self.env.context.get("journal_id")
         return [("type", "in", ("bank", "cash")), ("id", "!=", journal_id)]
 
+    def _default_transfer_type(self):
+        if self.env.context.get("amount", 0.0) < 0.0:
+            return "outbound"
+        return "inbound"
+
+    transfer_type = fields.Selection(
+        selection=[
+            ("inbound", "Inbound"),
+            ("outbound", "Outbound"),
+        ],
+        default=_default_transfer_type,
+        readonly=True,
+        help="Given by the sign of the statement line amount: positive is an "
+        "inbound transfer, negative is an outbound one.",
+    )
+    journal_id = fields.Many2one(
+        comodel_name="account.journal",
+        string="Statement Journal",
+        default=lambda self: self.env.context.get("journal_id"),
+        readonly=True,
+    )
+    amount = fields.Monetary(
+        default=lambda self: abs(self.env.context.get("amount", 0.0)),
+        readonly=True,
+    )
+    currency_id = fields.Many2one(
+        comodel_name="res.currency",
+        default=lambda self: self.env.context.get("currency_id"),
+        readonly=True,
+    )
     destination_journal_id = fields.Many2one(
         comodel_name="account.journal",
-        string="Destination Journal",
+        string="Other Journal",
         domain=_get_destination_journal_domain,
+        help="The other bank or cash journal of the transfer: where the money "
+        "comes from on an inbound transfer, or where it goes on an outbound one.",
     )
-    payment_method_id = fields.Many2one(
-        comodel_name="account.payment.method",
-        string="Payment Method",
-        domain=[("code", "not in", ("240", "400", "500"))],
-    )
+
+    def _get_payment_method_line(self, payment_type):
+        journal = self.env["account.journal"].browse(self.env.context["journal_id"])
+        if payment_type == "inbound":
+            lines = journal.inbound_payment_method_line_ids
+        else:
+            lines = journal.outbound_payment_method_line_ids
+        lines = lines.filtered(lambda x: x.code not in ("240", "400", "500"))
+        return lines.filtered(lambda x: x.code == "manual")[:1] or lines[:1]
 
     def action_create_internal_transfer(self):
         context = self.env.context
 
-        payment_type = "inbound"
-        payment_amount = context["amount"]
-        if payment_amount < 0.0:
-            payment_type = "outbound"
-            payment_amount = context["amount"] * -1
+        payment_type = "outbound" if context["amount"] < 0.0 else "inbound"
+        payment_amount = abs(context["amount"])
 
         payment_id = self.env["account.payment"].create(
             {
@@ -41,7 +74,9 @@ class InternalTransferWizard(models.TransientModel):
                 "is_internal_transfer": True,
                 "journal_id": context["journal_id"],
                 "destination_journal_id": self.destination_journal_id.id,
-                "payment_method_id": self.payment_method_id.id,
+                "payment_method_line_id": self._get_payment_method_line(
+                    payment_type
+                ).id,
                 "amount": payment_amount,
                 "currency_id": context["currency_id"],
                 "date": context["date"],

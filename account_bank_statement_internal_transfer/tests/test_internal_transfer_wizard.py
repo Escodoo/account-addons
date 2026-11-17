@@ -2,9 +2,11 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import fields
+from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
 
+@tagged("post_install", "-at_install")
 class TestInternalTransferWizard(TransactionCase):
     @classmethod
     def setUpClass(cls):
@@ -39,9 +41,6 @@ class TestInternalTransferWizard(TransactionCase):
             }
         )
         cls.bank_journal_2.bank_account_id = cls.bank_account.id
-        cls.payment_method = cls.env["account.payment.method"].search(
-            [("payment_type", "=", "inbound")], limit=1
-        )
         cls.statement = cls.env["account.bank.statement"].create(
             {
                 "name": "Test Statement",
@@ -75,7 +74,6 @@ class TestInternalTransferWizard(TransactionCase):
             .create(
                 {
                     "destination_journal_id": self.bank_journal_2.id,
-                    "payment_method_id": self.payment_method.id,
                 }
             )
         )
@@ -111,7 +109,6 @@ class TestInternalTransferWizard(TransactionCase):
             .create(
                 {
                     "destination_journal_id": self.bank_journal_2.id,
-                    "payment_method_id": self.payment_method.id,
                 }
             )
         )
@@ -131,3 +128,52 @@ class TestInternalTransferWizard(TransactionCase):
 
         self.assertEqual(payment_line.name, self.statement_line.payment_ref)
         self.assertIn("Outbound Transfer", payment_line.name)
+
+    def _new_wizard(self, amount):
+        return self.env["internal.transfer.wizard"].with_context(
+            journal_id=self.bank_journal_1.id,
+            amount=amount,
+            company_id=self.company.id,
+            currency_id=self.currency.id,
+            date=fields.Date.today(),
+            ref="Transfer",
+            active_id=self.statement_line.id,
+        )
+
+    def test_transfer_direction_inbound(self):
+        wizard = self._new_wizard(100.0).create(
+            {
+                "destination_journal_id": self.bank_journal_2.id,
+            }
+        )
+        self.assertEqual(wizard.transfer_type, "inbound")
+        self.assertEqual(wizard.amount, 100.0)
+
+        wizard.action_create_internal_transfer()
+
+        payment = self.statement_line.payment_id
+        paired = payment.paired_internal_transfer_payment_id
+        self.assertEqual(payment.payment_method_line_id.code, "manual")
+        self.assertEqual(payment.journal_id, self.bank_journal_1)
+        self.assertEqual(payment.payment_type, "inbound")
+        self.assertEqual(paired.journal_id, self.bank_journal_2)
+        self.assertEqual(paired.payment_type, "outbound")
+
+    def test_transfer_direction_outbound(self):
+        wizard = self._new_wizard(-100.0).create(
+            {
+                "destination_journal_id": self.bank_journal_2.id,
+            }
+        )
+        self.assertEqual(wizard.transfer_type, "outbound")
+        self.assertEqual(wizard.amount, 100.0)
+
+        wizard.action_create_internal_transfer()
+
+        payment = self.statement_line.payment_id
+        paired = payment.paired_internal_transfer_payment_id
+        self.assertEqual(payment.payment_method_line_id.code, "manual")
+        self.assertEqual(payment.journal_id, self.bank_journal_1)
+        self.assertEqual(payment.payment_type, "outbound")
+        self.assertEqual(paired.journal_id, self.bank_journal_2)
+        self.assertEqual(paired.payment_type, "inbound")
