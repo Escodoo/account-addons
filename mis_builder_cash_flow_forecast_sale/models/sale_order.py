@@ -119,7 +119,7 @@ class SaleOrder(models.Model):
                     term["company_amount"],
                     term["foreign_amount"],
                 )
-                for term in terms
+                for term in terms["line_ids"]
             ]
         else:
             return [(fields.Date.to_string(date), total_balance, total_amount_currency)]
